@@ -1,0 +1,34 @@
+======== Utilisation du code source sous Windows ========
+
+Doit être installé : Microsoft Visual Studio Express 2010 ou >
+Lien pour télécharger gratuitement : https://www.microsoft.com/fr-fr/download/details.aspx?id=34673
+
+Ce fichier .txt doit être placé à la racine de la solution.
+La racine de la solution doit se trouver dans C:\nocheatz\
+Pour le debogage et les tests, le serveur CSS doit être installé dans C:\steamcmd\CSS
+							   le serveur CSGO doit être installé dans C:\steamcmd\CSGO
+Téléchargez le SDK du/des jeu.
+https://github.com/ValveSoftware/source-sdk-2013
+https://hg.alliedmods.net/hl2sdks/
+
+Lien utile : https://developer.valvesoftware.com/wiki/Main_Page
+
+======== Installation d'un serveur sur son PC pour le debug ========
+
+Télécharger SteamCMD pour Windows, voir http://forums.steampowered.com/forums/showthread.php?t=3202121
+Placer steamcmd.exe dans C:\steamcmd\
+
+Lancer steamcmd.exe.
+Après la mise à jour, entrer quit
+Relancer steamcmd.
+Se loger en anonyme : login anonymous
+Entrer : force_install_dir C:\steamcmd\CSS\
+Entrer :
+	-	Pour un serveur CS:S : app_update 232330 validate
+	-	Pour un serveur CS:GO : app_update 740 validate
+	-	Pour un serveur CS:P : http://cspromod.com/mirror/mirror1_full_zip/    http://cspromod.com/#download
+	-	Pour un autre serveur : https://developer.valvesoftware.com/wiki/SteamCMD:fr#Serveurs_support.C3.A9
+Attendre ...
+Ne pas oublier de se déconnecter avec quit à la fin de l'installation.
+
+Placer le fichier .vdf dans C:\steamcmd\CSS\cstrike\addons\

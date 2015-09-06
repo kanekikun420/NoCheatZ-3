@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>nocheatzX</ProjectName>
+    <ProjectGuid>{B6572CBE-7C7F-4FFF-94DE-AFBBBAB11C64}</ProjectGuid>
+    <RootNamespace>Serverplugin_empty</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v100</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>C:\steamcmd\CSS\cstrike\addons\NoCheatZ\</OutDir>
+    <IntDir>Debug\</IntDir>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+    <PreLinkEventUseInBuild>true</PreLinkEventUseInBuild>
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+    <PreLinkEventUseInBuild>true</PreLinkEventUseInBuild>
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PreBuildEvent>
+      <Command />
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Command>if exist ..\..\..\game\bin\"$(TargetName)".dll attrib -r ..\..\..\game\bin\"$(TargetName)".dll
+copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".dll
+if exist ..\..\..\game\bin\"$(TargetName)".pdb attrib -r ..\..\..\game\bin\"$(TargetName)".pdb
+copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
+</Command>
+      <Outputs>..\..\..\game\bin\serverplugin_empty.dll;..\..\..\game\bin\serverplugin_empty.pdb;%(Outputs)</Outputs>
+    </CustomBuildStep>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>C:\nocheatz\server-plugin\Code;C:\nocheatz\sdk-source-2013-valve\common;C:\nocheatz\sdk-source-2013-valve\public;C:\nocheatz\sdk-source-2013-valve\public\tier0;C:\nocheatz\sdk-source-2013-valve\public\tier1;C:\nocheatz\sdk-source-2013-valve\game\server;C:\nocheatz\sdk-source-2013-valve\game\shared;C:\nocheatz\sdk-source-2013-valve\tier1;C:\nocheatz\sdk-source-2013-valve\public\engine;C:\nocheatz\sdk-source-2013-valve\public\filesystem;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_MBCS;_HAS_ITERATOR_DEBUGGING=0;NCZ_CSS;PLATFORM_WINDOWS_PC;CSTRIKE_DLL;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>true</MinimalRebuild>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader />
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <BrowseInformation>true</BrowseInformation>
+      <BrowseInformationFile>$(IntDir)</BrowseInformationFile>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ErrorReporting>Prompt</ErrorReporting>
+      <ShowIncludes>false</ShowIncludes>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>NotSet</ShowProgress>
+      <OutputFile>$(TargetPath)</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>..\..\lib\common;..\..\lib\public;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libc;libcd;libcmt;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>$(IntDir)$(TargetName).map</MapFileName>
+      <SubSystem>Windows</SubSystem>
+      <BaseAddress>
+      </BaseAddress>
+      <TargetMachine>MachineX86</TargetMachine>
+      <LinkErrorReporting>PromptImmediately</LinkErrorReporting>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <Manifest>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Manifest>
+    <Xdcmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Xdcmake>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>$(OutDir)serverplugin_empty.bsc</OutputFile>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+    <PostBuildEvent>
+      <Command />
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PreBuildEvent>
+      <Command />
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Command>if exist ..\..\..\game\bin\"$(TargetName)".dll attrib -r ..\..\..\game\bin\"$(TargetName)".dll
+copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".dll
+if exist ..\..\..\game\bin\"$(TargetName)".pdb attrib -r ..\..\..\game\bin\"$(TargetName)".pdb
+copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
+</Command>
+      <Outputs>..\..\..\game\bin\serverplugin_empty.dll;..\..\..\game\bin\serverplugin_empty.pdb;%(Outputs)</Outputs>
+    </CustomBuildStep>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>..\..\common;..\..\public;..\..\public\tier0;..\..\public\tier1;..\..\game\server;..\..\game\shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;serverplugin_emptyONLY;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling />
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader />
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <BrowseInformation />
+      <BrowseInformationFile>$(IntDir)</BrowseInformationFile>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ErrorReporting>Prompt</ErrorReporting>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>NotSet</ShowProgress>
+      <OutputFile>$(OutDir)serverplugin_empty.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>..\..\lib\common;..\..\lib\public;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libc;libcd;libcmtd;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>$(IntDir)$(TargetName).map</MapFileName>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <BaseAddress>
+      </BaseAddress>
+      <TargetMachine>MachineX86</TargetMachine>
+      <LinkErrorReporting>PromptImmediately</LinkErrorReporting>
+    </Link>
+    <Manifest>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Manifest>
+    <Xdcmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Xdcmake>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>$(OutDir)serverplugin_empty.bsc</OutputFile>
+    </Bscmake>
+    <PostBuildEvent>
+      <Command />
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="Makefile" />
+    <None Include="Res\nocheatz.vdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Res\tohash.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Code\Config\Config.cpp" />
+    <ClCompile Include="Code\Config\HashTable.cpp" />
+    <ClCompile Include="Code\Hooks\Hook.cpp" />
+    <ClCompile Include="Code\Hooks\OnGroundHookListener.cpp" />
+    <ClCompile Include="Code\Hooks\PlayerRunCommandHookListener.cpp" />
+    <ClCompile Include="Code\Hooks\TeleportHookListener.cpp" />
+    <ClCompile Include="Code\Misc\Helpers.cpp" />
+    <ClCompile Include="Code\Misc\IFaceManager.cpp" />
+    <ClCompile Include="Code\Misc\Metrics.cpp" />
+    <ClCompile Include="Code\Misc\MRecipientFilter.cpp" />
+    <ClCompile Include="Code\Misc\threading.cpp" />
+    <ClCompile Include="Code\Players\NczFilteredPlayersList.cpp" />
+    <ClCompile Include="Code\Players\NczPlayer.cpp" />
+    <ClCompile Include="Code\Players\NczPlayerManager.cpp" />
+    <ClCompile Include="Code\plugin.cpp" />
+    <ClCompile Include="Code\Systems\BanRequest.cpp" />
+    <ClCompile Include="Code\Systems\BaseSystem.cpp" />
+    <ClCompile Include="Code\Systems\Logger.cpp" />
+    <ClCompile Include="Code\Systems\Pipeline\http.cpp" />
+    <ClCompile Include="Code\Systems\Pipeline\Pipeline.cpp" />
+    <ClCompile Include="Code\Systems\Testers\ShotTester.cpp" />
+    <ClCompile Include="Code\Systems\Testers\BaseFramedTester.cpp" />
+    <ClCompile Include="Code\Systems\Testers\BaseTimedTester.cpp" />
+    <ClCompile Include="Code\Systems\Testers\JumpTester.cpp" />
+    <ClCompile Include="Code\Systems\Testers\ConVarTester.cpp" />
+    <ClCompile Include="Code\Systems\Testers\EyeAnglesTester.cpp" />
+    <ClCompile Include="Code\Systems\Testers\ValidationTester.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Code\Config\Config.h" />
+    <ClInclude Include="Code\Config\HashTable.h" />
+    <ClInclude Include="Code\Hooks\Hook.h" />
+    <ClInclude Include="Code\Hooks\OnGroundHookListener.h" />
+    <ClInclude Include="Code\Hooks\PlayerRunCommandHookListener.h" />
+    <ClInclude Include="Code\Hooks\TeleportHookListener.h" />
+    <ClInclude Include="Code\Misc\Helpers.h" />
+    <ClInclude Include="Code\Misc\IFaceManager.h" />
+    <ClInclude Include="Code\Misc\include_windows_headers.h" />
+    <ClInclude Include="Code\Misc\MRecipientFilter.h" />
+    <ClInclude Include="Code\Misc\temp_BaseQueue.h" />
+    <ClInclude Include="Code\Misc\Metrics.h" />
+    <ClInclude Include="Code\Misc\temp_BaseDataStruct.h" />
+    <ClInclude Include="Code\Misc\temp_Singleton.h" />
+    <ClInclude Include="Code\Misc\threading.h" />
+    <ClInclude Include="Code\Misc\Types.h" />
+    <ClInclude Include="Code\Players\NczFilteredPlayersList.h" />
+    <ClInclude Include="Code\Players\NczPlayer.h" />
+    <ClInclude Include="Code\Players\NczPlayerManager.h" />
+    <ClInclude Include="Code\Players\temp_PlayerDataStruct.h" />
+    <ClInclude Include="Code\plugin.h" />
+    <ClInclude Include="Code\Preprocessors.h" />
+    <ClInclude Include="Code\Systems\BanRequest.h" />
+    <ClInclude Include="Code\Systems\BaseSystem.h" />
+    <ClInclude Include="Code\Systems\Logger.h" />
+    <ClInclude Include="Code\Systems\Pipeline\http.h" />
+    <ClInclude Include="Code\Systems\Pipeline\Pipeline.h" />
+    <ClInclude Include="Code\Systems\Testers\ShotTester.h" />
+    <ClInclude Include="Code\Systems\Testers\BaseFramedTester.h" />
+    <ClInclude Include="Code\Systems\Testers\BaseTimedTester.h" />
+    <ClInclude Include="Code\Systems\Testers\JumpTester.h" />
+    <ClInclude Include="Code\Systems\Testers\ConVarTester.h" />
+    <ClInclude Include="Code\Systems\Testers\Detections\temp_BaseDetection.h" />
+    <ClInclude Include="Code\Systems\Testers\EyeAnglesTester.h" />
+    <ClInclude Include="Code\Systems\Testers\ValidationTester.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\sdk-source-2013-valve\lib\public\mathlib.lib" />
+    <Library Include="..\sdk-source-2013-valve\lib\public\raytrace.lib" />
+    <Library Include="..\sdk-source-2013-valve\lib\public\tier0.lib" />
+    <Library Include="..\sdk-source-2013-valve\lib\public\tier1.lib" />
+    <Library Include="..\sdk-source-2013-valve\lib\public\vstdlib.lib" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

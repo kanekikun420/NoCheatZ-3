@@ -1,0 +1,1 @@
+http://code.google.com/p/maniadminplugin/source/browse/trunk/mani_admin_plugin/mani_panel.cpp?spec=svn497&r=497

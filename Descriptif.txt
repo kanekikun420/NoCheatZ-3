@@ -1,0 +1,178 @@
+-------------- Plugin -------------- 
+Besoins :
+- SDK
+
+Action:
+- Intégration au jeu
+
+-------------- Config -------------- 
+Besoins :
+- Fichier de configuration utilisateur
+- Fichier de calibrage des systèmes de détection
+- Fichier de hash des commandes
+- Commandes consoles
+
+Action :
+- Permettre la configuration du plugin
+- Mettre à jour régulièrement le fichier de calibrage et hash avec le serveur maître
+- S'assurer de la bonne configuration du jeu
+
+-------------- Protection des commandes -------------- 
+Besoins :
+- Connaître chacune des commandres reçus
+
+Action :
+- Boquer l'usage de commandes interdites
+
+-------------- Gestion du round --------------
+Besoins :
+- Connaître l'êtat du round
+
+Action :
+- Empêcher la venue d'autres joueurs après le début d'un round, restart le round si le joueur est seul
+
+-------------- Détections --------------
+Besoins :
+- Une détection et ses informations
+- Configuration des actions à prendre
+
+Action :
+- Communiquer au serveur maître les détections, selon la configuration
+- Communiquer au joueurs et aux spectateurs les détections, selon la configuration
+- Prendre les mesures nécessaires face à la détection, selon la configuration
+
+-------------- Validation des Steam ID --------------
+
+Besoins :
+- Temps réel
+- Savoir si le serveur est sécurisé par VAC ou non (= Si la validation devrait avoir lieu)
+- Un joueur qui se connecte
+
+Action :
+- Empêcher le joueur de rejoindre une équipe tant que la validation n'est pas faite
+- Kicker au bout de 30 secondes
+
+-------------- Test BunnyHop --------------
+
+Besoins :
+- Temps réel
+- Être activé depuis la configuration
+- Joueur en vie, round en cours.
+- Connaître à tout moment la fréquence des sauts parfaits réalisés, dans un round
+- Connaître à tout moment la fréquence de la commande Sauter, dans un round
+- Connaître à tout moment le pourcentage de sauts parfaits par rapport aux sauts ratés, dans un round
+
+Action :
+- Analyser régulièrement les fréquences et le pourcentage
+- Déterminer si l'usage vient d'un script (kicker - bloquer) ou d'un programme (bannir)
+
+-------------- Test Autopistol --------------
+
+Besoins :
+- Temps réel
+- Être activé depuis la configuration
+- Joueur en vie, round en cours.
+- Connaître à tout moment la fréquence de la commande Tirer, dans un round
+
+Action :
+- Lancer une sous-détection si la fréquence est inférieure à 3 ticks
+- Kicker au bout de 5 sous-détections consécutives (pour aviter de prendre en compte les problèmes de souris)
+
+-------------- Test TriggerBot --------------
+
+Besoins :
+- Temps réel
+- Être activé depuis la configuration
+- Joueur en vie, round en cours.
+- Connaître à tout moment les fronts-montant / fronts-descendant de la commande Tirer, dans un round
+- Connaître à tout moment si le joueur a un adversaire QUI APPARAIT dans le viseur
+- Connaître les moments où cet adversaire est touché
+
+Action :
+- Compter le nombre de fois où le temps de tir est anormalement court
+- Comparer au nombre de fois (Et au moment) où le joueur a un adversaire qui entre dans sa mire
+- Comparer au moment / nombre de fois que l'adversaire est touché
+- Si c'est presque équivalent, bannir.
+
+-------------- Test EyeAngles --------------
+
+Besoins :
+- Temps réel
+- Être activé depuis la configuration
+- Joueur en vie, round en cours, désactiver en cas de spawn et de téléportation
+- Connaître à tout moment les angles de vue du joueur, sur chacune des commandes envoyées
+
+Action :
+- Vérifier si l'angle absolu X est plus petit ou égal à 90.0
+	- Si c'est pas le cas, vérifier si l'angle est un entier ou non
+	- Si c'est un entier, c'est probablement un anti-aim
+	- Sinon, c'est probablement un no-recoil
+- Vérifier si l'angle absolu Y est plus petit ou égal à 180.0
+	- Si c'est pas le cas, vérifier si l'angle est un entier ou non
+	- Si c'est un entier, c'est probablement un anti-aim
+	- Sinon, c'est probablement un no-spread
+- Vérifier si l'angle Z est égal à 0.0
+	- Si c'est pas le cas, vérifier si l'angle est un entier ou non
+	- Si c'est un entier, c'est probablement un anti-aim
+	- Sinon, c'est probablement un no-spread
+- Comparer les variations des angles de vue à celles de la souris
+	- S'inquiéter si les angles varient alors que la souris, non
+	- S'inquiéter si les angles varient dans un autre sens que la souris
+- Analyser les variations importantes qui interviennent un cours laps de temps
+
+-------------- Test Speedhack --------------
+
+Besoins :
+- Temps réel
+- Être activé depuis la configuration
+- Joueur en vie, round en cours, désactiver en cas de spawn et de téléportation
+- Fréquence des packets reçus
+- Nombre de ticks client et serveur
+
+Action :
+- Comparer la similitude des trois
+
+-------------- Test Configuration --------------
+
+Besoins :
+- Être activé depuis la configuration
+- Connaître le netcode du joueur à tout moment
+
+Action :
+- Analyser le netcode
+- Kicker les pings masqués
+- Empêcher le joueur de rejoindre une équipe tant que sa configuration n'est pas conforme.
+
+-------------- Test ConVars --------------
+
+Besoins :
+- Temps réel
+- Être activé depuis la configuration
+- Joueur en vie, round en cours
+- Accès aux ConVars du joueur
+
+Action :
+- Analyser régulièrement, de façon aléatoire, les convars du joueur.
+
+-------------- Bloqueur ESP --------------
+Besoins :
+- Temps du jeu
+- Être activé depuis la configuration
+- Joueurs en vie, round en cours
+
+Action :
+- Gérer l'envoie de la position des joueurs selon leur visibilité
+
+-------------- Fake Client ---------------
+Besoins :
+- Être activé depuis la configuration
+- Joueur suspect
+
+Action :
+- Créer un bot replay/ghost visible uniquement depuis un wallhack et rapporter qui lui tire dessus
+
+-------------- Besoins communs -------------- 
+- Assignation au temps / à l'état du round
+- Gestion des joueurs
+
+
