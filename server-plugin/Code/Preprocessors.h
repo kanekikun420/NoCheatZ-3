@@ -1,14 +1,28 @@
-#ifdef GNUC
-#include <cstdlib>
-#endif
+/*
+	This file makes it easier to cross-compile between all the games and all the os they use.
+	Because I use Makefile with Linux and VisualStudio Compiler with Windows, I think it is easier to have only one place to make sure everything works everywhere for anything ...
+	It may be included everywhere.
+*/
 
 #ifndef NCZ_PREPROCESSORS
 #define NCZ_PREPROCESSORS
 
-#define PIPELINE_ADDRESS "pipeline.nocheatz.com"
+#ifdef GNUC
+#include <cstdlib>
+#endif
 
-/* Choisir quelle version compiler en utilisant les préprocesseurs du compilateur */
-#ifdef NCZ_CSS
+//#define PIPELINE_ADDRESS "pipeline.nocheatz.com" // No more pipelining nor master server, the plugin is now independant.
+
+/*
+	Scripts that launch the compiler defines what game the plugin must be compiled for. (NCZ_CSS or NCZ_CSP or ...)
+	This is where we make sure the plugin will be compatible.
+
+	NCZ_VERSION_STR		Full string version
+	GAMEDIR				Root directory name of the server
+	ENGINE_DLIB_LINUX	Dynamic library name of the server if used with linux
+	ENGINE_DLIB			Library name resulting of the OS we compile for
+*/
+#ifdef NCZ_CSS // Counter Strike : Source
 #define NCZ_VERSION_STR	" 4.0 Alpha CSS"
 #define GAMEDIR "cstrike"
 #define ENGINE_DLIB_LINUX "engine_srv.so"
@@ -30,13 +44,24 @@
 #define ENGINE_DLIB ENGINE_DLIB_LINUX
 #endif
 
-#define NCZ_PLUGIN_NAME			"NoCheatZ"
+#define NCZ_PLUGIN_NAME			"NoCheatZ" // Name of the plugin
 
+/*
+	Defines if we dynamically load the latest interfaces of the engine or if they are loaded statically.
+	Comment this to go static.
+
+	Dynamic = More chance to be loaded if the engine code changes, but more risk of heavy crashes if our code isn't compatible.
+	Static = Won't load if any change is made to the source engine, even if this should work.
+*/
 #define IFACEMANAGER_AUTOINIT
 
 #define IN_ATTACK (1 << 0)
 #define IN_JUMP   (1 << 1)
 
+/*
+	Use for backward compatibility.
+	EP1 (Older version of Source Engine) = Counter-Strike : Promod
+*/
 #ifdef NCZ_EP1
 #define GET_ARGV(a) engine->Cmd_Argv(a)
 #define GET_ARGS engine->Cmd_Args()
@@ -50,6 +75,9 @@
 #define FINDCOMMAND(a) g_pCVar->FindCommand(a)
 #endif
 
+/*
+	gcc is f*cking strict ...
+*/
 #ifdef GNUC
 #include <cstring>
 #define strcpy_s(a, b, c) strncpy(a, c, b)
