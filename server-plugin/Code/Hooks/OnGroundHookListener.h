@@ -21,8 +21,11 @@ public:
 	OnGroundHookListener();
 	~OnGroundHookListener();
 
+	/*
+		Hook and unhook functions.
+		FIXME : May not works well with others plugins ...
+	*/
 	static void HookOnGround(NczPlayer* player);
-
 	static void UnhookOnGround();
 
 protected:

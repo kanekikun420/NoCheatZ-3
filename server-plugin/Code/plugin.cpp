@@ -11,8 +11,6 @@
 #include "Players/NczPlayerManager.h"
 #include "Misc/IFaceManager.h"
 #include "Misc/Helpers.h"
-#include "Config/Config.h"
-#include "Config/HashTable.h"
 #include "Systems/Testers/ValidationTester.h"
 #include "Systems/Testers/JumpTester.h"
 #include "Systems/Testers/EyeAnglesTester.h"

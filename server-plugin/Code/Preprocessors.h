@@ -84,4 +84,11 @@
 #define nullptr 0
 #endif
 
+// Other things related to me being an idiot ...
+
+#define GetTime() Plat_FloatTime()
+#define StrLen(x) strlen(x)
+#define FStrEq(x,y) (Q_stricmp(x,y) == 0)
+
+
 #endif

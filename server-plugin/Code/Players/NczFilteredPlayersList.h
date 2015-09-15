@@ -5,13 +5,18 @@
 #ifndef NCZFILTEREDPLAYERLIST
 #define NCZFILTEREDPLAYERLIST
 
-/* Donne une simple liste de joueurs aux testeurs pour faciliter les boucles */
+/*
+	Gives a list to Systems.
+	May be used to iterate over all players in the filter specifyed
+	in one frame.
+*/
 class NczFilteredPlayersList
 {
 public:
 	NczFilteredPlayersList();
 	virtual ~NczFilteredPlayersList(){};
 
+	// Systems use this to know which playerlist to test
 	virtual SlotStatus GetFilter() = 0;
 
 	virtual NczPlayer* GetNextPlayer(); 
@@ -21,7 +26,12 @@ protected:
 	PlayerHandler* m_nextPlayer;
 };
 
-/* Donne une liste infinie de joueurs pour le travail asynchrone (convars) */
+/*
+	Gives a list to Systems.
+	May be used to iterate over all players in the filter specifyed
+	in multiple frames.
+	NOT THREAD SAFE.
+*/
 class AsyncNczFilteredPlayersList : public NczFilteredPlayersList
 {
 public:

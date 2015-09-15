@@ -1,16 +1,5 @@
 #include "Helpers.h"
 
-#ifdef WIN32
-	WSADATA wsaData; 
-	HOSTENT* host;        
-	IN_ADDR addr; 
-#else
-	typedef struct sockaddr_in SOCKADDR_IN;
-	typedef struct sockaddr SOCKADDR;
-	in_addr addr;
-	hostent* host;
-#endif
-
 namespace Helpers
 {
 	edict_t * m_EdictList = nullptr;
@@ -47,13 +36,12 @@ namespace Helpers
 	#else
 		firstString = firstString.substr(0, firstString.length()-1);
 	#endif
-		//writeToLogfile(std::move(getStrDateTime("%x %X") + " : " + firstString));
 		writeToLogfile(getStrDateTime("%x %X") + " : " + firstString);	
 	}
 
 	std::string getStrGameDir()
 	{
-		char szGamedir[128]; // 16 chars, lol ...
+		char szGamedir[128];
 		CIFaceManager::GetInstance()->GetIengine()->GetGameDir(szGamedir, 128);
 		return tostring(szGamedir);
 	}
@@ -68,7 +56,7 @@ namespace Helpers
 			if(fichier)
 			{
 				fichier << text << std::endl;
-				fichier.close();
+				//fichier.close();
 			}
 			else
 			{
@@ -89,25 +77,12 @@ namespace Helpers
 		return tostring(date);
 	}
 
-	double GetTime()
-	{
-		return Plat_FloatTime();
-	}
-
-	size_t StrLen(const char *sz)
-	{
-		Assert(sz);
-		int i = 0;
-		for(int x = 0; sz[x] != '\0'; x++) i++;
-		return i;
-	}
-
 	bool bStrEq(const char *sz1, const char *sz2, size_t start_offset, size_t length)
 	{
 		Assert(sz1);
 		Assert(sz2);
-		size_t len = StrLen(sz1);
-		if(len != StrLen(sz2)) return false;
+		size_t len = strlen(sz1);
+		if(len != strlen(sz2)) return false;
 
 
 		for(size_t x = start_offset, c = 0; x < len && c < length; ++x, ++c)
@@ -120,8 +95,8 @@ namespace Helpers
 	{
 		Assert(sz1);
 		Assert(sz2);
-		size_t len = StrLen(sz1);
-		if(len != StrLen(sz2)) return false;
+		size_t len = strlen(sz1);
+		if(len != strlen(sz2)) return false;
 
 		char t1, t2;
 		for(size_t x = start_offset, c = 0; x < len && c < length; ++x, ++c)
@@ -149,11 +124,6 @@ namespace Helpers
 		return true;
 	}
 
-	bool FStrEq(const char *sz1, const char *sz2)
-	{
-		return (Q_stricmp(sz1, sz2) == 0);
-	}
-
 	void split(const std::string &s, char delim, std::vector<std::string> &elems)
 	{
 		std::stringstream ss(s);
@@ -163,13 +133,7 @@ namespace Helpers
 		}
 	}
 
-	char* long2ip(unsigned long v)
-	{ 
-		struct in_addr x;
-		x.s_addr = htonl(v);
-		return inet_ntoa(x);
-	} 
-
+	// At this point, steamid if from a valid human player.
 	edict_t * getEdictFromSteamID(const char *SteamID)
 	{
 		Assert(!bStrEq(SteamID, "STEAM_ID_PENDING"));
@@ -179,6 +143,7 @@ namespace Helpers
 		for(int i = 1; i <= imax; i++)
 		{
 			edict_t* pEntity = PEntityOfEntIndex(i);
+			// FIXME : Size of steamid is no more 8 digits.
 			if(bStrEq(CIFaceManager::GetInstance()->GetIengine()->GetPlayerNetworkIDString(pEntity), SteamID, 8))
 			{
 				return pEntity;
@@ -187,6 +152,7 @@ namespace Helpers
 		return nullptr;
 	}
 
+	// At this point, steamid if from a valid human player.
 	int getIndexFromSteamID(const char *SteamID)
 	{
 		Assert(!bStrEq(SteamID, "STEAM_ID_PENDING"));
@@ -195,9 +161,8 @@ namespace Helpers
 		return IndexOfEdict(getEdictFromSteamID(SteamID));
 	}
 
-	edict_t * PEntityOfEntIndex(int iEntIndex)
+	edict_t * PEntityOfEntIndex(const int iEntIndex)
 	{
-		//Assert(iEntIndex);
 		Assert(m_EdictList);
 		return (edict_t *)(m_EdictList + iEntIndex);
 	}
@@ -337,7 +302,7 @@ namespace Helpers
 		return tostring(string);
 	}
 
-	bool isValidEdict(edict_t * entity)
+	bool isValidEdict(const edict_t * entity)
 	{
 		return entity != nullptr && !entity->IsFree();
 	}
@@ -345,6 +310,7 @@ namespace Helpers
 	template<typename T>
 	std::string tostring(const T & toConvert)
 	{
+		// FIXME : Use locale
 		std::stringstream convertion;
 		convertion << toConvert;
 		return convertion.str();
@@ -355,24 +321,24 @@ namespace Helpers
 		float x = n;
 		if(x < 0)
 		{
-			x = x * -1;
+			x = x * -1.0;
 		}
 		return x;
 	}
 
-	int abs(int valeur)
+	int abs(int value)
 	{
-		if((valeur>>31) & (0x1)) return (~valeur)+1;
-		return valeur;
+		if((value>>31) & (0x1)) return (~value)+1;
+		return value;
 	}
 
-	bool estImpaire(int valeur)
+	bool isOdd(const int value)
 	{
-		if(valeur & 1) return true;
+		if(value & 1) return true;
 		return false;
 	}
 
-	int getIndexFromUserID(int userid)
+	int getIndexFromUserID(const int userid)
 	{
 		for(int i = 0; i <= 65; i++)
 		{
@@ -384,7 +350,7 @@ namespace Helpers
 		return -1;
 	}
 
-	bool IsInt(double value)
+	bool IsInt(const double value)
 	{
 		double n;
 		if(std::modf(value, &n) == 0.0f) return true;
@@ -409,7 +375,7 @@ void Helpers::tell(edict_t *pEntity, const std::string& message)
 	}
 }
 
-void Helpers::noTell(edict_t *pEntity, const std::string& msg)
+void Helpers::noTell(const edict_t *pEntity, const std::string& msg)
 {
 	MRecipientFilter filter;
 	bf_write *pBuffer = CIFaceManager::GetInstance()->GetIengine()->UserMessageBegin( &filter, 3 );

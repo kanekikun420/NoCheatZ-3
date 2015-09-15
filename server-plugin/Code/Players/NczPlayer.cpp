@@ -181,7 +181,8 @@ void NczPlayer::OnConnect()
 
 void NczPlayer::Kick(const char * msg)
 {
-	if (Config::GetInstance()->GetConfigData()->kick_ban)
+	//if (Config::GetInstance()->GetConfigData()->kick_ban)
+	if(1)
 	{
 		CIFaceManager::GetInstance()->GetIengine()->ServerCommand(
 				Helpers::format(
@@ -192,7 +193,8 @@ void NczPlayer::Kick(const char * msg)
 
 void NczPlayer::Ban(const char * msg, int minutes)
 {
-	if (Config::GetInstance()->GetConfigData()->kick_ban)
+	//if (Config::GetInstance()->GetConfigData()->kick_ban)
+	if(1)
 	{
 		CIFaceManager::GetInstance()->GetIengine()->ServerCommand(Helpers::format("banid %d %s\n", minutes, GetSteamID()).c_str());
 		Kick(msg);

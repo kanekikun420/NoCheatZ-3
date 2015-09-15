@@ -1,3 +1,6 @@
+#ifndef HELPERS
+#define HELPERS
+
 #include <iostream>
 #include <string>
 #include <locale>
@@ -18,27 +21,15 @@
 #include "edict.h"
 #include "MRecipientFilter.h"
 
-#ifndef HELPERS
-#define HELPERS
-
 #ifdef WIN32
-	#include "include_windows_headers.h"
-	#include "TlHelp32.h"
+#	include "include_windows_headers.h"
+#	include "TlHelp32.h"
 #else
-	#include <sys/types.h>
-	#include <sys/socket.h>
-	#include <netinet/in.h>
-	#include <arpa/inet.h>
-	#include <unistd.h>
-	#include <netdb.h>
-	#include <wchar.h>
-	#include <dlfcn.h>
-	#include <sys/types.h>
-	#include <sys/stat.h>
-	#define INVALID_SOCKET -1
-	#define SOCKET_ERROR -1
-	#define closesocket(s) close(s)
-	typedef int SOCKET;
+#	include <sys/types.h>
+#	include <wchar.h>
+#	include <dlfcn.h>
+#	include <sys/types.h>
+#	include <sys/stat.h>
 #endif
 
 struct SigInst
@@ -58,12 +49,6 @@ namespace Helpers
 	/* Envoie un message */
 	void xMsg(const char *p_fmt, ...);
 
-	/* Temps d'usage du serveur en secondes */
-	double GetTime();
-
-	/* Retourne la longueur d'une chaine de caractères se terminant par \0 */
-	size_t StrLen(const char *sz);
-
 	/* Vérifie que 2 chaines de caractères sont strictement identiques
 	   Possibilité de se servir de sz1 comme un buffer à l'aide de start_offset et length */
 	bool bStrEq(const char *sz1, const char *sz2, size_t start_offset = 0, size_t length = 0xFFFFFFFF);
@@ -73,7 +58,6 @@ namespace Helpers
 
 	/* Même utilité que bStrEq, n'est pas sensible à la casse */
 	bool bStriEq(const char *sz1, const char *sz2, size_t start_offset = 0, size_t length = 0xFFFFFFFF);
-	bool FStrEq(const char *p_sz1, const char *p_sz2);
 
 	/* Ecrit dans le fichier de log. Doit être remplacé par une classe du même style que BanRequest */
 	void writeToLogfile(const std::string &p_text);
@@ -87,26 +71,17 @@ namespace Helpers
 
 	edict_t * getEdictFromSteamID(const char *p_SteamID);
 	int getIndexFromSteamID(const char *SteamID);
-	edict_t * PEntityOfEntIndex(int p_iEntIndex);
-	int getIndexFromUserID(int p_userid);
+	edict_t * PEntityOfEntIndex(const int p_iEntIndex);
+	int getIndexFromUserID(const int p_userid);
 	int IndexOfEdict(const edict_t *p_pEdict);
-	bool isValidEdict(edict_t * p_entity);
+	bool isValidEdict(const edict_t * p_entity);
 	int GetPlayerCount();
 
 	/* Permet d'avoir un format style C dans un conteneur C++ */
 	std::string format(const char *fmt, ...);
-
-	/* Retourne le format quadratic d'une adresse IP. Doit être ré-écrit*/
-	char* long2ip(unsigned long p_v); 
-
-	/* Sert à rien */
-	float fabs(const float p_n);
-
-	/* Sert à rien */
-	int abs(const int p_n);
 	
 	/* Retourne vrai si la valeur est impaire ... */
-	bool estImpaire(int p_valeur);
+	bool isOdd(const int value);
 
 	/* Découpe une chaine de caractère */
 	void split(const std::string &p_s, char p_delim, std::vector<std::string> &elems);
@@ -119,7 +94,7 @@ namespace Helpers
 	bool IsInt(double value);
 
 	/* Envoie un message chat à tous les clients sauf pEntity */
-	void noTell(edict_t *pEntity, const std::string& msg);
+	void noTell(const edict_t *pEntity, const std::string& msg);
 
 	void chatmsg(const std::string& msg);
 

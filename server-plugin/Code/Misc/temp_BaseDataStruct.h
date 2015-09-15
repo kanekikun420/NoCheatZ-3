@@ -14,7 +14,7 @@ public:
 	{
 	};
 
-	void ResetAll(DataT* src)
+	void ResetAll(const DataT* src)
 	{
 		if(src)
 		{
@@ -29,13 +29,13 @@ public:
 	};
 
 protected:
-	DataT* GetDataStruct(int elem)
+	const DataT& GetDataStruct(const int elem) const
 	{
 		Assert(elem < MAX_ELEM && elem >= 0);
-		return (DataT*)(&(m_dataStruct[elem]));
+		return m_dataStruct[elem];
 	};
 
-	void ResetDataStruct(int elem)
+	void ResetDataStruct(const int elem)
 	{
 		memset(GetDataStruct(elem), 0, sizeof(DataT));
 	};

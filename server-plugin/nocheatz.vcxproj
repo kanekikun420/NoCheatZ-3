@@ -23,7 +23,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v100</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -71,7 +71,7 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
     </CustomBuildStep>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\nocheatz\server-plugin\Code;C:\nocheatz\sdk-source-2013-valve\common;C:\nocheatz\sdk-source-2013-valve\public;C:\nocheatz\sdk-source-2013-valve\public\tier0;C:\nocheatz\sdk-source-2013-valve\public\tier1;C:\nocheatz\sdk-source-2013-valve\game\server;C:\nocheatz\sdk-source-2013-valve\game\shared;C:\nocheatz\sdk-source-2013-valve\tier1;C:\nocheatz\sdk-source-2013-valve\public\engine;C:\nocheatz\sdk-source-2013-valve\public\filesystem;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Code;..\source-sdk-2013\mp\src\common;..\source-sdk-2013\mp\src\public;..\source-sdk-2013\mp\src\public\tier0;..\source-sdk-2013\mp\src\public\tier1;..\source-sdk-2013\mp\src\game\server;..\source-sdk-2013\mp\src\game\shared;..\source-sdk-2013\mp\src\tier1;..\source-sdk-2013\mp\src\public\engine;..\source-sdk-2013\mp\src\public\filesystem;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_MBCS;_HAS_ITERATOR_DEBUGGING=0;NCZ_CSS;PLATFORM_WINDOWS_PC;CSTRIKE_DLL;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>true</MinimalRebuild>
@@ -150,7 +150,7 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>..\..\common;..\..\public;..\..\public\tier0;..\..\public\tier1;..\..\game\server;..\..\game\shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Code;..\source-sdk-2013\mp\src\common;..\source-sdk-2013\mp\src\public;..\source-sdk-2013\mp\src\public\tier0;..\source-sdk-2013\mp\src\public\tier1;..\source-sdk-2013\mp\src\game\server;..\source-sdk-2013\mp\src\game\shared;..\source-sdk-2013\mp\src\tier1;..\source-sdk-2013\mp\src\public\engine;..\source-sdk-2013\mp\src\public\filesystem;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;serverplugin_emptyONLY;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling />
@@ -217,15 +217,12 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
     <Text Include="Res\tohash.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Code\Config\Config.cpp" />
-    <ClCompile Include="Code\Config\HashTable.cpp" />
     <ClCompile Include="Code\Hooks\Hook.cpp" />
     <ClCompile Include="Code\Hooks\OnGroundHookListener.cpp" />
     <ClCompile Include="Code\Hooks\PlayerRunCommandHookListener.cpp" />
     <ClCompile Include="Code\Hooks\TeleportHookListener.cpp" />
     <ClCompile Include="Code\Misc\Helpers.cpp" />
     <ClCompile Include="Code\Misc\IFaceManager.cpp" />
-    <ClCompile Include="Code\Misc\Metrics.cpp" />
     <ClCompile Include="Code\Misc\MRecipientFilter.cpp" />
     <ClCompile Include="Code\Misc\threading.cpp" />
     <ClCompile Include="Code\Players\NczFilteredPlayersList.cpp" />
@@ -235,8 +232,6 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
     <ClCompile Include="Code\Systems\BanRequest.cpp" />
     <ClCompile Include="Code\Systems\BaseSystem.cpp" />
     <ClCompile Include="Code\Systems\Logger.cpp" />
-    <ClCompile Include="Code\Systems\Pipeline\http.cpp" />
-    <ClCompile Include="Code\Systems\Pipeline\Pipeline.cpp" />
     <ClCompile Include="Code\Systems\Testers\ShotTester.cpp" />
     <ClCompile Include="Code\Systems\Testers\BaseFramedTester.cpp" />
     <ClCompile Include="Code\Systems\Testers\BaseTimedTester.cpp" />
@@ -246,8 +241,6 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
     <ClCompile Include="Code\Systems\Testers\ValidationTester.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Code\Config\Config.h" />
-    <ClInclude Include="Code\Config\HashTable.h" />
     <ClInclude Include="Code\Hooks\Hook.h" />
     <ClInclude Include="Code\Hooks\OnGroundHookListener.h" />
     <ClInclude Include="Code\Hooks\PlayerRunCommandHookListener.h" />
@@ -257,7 +250,6 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
     <ClInclude Include="Code\Misc\include_windows_headers.h" />
     <ClInclude Include="Code\Misc\MRecipientFilter.h" />
     <ClInclude Include="Code\Misc\temp_BaseQueue.h" />
-    <ClInclude Include="Code\Misc\Metrics.h" />
     <ClInclude Include="Code\Misc\temp_BaseDataStruct.h" />
     <ClInclude Include="Code\Misc\temp_Singleton.h" />
     <ClInclude Include="Code\Misc\threading.h" />
@@ -271,8 +263,6 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
     <ClInclude Include="Code\Systems\BanRequest.h" />
     <ClInclude Include="Code\Systems\BaseSystem.h" />
     <ClInclude Include="Code\Systems\Logger.h" />
-    <ClInclude Include="Code\Systems\Pipeline\http.h" />
-    <ClInclude Include="Code\Systems\Pipeline\Pipeline.h" />
     <ClInclude Include="Code\Systems\Testers\ShotTester.h" />
     <ClInclude Include="Code\Systems\Testers\BaseFramedTester.h" />
     <ClInclude Include="Code\Systems\Testers\BaseTimedTester.h" />

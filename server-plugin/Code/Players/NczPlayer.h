@@ -12,7 +12,6 @@
 #include "Preprocessors.h"
 #include "Misc/Helpers.h"
 #include "Misc/IFaceManager.h"
-#include "Config/Config.h"
 
 class IPlayerInfo;
 class CUserCmd;
@@ -20,15 +19,16 @@ class CUserCmd;
 #ifndef NCZPCLASS
 #define NCZPCLASS
 
+// 64 players + SourceTV + Server itself
 #define MAX_PLAYERS 66
 
 /* Permet de connaître l'état d'un slot du serveur rapidement */
 enum SlotStatus
 {
-	INVALID = -1,
+	INVALID = -1, // Slot not used
 	BOT = 0,
-	PLAYER_CONNECTED,
-	PLAYER_IN_TESTS,
+	PLAYER_CONNECTED, // Spectator or dead or ...
+	PLAYER_IN_TESTS, // Playing the round
 };
 
 enum WpnShotType

@@ -17,9 +17,6 @@
     <Filter Include="Code\Systems">
       <UniqueIdentifier>{f7d33d2a-d95c-42c0-aa21-cf26f6f4680c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Code\Config">
-      <UniqueIdentifier>{bfcca635-828f-4f9a-9899-98ee908dafe0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Code\Hooks">
       <UniqueIdentifier>{0b158ab4-982f-4a7f-a96b-a346fea5301a}</UniqueIdentifier>
     </Filter>
@@ -28,9 +25,6 @@
     </Filter>
     <Filter Include="Code\Systems\Testers">
       <UniqueIdentifier>{f556038f-1c52-4c3d-ab6a-abea9fd5eabe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code\Systems\Pipeline">
-      <UniqueIdentifier>{1f0f216e-07d7-49cb-b35e-c5ce03769b77}</UniqueIdentifier>
     </Filter>
     <Filter Include="Code\Systems\ServerProtection">
       <UniqueIdentifier>{60f6d7e5-1817-472c-9b7b-b32b5f3b35a8}</UniqueIdentifier>
@@ -53,12 +47,6 @@
     <ClCompile Include="Code\plugin.cpp">
       <Filter>Code</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Config\Config.cpp">
-      <Filter>Code\Config</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Config\HashTable.cpp">
-      <Filter>Code\Config</Filter>
-    </ClCompile>
     <ClCompile Include="Code\Hooks\Hook.cpp">
       <Filter>Code\Hooks</Filter>
     </ClCompile>
@@ -75,9 +63,6 @@
       <Filter>Code\Misc</Filter>
     </ClCompile>
     <ClCompile Include="Code\Misc\IFaceManager.cpp">
-      <Filter>Code\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Misc\Metrics.cpp">
       <Filter>Code\Misc</Filter>
     </ClCompile>
     <ClCompile Include="Code\Players\NczFilteredPlayersList.cpp">
@@ -107,12 +92,6 @@
     <ClCompile Include="Code\Misc\MRecipientFilter.cpp">
       <Filter>Code\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Systems\Pipeline\http.cpp">
-      <Filter>Code\Systems\Pipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Systems\Pipeline\Pipeline.cpp">
-      <Filter>Code\Systems\Pipeline</Filter>
-    </ClCompile>
     <ClCompile Include="Code\Systems\BanRequest.cpp">
       <Filter>Code\Systems</Filter>
     </ClCompile>
@@ -136,9 +115,6 @@
     <ClInclude Include="Code\plugin.h">
       <Filter>Code</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Config\Config.h">
-      <Filter>Code\Config</Filter>
-    </ClInclude>
     <ClInclude Include="Code\Hooks\Hook.h">
       <Filter>Code\Hooks</Filter>
     </ClInclude>
@@ -155,9 +131,6 @@
       <Filter>Code\Misc</Filter>
     </ClInclude>
     <ClInclude Include="Code\Misc\IFaceManager.h">
-      <Filter>Code\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Misc\Metrics.h">
       <Filter>Code\Misc</Filter>
     </ClInclude>
     <ClInclude Include="Code\Misc\Types.h">
@@ -193,9 +166,6 @@
     <ClInclude Include="Code\Misc\temp_Singleton.h">
       <Filter>Code\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Config\HashTable.h">
-      <Filter>Code\Config</Filter>
-    </ClInclude>
     <ClInclude Include="Code\Systems\BaseSystem.h">
       <Filter>Code\Systems</Filter>
     </ClInclude>
@@ -207,12 +177,6 @@
     </ClInclude>
     <ClInclude Include="Code\Misc\MRecipientFilter.h">
       <Filter>Code\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Systems\Pipeline\Pipeline.h">
-      <Filter>Code\Systems\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Systems\Pipeline\http.h">
-      <Filter>Code\Systems\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="Code\Systems\BanRequest.h">
       <Filter>Code\Systems</Filter>

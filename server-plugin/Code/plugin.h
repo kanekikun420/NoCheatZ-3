@@ -2,7 +2,6 @@
 #include "engine/iserverplugin.h"
 #include "tier1/tier1.h"
 #include "Misc/temp_Singleton.h"
-#include "Config/Config.h"
 #include "Systems/Pipeline/http.h"
 
 #ifndef CNOCHEATZ_PLUGIN
