@@ -7,16 +7,12 @@ EyeAnglesTester::EyeAnglesTester(void) :
 	IGameEventListener2(),
 	Singleton<EyeAnglesTester>()
 {
+	m_name = "EyeAnglesTester";
 }
 
 EyeAnglesTester::~EyeAnglesTester(void)
 {
 	
-}
-
-const char * EyeAnglesTester::GetName()
-{
-	return "EyeAnglesTester";
 }
 
 SlotStatus EyeAnglesTester::GetFilter()
@@ -45,7 +41,6 @@ void EyeAnglesTester::Unload()
 
 bool EyeAnglesTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd)
 {	
-	m_metrics.StartExec();
 	bool drop_cmd = false;
 
 	EyeAngleInfoT* playerData = GetPlayerDataStruct(player);
@@ -75,7 +70,6 @@ bool EyeAnglesTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd
 				pDetection->PrepareDetectionData(playerData);
 				pDetection->PrepareDetectionLog(player, this);
 				pDetection->Log();
-				pDetection->Report();
 			}
 		}
 		if(playerData->y.abs_value > 180.0f)
@@ -89,7 +83,6 @@ bool EyeAnglesTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd
 				pDetection->PrepareDetectionData(playerData);
 				pDetection->PrepareDetectionLog(player, this);
 				pDetection->Log();
-				pDetection->Report();
 			}
 		}
 		if(playerData->z.abs_value > 0.0f)
@@ -103,33 +96,26 @@ bool EyeAnglesTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd
 				pDetection->PrepareDetectionData(playerData);
 				pDetection->PrepareDetectionLog(player, this);
 				pDetection->Log();
-				pDetection->Report();
 			}
 		}
 	}
-
-	m_metrics.EndExec();
 	return drop_cmd;
 }
 
 void EyeAnglesTester::FireGameEvent(IGameEvent *ev)
 {
-	m_metrics.StartExec();
 	for(int index = 1; index < MAX_PLAYERS; ++index)
 	{
 		PlayerHandler* ph = NczPlayerManager::GetInstance()->GetPlayerHandlerByIndex(index);
 		if(ph->status > BOT) ++(GetPlayerDataStruct(ph->playerClass)->ignore_last);
 	}
-	m_metrics.EndExec();
 }
 
 void EyeAnglesTester::TeleportCallback(NczPlayer* player, Vector const* va, QAngle const* qa, Vector const* vb)
 {
-	m_metrics.StartExec();
 	Msg("Teleport\n");
 	EyeAngleInfoT* playerData = GetPlayerDataStruct(player);
 	++playerData->ignore_last;
-	m_metrics.EndExec();
 }
 
 const char * Detection_EyeAngle::GetDataDump()

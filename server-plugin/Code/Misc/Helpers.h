@@ -71,9 +71,9 @@ namespace Helpers
 
 	edict_t * getEdictFromSteamID(const char *p_SteamID);
 	int getIndexFromSteamID(const char *SteamID);
-	edict_t * PEntityOfEntIndex(const int p_iEntIndex);
+	//edict_t * PEntityOfEntIndex(const int p_iEntIndex);
 	int getIndexFromUserID(const int p_userid);
-	int IndexOfEdict(const edict_t *p_pEdict);
+	//int IndexOfEdict(const edict_t *p_pEdict);
 	bool isValidEdict(const edict_t * p_entity);
 	int GetPlayerCount();
 

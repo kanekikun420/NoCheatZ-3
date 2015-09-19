@@ -249,7 +249,6 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
     <ClInclude Include="Code\Misc\IFaceManager.h" />
     <ClInclude Include="Code\Misc\include_windows_headers.h" />
     <ClInclude Include="Code\Misc\MRecipientFilter.h" />
-    <ClInclude Include="Code\Misc\temp_BaseQueue.h" />
     <ClInclude Include="Code\Misc\temp_BaseDataStruct.h" />
     <ClInclude Include="Code\Misc\temp_Singleton.h" />
     <ClInclude Include="Code\Misc\threading.h" />
@@ -273,11 +272,12 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
     <ClInclude Include="Code\Systems\Testers\ValidationTester.h" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\sdk-source-2013-valve\lib\public\mathlib.lib" />
-    <Library Include="..\sdk-source-2013-valve\lib\public\raytrace.lib" />
-    <Library Include="..\sdk-source-2013-valve\lib\public\tier0.lib" />
-    <Library Include="..\sdk-source-2013-valve\lib\public\tier1.lib" />
-    <Library Include="..\sdk-source-2013-valve\lib\public\vstdlib.lib" />
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\mathlib.lib" />
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\raytrace.lib" />
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\tier0.lib" />
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\tier1.lib" />
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\tier2.lib" />
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\vstdlib.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

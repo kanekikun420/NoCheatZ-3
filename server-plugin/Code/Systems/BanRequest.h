@@ -16,6 +16,8 @@ typedef struct PlayerBanRequest
 	char player_name[24];
 	char steamid[24];
 	char ip[24];
+
+	// FIXME : Ctors
 } PlayerBanRequestT;
 
 class BanRequest : public Singleton<BanRequest>
@@ -46,7 +48,7 @@ private:
 	bool do_writeid;
 	double m_wait_time;
 
-	std::list<PlayerBanRequestT*> m_requests;
+	std::list<PlayerBanRequestT*> m_requests; // FIXME : Do not use pointers here
 };
 
 #endif

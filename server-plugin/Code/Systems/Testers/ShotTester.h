@@ -18,7 +18,7 @@
 #ifndef ShotTester_H
 #define ShotTester_H
 
-#define SHORT_TIME 0.04 // secondes
+#define SHORT_TIME 0.04 // sec
 
 typedef struct ShotStatHandler
 {
@@ -57,14 +57,13 @@ public:
 
 	virtual void Load();
 	virtual void Unload();
-	virtual const char * GetName();
 	virtual SlotStatus GetFilter();
 	virtual bool PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd);
 };
 
-class ShotDetection : public ReportDetection<ShotStats>
+class ShotDetection : public LogDetection<ShotStats>
 {
-	typedef ReportDetection<ShotStats> hClass;
+	typedef LogDetection<ShotStats> hClass;
 public:
 	ShotDetection() : hClass() {};
 	~ShotDetection(){};

@@ -29,7 +29,7 @@ EXPOSE_SINGLE_INTERFACE_GLOBALVAR(CNoCheatZPlugin, IServerPluginCallbacks, INTER
 //---------------------------------------------------------------------------------
 // Purpose: constructor/destructor
 //---------------------------------------------------------------------------------
-CNoCheatZPlugin::CNoCheatZPlugin() : game_frame("game_frame"), ncz_frame("ncz_frame")
+CNoCheatZPlugin::CNoCheatZPlugin()
 {
 	m_iClientCommandIndex = 0;
 	m_bAlreadyLoaded = false;
@@ -85,7 +85,6 @@ bool CNoCheatZPlugin::Load(CreateInterfaceFn _interfaceFactory, CreateInterfaceF
 
 	CIFaceManager::GetInstance()->UpdateIFactoryPtr(interfaceFactory, (void*)_interfaceFactory);
 	CIFaceManager::GetInstance()->UpdateIFactoryPtr(gameFactory, (void*)gameServerFactory);
-	if(!HashTable::GetInstance()->LoadHashTable()) return false;
 	NczPlayerManager::GetInstance()->LoadPlayerManager(); // Mark any present player as PLAYER_CONNECTED
 
 	// Créer toutes les instances des systèmes pour les avoir accessible dans la console
@@ -144,7 +143,6 @@ void CNoCheatZPlugin::Unload( void )
 	EyeAnglesTester::Delete();
 	ConVarTester::Delete();
 	ShotTester::Delete();
-	HashTable::Delete();
 	NczPlayerManager::Delete();
 
 	CIFaceManager::Delete();
@@ -203,13 +201,8 @@ void CNoCheatZPlugin::ServerActivate( edict_t *pEdictList, int edictCount, int c
 //---------------------------------------------------------------------------------
 void CNoCheatZPlugin::GameFrame( bool simulating )
 {
-	CNoCheatZPlugin::GetInstance()->game_frame.EndExec();
-	CNoCheatZPlugin::GetInstance()->game_frame.StartExec();
-
-	CNoCheatZPlugin::GetInstance()->ncz_frame.StartExec();
 	BaseFramedTester::OnFrame();
 	BanRequest::GetInstance()->Think();
-	CNoCheatZPlugin::GetInstance()->ncz_frame.EndExec();
 }
 
 //---------------------------------------------------------------------------------
@@ -292,7 +285,7 @@ PLUGIN_RESULT CNoCheatZPlugin::ClientConnect( bool *bAllowConnect, edict_t *pEnt
 		strcpy(reject, "Buffer overflow in name.");
 		return PLUGIN_STOP;
 	}
-	if(char_count > Config::GetInstance()->GetConfigData()->max_chars_name)
+	if(char_count > 32)
 	{
 		*bAllowConnect = false;
 		strcpy(reject, "Your name is too long.");
@@ -331,7 +324,7 @@ PLUGIN_RESULT CNoCheatZPlugin::ClientCommand( edict_t *pEntity, const CCommand &
 	}
 
 	NczPlayer* myPlayer = NczPlayerManager::GetInstance()->GetPlayerHandlerByEdict(pEntity)->playerClass;
-	ActionID result = HashTable::GetInstance()->ScanCommandString(args.GetCommandString());
+	/*ActionID result = HashTable::GetInstance()->ScanCommandString(args.GetCommandString());
 	if(result > SAFE)
 	{
 		if(result == BAN)
@@ -343,7 +336,7 @@ PLUGIN_RESULT CNoCheatZPlugin::ClientCommand( edict_t *pEntity, const CCommand &
 			myPlayer->Kick();
 		}
 		return PLUGIN_STOP;
-	}
+	}*/
 
 	return PLUGIN_CONTINUE;
 }

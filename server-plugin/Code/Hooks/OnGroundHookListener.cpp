@@ -4,6 +4,27 @@ std::list<OnGroundHookListener*> OnGroundHookListener::m_listeners;
 GroundEntity_t OnGroundHookListener::gpOldGroundFn = nullptr;
 DWORD* OnGroundHookListener::pdwInterface = nullptr;
 
+//https://www.sourcemodplugins.org/vtableoffsets
+// CBasePlayer::NetworkStateChanged_m_hGroundEntity(void*)
+
+#ifdef NCZ_CSS
+#	ifdef GNUC
+#		define DEFAULT_GROUND_OFFSET "179"
+#	else
+#		define DEFAULT_GROUND_OFFSET "177"
+#	endif
+#else
+#	ifdef NCZ_CSGO
+
+#	else
+#		ifdef NCZ_CSP
+
+#		endif
+#	endif
+#endif
+
+ConVar var_onground_offset = ConVar( "ncz_onground_offset",	DEFAULT_GROUND_OFFSET);
+
 OnGroundHookListener::OnGroundHookListener()
 {
 }
@@ -23,7 +44,7 @@ void OnGroundHookListener::HookOnGround(NczPlayer* player)
 	{
 		pdwInterface = ( DWORD* )*( DWORD* )BasePlayer;
 
-		DWORD OldFunc = VirtualTableHook(pdwInterface, Config::GetInstance()->GetVTable()->Offset_m_hGroundEntityChanged, ( DWORD )nNetworkStateChanged_m_hGroundEntity );
+		DWORD OldFunc = VirtualTableHook(pdwInterface, var_onground_offset.GetInt(), ( DWORD )nNetworkStateChanged_m_hGroundEntity );
 		*(DWORD*)&(gpOldGroundFn) = OldFunc;
 	}
 }
@@ -32,7 +53,7 @@ void OnGroundHookListener::UnhookOnGround()
 {
 	if(pdwInterface && gpOldGroundFn)
 	{
-		VirtualTableHook(pdwInterface, Config::GetInstance()->GetVTable()->Offset_m_hGroundEntityChanged, (DWORD)gpOldGroundFn);
+		VirtualTableHook(pdwInterface, var_onground_offset.GetInt(), (DWORD)gpOldGroundFn);
 		pdwInterface = nullptr;
 		gpOldGroundFn = nullptr;
 	}
@@ -44,41 +65,19 @@ void HOOKFN_INT OnGroundHookListener::nNetworkStateChanged_m_hGroundEntity(CBase
 void HOOKFN_INT OnGroundHookListener::nNetworkStateChanged_m_hGroundEntity(CBasePlayer* basePlayer, void*, int * new_m_hGroundEntity)
 #endif
 {
-#ifdef WIN32
-	__asm push esi;
-	__asm push ecx;
-#else
-	//__asm("pusha");
-#endif
-	CNoCheatZPlugin::GetInstance()->game_frame.EndExec();
-	CNoCheatZPlugin::GetInstance()->ncz_frame.StartExec();
 	PlayerHandler* ph = NczPlayerManager::GetInstance()->GetPlayerHandlerByBasePlayer(basePlayer);
 	bool new_isOnground = true;
 
-	if(ph->status < PLAYER_CONNECTED) goto callgroundfn;
+	if(ph->status >= PLAYER_CONNECTED)
+	{
+		if(*new_m_hGroundEntity == -1) new_isOnground = true;
+		else new_isOnground = false;
 
-	if(*new_m_hGroundEntity == -1) new_isOnground = true;
-	else new_isOnground = false;
-
-	for(std::list<OnGroundHookListener*>::iterator it = m_listeners.begin(); it != m_listeners.end(); ++it)
-		(*it)->m_hGroundEntityStateChangedCallback(ph->playerClass, new_isOnground);
-
-callgroundfn:
-	CNoCheatZPlugin::GetInstance()->ncz_frame.EndExec();
-	CNoCheatZPlugin::GetInstance()->game_frame.StartExec();
-#ifdef WIN32
-	__asm pop esi;
-	__asm pop ecx;
-
-	__asm mov esi, dword ptr [new_m_hGroundEntity];
-	__asm push esi;
-	__asm mov ecx, dword ptr [basePlayer];
-	__asm call gpOldGroundFn;
-#else
-	//__asm("popa");
+		for(std::list<OnGroundHookListener*>::iterator it = m_listeners.begin(); it != m_listeners.end(); ++it)
+			(*it)->m_hGroundEntityStateChangedCallback(ph->playerClass, new_isOnground);
+	}
 
 	gpOldGroundFn(basePlayer, new_m_hGroundEntity);
-#endif
 }
 
 void OnGroundHookListener::RegisterOnGroundHookListener(OnGroundHookListener* listener)

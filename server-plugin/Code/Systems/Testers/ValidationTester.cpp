@@ -11,15 +11,11 @@ ValidationTester::ValidationTester() :
 	PlayerDataStructHandler<bool>(),
 	Singleton<ValidationTester>()
 {
+	m_name = "ValidationTester";
 }
 
 ValidationTester::~ValidationTester()
 {
-}
-
-const char * ValidationTester::GetName()
-{
-	return "ValidationTester";
 }
 
 SlotStatus ValidationTester::GetFilter()
@@ -37,7 +33,6 @@ void ValidationTester::SetValidated(NczPlayer* player)
 
 void ValidationTester::ProcessPlayerTest(NczPlayer* player)
 {
-	m_metrics.StartExec();
 	if(!*GetPlayerDataStruct(player))
 	{
 		if(HasVerbose())
@@ -54,7 +49,6 @@ void ValidationTester::ProcessPlayerTest(NczPlayer* player)
 
 	if(player->GetTimeConnected() < 20.0) return;
 	player->Kick();
-	m_metrics.EndExec();
 }
 
 void ValidationTester::Load()

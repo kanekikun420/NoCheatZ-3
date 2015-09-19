@@ -18,7 +18,7 @@ public:
 	BaseTimedTester(double time, TimeBase timeBase = SERVER);
 	~BaseTimedTester(){};
 
-	double GetTime();
+	double GetTesterTime() const;
 
 	/* Combien de secondes attendre avant de lancer un nouveau cycle */
 	void SetJobPeriod(double time){m_jobMinPeriod = time;};

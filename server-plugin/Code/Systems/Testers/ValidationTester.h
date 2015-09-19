@@ -27,7 +27,6 @@ public:
 	virtual void SetValidated(NczPlayer* player);
 	virtual void ProcessPlayerTest(NczPlayer* player);
 	virtual SlotStatus GetFilter();
-	virtual const char * GetName();
 
 	short GetJobCount();
 };

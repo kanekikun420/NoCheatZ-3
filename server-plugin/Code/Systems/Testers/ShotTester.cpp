@@ -7,16 +7,12 @@ ShotTester::ShotTester(void) :
 	PlayerDataStructHandler<ShotStatsT>(),
 	Singleton<ShotTester>()
 {
+	m_name = "ShotTester";
 }
 
 ShotTester::~ShotTester(void)
 {
 	
-}
-
-const char * ShotTester::GetName()
-{
-	return "ShotTester";
 }
 
 SlotStatus ShotTester::GetFilter()
@@ -55,7 +51,6 @@ void OutputStat(ShotStatHandlerT* handler)
 
 bool ShotTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd)
 {	
-	m_metrics.StartExec();
 	bool drop_cmd = false;
 
 	ShotStatsT* playerData = GetPlayerDataStruct(player);
@@ -84,7 +79,6 @@ bool ShotTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd)
 						pDetection->PrepareDetectionData(playerData);
 						pDetection->PrepareDetectionLog(player, this);
 						pDetection->Log();
-						pDetection->Report();
 					}
 				}
 				playerData->row = 0;
@@ -97,7 +91,6 @@ bool ShotTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd)
 					pDetection->PrepareDetectionData(playerData);
 					pDetection->PrepareDetectionLog(player, this);
 					pDetection->Log();
-					pDetection->Report();
 				}
 			}
 			playerData->last_detection = Plat_FloatTime();
@@ -128,8 +121,6 @@ bool ShotTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd)
 			}
 		}
 	}
-
-	m_metrics.EndExec();
 	return drop_cmd;
 }
 

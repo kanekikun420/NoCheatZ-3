@@ -12,15 +12,11 @@ ConVarTester::ConVarTester() :
 	PlayerDataStructHandler<CurrentConVarRequestT>(),
 	Singleton<ConVarTester>()
 {
+	m_name = "ConVarTester";
 }
 
 ConVarTester::~ConVarTester()
 {
-}
-
-const char * ConVarTester::GetName()
-{
-	return "ConVarTester";
 }
 
 SlotStatus ConVarTester::GetFilter()
@@ -31,8 +27,6 @@ SlotStatus ConVarTester::GetFilter()
 void ConVarTester::ProcessTests()
 {
 	if(!IsActive()) return;
-	m_metrics.StartExec();
-	CNoCheatZPlugin::GetInstance()->ncz_frame.StartExec();
 	if(g_pCVar->FindVar("sv_cheats")->GetBool())
 	{
 		if(HasVerbose()) Msg("%f : sv_cheats set to 1. Skipping ConVarTest ...\n", Plat_FloatTime());
@@ -43,8 +37,6 @@ void ConVarTester::ProcessTests()
 	{
 		ProcessPlayerTest(player);
 	}
-	m_metrics.EndExec();
-	CNoCheatZPlugin::GetInstance()->ncz_frame.EndExec();
 }
 
 void ConVarTester::ProcessPlayerTest(NczPlayer* player)
@@ -122,8 +114,9 @@ bool ConVarTester::sys_cmd_fn ( const CCommand &args )
 				else
 				{
 					Msg("Arg %s not found.\n", args.Arg(5));
-					return true;
+					
 				}
+				return true;
 			}
 			else
 			{
@@ -141,15 +134,20 @@ bool ConVarTester::sys_cmd_fn ( const CCommand &args )
 					if(rule != SAME_AS_SERVER) rule = SAME_FLOAT_AS_SERVER;
 					else rule = SAME_FLOAT;
 				}
+				return true;
 			}
 			AddConvarRuleset(args.Arg(3), args.Arg(4), rule, false);
+			
 		}
 	}
-	if(Helpers::bStriEq("ResetRules", args.Arg(2))) 
+	if(Helpers::bStriEq("ResetRules", args.Arg(2)))
 		// example : ncz ConVarTester ResetRules
 	{
-		m_convars_rules.
+		Unload();
+		Load();
+		return true;
 	}
+	return false;
 }
 
 void ConVarTester::AddConvarRuleset(const char * name, const char * value, ConVarRuleT rule, bool safe)
@@ -163,26 +161,17 @@ void ConVarTester::AddConvarRuleset(const char * name, const char * value, ConVa
 			sv_value = sv_cvar->GetString();
 		}
 	}
-	ConVarInfoT ruleset;
-	ruleset.name = name;
-	ruleset.value = sv_value;
-	ruleset.rule = rule;
-	ruleset.safe = safe;
-	m_convars_rules.push_back(ruleset);
+	m_convars_rules.push_back(ConVarInfo(name, value, rule, safe));
 }
 
 void ConVarTester::OnQueryCvarValueFinished(NczPlayer* player, EQueryCvarValueStatus eStatus, const char *pCvarName, const char *pCvarValue)
 {
 	if(!IsActive()) return;
-	m_metrics.StartExec();
-	CNoCheatZPlugin::GetInstance()->ncz_frame.StartExec();
 	if(HasVerbose()) Msg("%f : Received %s ConVar reply for ent-id %d\n", Plat_FloatTime(), pCvarName, player->GetIndex());
 
 	if(g_pCVar->FindVar("sv_cheats")->GetBool())
 	{
 		if(HasVerbose()) Msg("%f : sv_cheats set to 1. Skipping ...\n", Plat_FloatTime());
-		CNoCheatZPlugin::GetInstance()->ncz_frame.EndExec();
-		m_metrics.EndExec();
 		return;
 	}
 
@@ -191,8 +180,6 @@ void ConVarTester::OnQueryCvarValueFinished(NczPlayer* player, EQueryCvarValueSt
 	{
 unexpected:
 		if(HasVerbose()) Msg("%f : Unexpected reply. Skipping ...\n", Plat_FloatTime());
-		m_metrics.EndExec();
-		CNoCheatZPlugin::GetInstance()->ncz_frame.EndExec();
 		return;
 	}
 	CurrentConVarRequest* req = GetPlayerDataStruct(player);
@@ -225,7 +212,6 @@ unexpected:
 					pDetection->PrepareDetectionData(req);
 					pDetection->PrepareDetectionLog(player, this);
 					pDetection->Log();
-					pDetection->Report();
 					BanRequest::GetInstance()->AddAsyncBan(player, 0, "Banned by NoCheatZ 4");
 				}
 			}
@@ -242,7 +228,6 @@ unexpected:
 					pDetection->PrepareDetectionData(req);
 					pDetection->PrepareDetectionLog(player, this);
 					pDetection->Log();
-					pDetection->Report();
 					BanRequest::GetInstance()->AddAsyncBan(player, 0, "Banned by NoCheatZ 4");
 				}
 			}
@@ -261,7 +246,6 @@ unexpected:
 					pDetection->PrepareDetectionData(req);
 					pDetection->PrepareDetectionLog(player, this);
 					pDetection->Log();
-					pDetection->Report();
 					BanRequest::GetInstance()->AddAsyncBan(player, 0, "Banned by NoCheatZ 4");
 				}
 			}
@@ -280,7 +264,6 @@ unexpected:
 					pDetection->PrepareDetectionData(req);
 					pDetection->PrepareDetectionLog(player, this);
 					pDetection->Log();
-					pDetection->Report();
 					BanRequest::GetInstance()->AddAsyncBan(player, 0, "Banned by NoCheatZ 4");
 				}
 			}
@@ -297,7 +280,6 @@ unexpected:
 				pDetection->PrepareDetectionData(req);
 				pDetection->PrepareDetectionLog(player, this);
 				pDetection->Log();
-				pDetection->Report();
 				BanRequest::GetInstance()->AddAsyncBan(player, 0, "Banned by NoCheatZ 4");
 			}
 			break;
@@ -323,8 +305,6 @@ unexpected:
 	}
 	
 	req->isSent = false;
-	CNoCheatZPlugin::GetInstance()->ncz_frame.EndExec();
-	m_metrics.EndExec();
 	return;
 unexpected2:
 	if(HasVerbose()) Msg("%f : Was expecting eQueryCvarValueStatus_ValueIntact\n", Plat_FloatTime());
@@ -332,10 +312,7 @@ unexpected2:
 	pDetection->PrepareDetectionData(req);
 	pDetection->PrepareDetectionLog(player, this);
 	pDetection->Log();
-	pDetection->Report();
 	BanRequest::GetInstance()->AddAsyncBan(player, 0, "Banned by NoCheatZ 4");
-	CNoCheatZPlugin::GetInstance()->ncz_frame.EndExec();
-	m_metrics.EndExec();
 }
 
 void ConVarTester::Load()
@@ -402,12 +379,6 @@ void ConVarTester::Load()
 	AddConvarRuleset("byp_render_rdp", "", NO_VALUE);
 	AddConvarRuleset("byp_fake_lag", "", NO_VALUE);
 	AddConvarRuleset("byp_fake_loss", "", NO_VALUE);
-
-	CurrentConVarRequestT* default_req = GetDefaultDataStruct();
-	default_req->isSent = false;
-	default_req->isReplyed = false;
-	default_req->ruleset = FindConvarRuleset("developer");
-	default_req->timeStart = 0.0;
 
 	BaseFramedTester::RegisterFramedTester(this);
 }

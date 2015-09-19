@@ -4,6 +4,27 @@ std::list<TeleportHookListener*> TeleportHookListener::m_listeners;
 Teleport_t TeleportHookListener::gpOldTeleportFn = nullptr;
 DWORD* TeleportHookListener::pdwInterface = nullptr;
 
+//https://www.sourcemodplugins.org/vtableoffsets
+// CBaseFlex::Teleport(Vector const*, QAngle const*, Vector const*)
+
+#ifdef NCZ_CSS
+#	ifdef GNUC
+#		define DEFAULT_TELEPORT_OFFSET "109"
+#	else
+#		define DEFAULT_TELEPORT_OFFSET "108"
+#	endif
+#else
+#	ifdef NCZ_CSGO
+
+#	else
+#		ifdef NCZ_CSP
+
+#		endif
+#	endif
+#endif
+
+ConVar var_teleport_offset = ConVar( "ncz_teleport_offset",	DEFAULT_TELEPORT_OFFSET);
+
 TeleportHookListener::TeleportHookListener()
 {
 }
@@ -23,7 +44,7 @@ void TeleportHookListener::HookTeleport(NczPlayer* player)
 	{
 		pdwInterface = ( DWORD* )*( DWORD* )BasePlayer;
 
-		DWORD OldFunc = VirtualTableHook(pdwInterface, Config::GetInstance()->GetVTable()->Offset_teleport, ( DWORD )nTeleport);
+		DWORD OldFunc = VirtualTableHook(pdwInterface, var_teleport_offset.GetInt(), ( DWORD )nTeleport);
 		*(DWORD*)&(gpOldTeleportFn) = OldFunc;
 	}
 }
@@ -32,7 +53,7 @@ void TeleportHookListener::UnhookTeleport()
 {
 	if(pdwInterface && gpOldTeleportFn)
 	{
-		VirtualTableHook(pdwInterface, Config::GetInstance()->GetVTable()->Offset_teleport, (DWORD)gpOldTeleportFn);
+		VirtualTableHook(pdwInterface, var_teleport_offset.GetInt(), (DWORD)gpOldTeleportFn);
 		pdwInterface = nullptr;
 		gpOldTeleportFn = nullptr;
 	}
@@ -44,25 +65,14 @@ void TeleportHookListener::nTeleport(CBaseFlex * basePlayer, Vector const* va, Q
 void HOOKFN_INT TeleportHookListener::nTeleport(CBaseFlex * basePlayer, void*, Vector const* va, QAngle const* qa, Vector const* vb)
 #endif
 {
-#ifdef WIN32
-	__asm pushad;
-#else
-	//__asm("pusha");
-#endif
-
 	PlayerHandler* ph = NczPlayerManager::GetInstance()->GetPlayerHandlerByBasePlayer(basePlayer);
 
-	if(ph->status == BOT) goto callteleportfn;
+	if(ph->status != BOT)
+	{
+		for(std::list<TeleportHookListener*>::iterator it = m_listeners.begin(); it != m_listeners.end(); ++it)
+			(*it)->TeleportCallback(ph->playerClass, va, qa, vb);
+	}
 
-	for(std::list<TeleportHookListener*>::iterator it = m_listeners.begin(); it != m_listeners.end(); ++it)
-		(*it)->TeleportCallback(ph->playerClass, va, qa, vb);
-
-callteleportfn:
-#ifdef WIN32
-	__asm popad;
-#else
-	//__asm("popa");
-#endif
 	gpOldTeleportFn(basePlayer, va, qa, vb);
 }
 

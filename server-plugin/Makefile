@@ -3,7 +3,7 @@ GAME = CSS
 PROJECT = server-plugin
 
 ifeq "$(GAME)" "CSS"
-	SDK_VERSION = sdk-source-2013-valve
+	SDK_VERSION = source-sdk-2013/mp/src
 	SDK_DEF = -DCSTRIKE_DLL -DNO_MALLOC_OVERRIDE -DGNUC -DPOSIX -DCOMPILER_GCC
 endif
 ifeq "$(GAME)" "CSP"

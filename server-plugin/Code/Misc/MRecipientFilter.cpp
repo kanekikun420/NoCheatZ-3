@@ -40,7 +40,7 @@ void MRecipientFilter::AddAllPlayers(int maxClients)
     m_Recipients.RemoveAll();
     for ( int i = 1; i <= maxClients; i++ )
     {
-        edict_t *pPlayer = Helpers::PEntityOfEntIndex(i);
+        edict_t *pPlayer = CIFaceManager::GetInstance()->GetIengine()->PEntityOfEntIndex(i);
         if ( !pPlayer || pPlayer->IsFree())
             continue;
         //AddRecipient( pPlayer );

@@ -2,7 +2,6 @@
 #include "engine/iserverplugin.h"
 #include "tier1/tier1.h"
 #include "Misc/temp_Singleton.h"
-#include "Systems/Pipeline/http.h"
 
 #ifndef CNOCHEATZ_PLUGIN
 #define CNOCHEATZ_PLUGIN
@@ -46,8 +45,6 @@ public:
 	CNoCheatZPlugin();
 	~CNoCheatZPlugin();
 
-	Metrics game_frame;
-	Metrics ncz_frame;
 private:
 	CNoCheatZPlugin(const CNoCheatZPlugin & toCopy);
 	CNoCheatZPlugin & operator =(const CNoCheatZPlugin & toCopy);

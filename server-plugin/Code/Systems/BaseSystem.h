@@ -12,7 +12,6 @@
 #include "Preprocessors.h"
 #include "Misc/Helpers.h"
 #include "Players/NczPlayerManager.h"
-#include "Misc/Metrics.h"
 
 #ifndef BASESYSTEM
 #define BASESYSTEM
@@ -39,7 +38,7 @@ public:
 	virtual const char * cmd_list () {return "enable\ndisable\nor verbose\n";};
 
 	/* Donne le nom du système pour pouvoir être identifié dans la console */
-	virtual const char * GetName() {return "BaseSystem";};
+	const char * GetName() const {return m_name;};
 
 	/* Process Load when m_isActive changes to true
 	      "    Unload when m_isActive changes to false */
@@ -48,35 +47,27 @@ public:
 	/* Must be used before all processing operations */
 	bool IsActive() const {return m_isActive;};
 
-	bool IsDisabledByMaster() const {return m_isDisabled;};
-
 	/* Retourne vrai si le fichier de configuration dit d'activer ce système */
 	bool IsEnabledByConfig() const {return m_configState;};
-
-	/* Used by remote config to disable the system
-	   If system is disabled, try to unload it
-	   and make it unable to Load() */
-	void SetDisabled(bool disabled);
 
 	void SetConfig(bool enabled){m_configState = enabled;};
 	
 	/* Used for debugging */
 	void SetVerbose(bool verbose);
-	bool HasVerbose() {return m_verbose;};
+	bool HasVerbose() const {return m_verbose;};
 
-	Metrics m_metrics;
+protected:
+	const char* m_name;
+
 private: // called by SetActive()
 	virtual void Load() = 0; // Defined by child, attach to callbacks
 	virtual void Unload() = 0; // Defined by child, unregister from callbacks
 
-private:
 	bool m_isActive;
 	bool m_isDisabled;
 	bool m_configState;
 	bool m_verbose;
 	static std::list<BaseSystem*> m_systemsList;
 };
-
-void LoadTestersByConfig();
 
 #endif

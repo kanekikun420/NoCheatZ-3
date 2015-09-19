@@ -8,11 +8,7 @@ JumpTester::JumpTester() :
 	PlayerDataStructHandler<JumpInfoT>(),
 	Singleton<JumpTester>()
 {
-}
-
-const char * JumpTester::GetName()
-{
-	return "JumpTester";
+	m_name = "JumpTester";
 }
 
 JumpTester::~JumpTester()
@@ -48,7 +44,6 @@ void JumpTester::Unload()
 
 void JumpTester::m_hGroundEntityStateChangedCallback(NczPlayer* player, bool new_isOnGround)
 {
-	m_metrics.StartExec();
 	JumpInfoT* playerData = GetPlayerDataStruct(player);
 
 	if(new_isOnGround)
@@ -70,7 +65,6 @@ void JumpTester::m_hGroundEntityStateChangedCallback(NczPlayer* player, bool new
 			pDetection->PrepareDetectionData(playerData);
 			pDetection->PrepareDetectionLog(player, this);
 			pDetection->Log();
-			pDetection->Report();
 
 			player->Ban("[NoCheatZ 4] You have been banned for using BunnyHop on this server.");
 		}
@@ -83,7 +77,6 @@ void JumpTester::m_hGroundEntityStateChangedCallback(NczPlayer* player, bool new
 		playerData->isOnGround = false;
 		if(HasVerbose()) Msg("%f %d : Now not on ground\n", Plat_FloatTime(), CIFaceManager::GetInstance()->GetGlobals()->tickcount);
 	}
-	m_metrics.EndExec();
 }
 
 void JumpTester::ProcessPlayerTest(NczPlayer* player)
@@ -93,7 +86,6 @@ void JumpTester::ProcessPlayerTest(NczPlayer* player)
 
 bool JumpTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd)
 {
-	m_metrics.StartExec();
 	bool drop_cmd = false;
 
 	JumpInfoT* playerData = GetPlayerDataStruct(player);
@@ -134,7 +126,6 @@ bool JumpTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd)
 		playerData->jumpCmdHolder.JumpUp_Tick = CIFaceManager::GetInstance()->GetGlobals()->tickcount;
 		if(HasVerbose()) Msg("%f %d : Now not using jump button\n", Plat_FloatTime(), CIFaceManager::GetInstance()->GetGlobals()->tickcount);
 	}
-	m_metrics.EndExec();
 	return drop_cmd;
 }
 

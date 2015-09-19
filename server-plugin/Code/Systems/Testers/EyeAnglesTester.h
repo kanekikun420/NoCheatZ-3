@@ -35,9 +35,9 @@ typedef struct EyeAngleInfo
 	EyeAngleT z;
 } EyeAngleInfoT;
 
-class Detection_EyeAngle : public ReportDetection<EyeAngleInfoT>
+class Detection_EyeAngle : public LogDetection<EyeAngleInfoT>
 {
-	typedef ReportDetection<EyeAngleInfoT> hClass;
+	typedef LogDetection<EyeAngleInfoT> hClass;
 public:
 	Detection_EyeAngle() : hClass() {};
 	~Detection_EyeAngle(){};
@@ -86,7 +86,6 @@ public:
 
 	virtual void Load();
 	virtual void Unload();
-	virtual const char * GetName();
 	virtual SlotStatus GetFilter();
 	virtual bool PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd);
 	virtual void FireGameEvent(IGameEvent *ev);

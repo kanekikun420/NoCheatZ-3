@@ -133,7 +133,7 @@ namespace Helpers
 		}
 	}
 
-	// At this point, steamid if from a valid human player.
+	// At this point, steamid is from a valid human player.
 	edict_t * getEdictFromSteamID(const char *SteamID)
 	{
 		Assert(!bStrEq(SteamID, "STEAM_ID_PENDING"));
@@ -142,7 +142,8 @@ namespace Helpers
 		const int imax = m_clientMax;
 		for(int i = 1; i <= imax; i++)
 		{
-			edict_t* pEntity = PEntityOfEntIndex(i);
+			//edict_t* pEntity = PEntityOfEntIndex(i);
+			edict_t* pEntity = CIFaceManager::GetInstance()->GetIengine()->PEntityOfEntIndex(i);
 			// FIXME : Size of steamid is no more 8 digits.
 			if(bStrEq(CIFaceManager::GetInstance()->GetIengine()->GetPlayerNetworkIDString(pEntity), SteamID, 8))
 			{
@@ -158,14 +159,18 @@ namespace Helpers
 		Assert(!bStrEq(SteamID, "STEAM_ID_PENDING"));
 		Assert(!bStrEq(SteamID, "STEAM_ID_LAN"));
 		Assert(!bStrEq(SteamID, "BOT"));
-		return IndexOfEdict(getEdictFromSteamID(SteamID));
+		//return 
+		return CIFaceManager::GetInstance()->GetIengine()->IndexOfEdict(getEdictFromSteamID(SteamID));
 	}
+
+	/*
+	Use engineserver interface instead
 
 	edict_t * PEntityOfEntIndex(const int iEntIndex)
 	{
 		Assert(m_EdictList);
 		return (edict_t *)(m_EdictList + iEntIndex);
-	}
+	}*/
 
 	const unsigned char * FastScan_Internal(SigInst instructions)
 	{
@@ -268,19 +273,23 @@ namespace Helpers
 		m_edictCount = *(int*)((*addr)-0x4);
 	}
 
+	/*
+	Use engineserver interface instead
+
 	int IndexOfEdict(const edict_t *pEdict)
 	{
 		Assert(pEdict);
 		Assert(m_EdictList);
 		return (int)(pEdict - m_EdictList);
 	}
+	*/
 
 	int GetPlayerCount()
 	{
 		int count = 0;
 		for(int index = 1; index <= 64; ++index)
 		{
-			edict_t * pEdict = PEntityOfEntIndex(index);
+			edict_t * pEdict = CIFaceManager::GetInstance()->GetIengine()->PEntityOfEntIndex(index);
 			if(!isValidEdict(pEdict)) continue;
 			const char * steamid = CIFaceManager::GetInstance()->GetIengine()->GetPlayerNetworkIDString(pEdict);
 			if(!steamid) continue;
@@ -326,9 +335,10 @@ namespace Helpers
 		return x;
 	}
 
-	int abs(int value)
+	int abs(const int value)
 	{
-		if((value>>31) & (0x1)) return (~value)+1;
+		//if((value>>31) & 1) return (~value)+1; Unsafe
+		if(value < 0) return value*-1;
 		return value;
 	}
 
@@ -340,7 +350,7 @@ namespace Helpers
 
 	int getIndexFromUserID(const int userid)
 	{
-		for(int i = 0; i <= 65; i++)
+		for(int i = 0; i <= CIFaceManager::GetInstance()->GetIengine()->GetEntityCount(); i++)
 		{
 			if(CIFaceManager::GetInstance()->GetIengine()->GetPlayerUserId(m_EdictList+i) == userid)
 			{
@@ -367,7 +377,7 @@ void Helpers::tell(edict_t *pEntity, const std::string& message)
 		if (player->IsConnected())
 		{
 			MRecipientFilter filter;
-			filter.AddRecipient(IndexOfEdict(pEntity));
+			filter.AddRecipient(CIFaceManager::GetInstance()->GetIengine()->IndexOfEdict(pEntity));
 			bf_write *pBuffer = CIFaceManager::GetInstance()->GetIengine()->UserMessageBegin( &filter, 3 );
 			pBuffer->WriteByte( 0 );
 			pBuffer->WriteString(message.c_str());
@@ -381,8 +391,8 @@ void Helpers::noTell(const edict_t *pEntity, const std::string& msg)
 	bf_write *pBuffer = CIFaceManager::GetInstance()->GetIengine()->UserMessageBegin( &filter, 3 );
 	for (int i=1; i <= CIFaceManager::GetInstance()->GetGlobals()->maxClients; i++)
 	{
-		IPlayerInfo *player = CIFaceManager::GetInstance()->GetIplayers()->GetPlayerInfo(Helpers::PEntityOfEntIndex(i));
-		if(Helpers::PEntityOfEntIndex(i) == pEntity) continue;
+		IPlayerInfo *player = CIFaceManager::GetInstance()->GetIplayers()->GetPlayerInfo(CIFaceManager::GetInstance()->GetIengine()->PEntityOfEntIndex(i));
+		if(CIFaceManager::GetInstance()->GetIengine()->PEntityOfEntIndex(i) == pEntity) continue;
 
 		if (player)
 		{
@@ -403,7 +413,7 @@ void Helpers::chatmsg(const std::string& msg)
 	bf_write *pBuffer = CIFaceManager::GetInstance()->GetIengine()->UserMessageBegin( &filter, 3 );
 	for (int i=1; i <= CIFaceManager::GetInstance()->GetGlobals()->maxClients; i++)
 	{
-		IPlayerInfo *player = CIFaceManager::GetInstance()->GetIplayers()->GetPlayerInfo(Helpers::PEntityOfEntIndex(i));
+		IPlayerInfo *player = CIFaceManager::GetInstance()->GetIplayers()->GetPlayerInfo(CIFaceManager::GetInstance()->GetIengine()->PEntityOfEntIndex(i));
 
 		if (player)
 		{

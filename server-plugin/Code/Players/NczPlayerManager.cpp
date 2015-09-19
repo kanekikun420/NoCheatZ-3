@@ -42,7 +42,7 @@ void NczPlayerManager::LoadPlayerManager()
 	{
 		PLAYERS_LOOP_RUNTIME
 		{
-			edict_t* pEntity = Helpers::PEntityOfEntIndex(x);
+			edict_t* pEntity = CIFaceManager::GetInstance()->GetIengine()->PEntityOfEntIndex(x);
 			Assert(CIFaceManager::GetInstance()->GetIplayers());
 			if(CIFaceManager::GetInstance()->GetIplayers()->GetPlayerInfo(pEntity))
 			{
@@ -65,7 +65,7 @@ void NczPlayerManager::LoadPlayerManager()
 
 void NczPlayerManager::ClientConnect(edict_t* pEntity)
 {
-	short index = Helpers::IndexOfEdict(pEntity);
+	short index = CIFaceManager::GetInstance()->GetIengine()->IndexOfEdict(pEntity);
 	if(index > 0)
 	{
 		if(FullHandlersList[index].status == INVALID)
@@ -80,7 +80,7 @@ void NczPlayerManager::ClientConnect(edict_t* pEntity)
 
 void NczPlayerManager::ClientActive(edict_t* pEntity)
 {
-	short index = Helpers::IndexOfEdict(pEntity);
+	short index = CIFaceManager::GetInstance()->GetIengine()->IndexOfEdict(pEntity);
 	if(index > 0)
 	{
 		if(FullHandlersList[index].status == INVALID)
@@ -94,7 +94,7 @@ void NczPlayerManager::ClientActive(edict_t* pEntity)
 
 void NczPlayerManager::ClientDisconnect(edict_t* pEntity)
 {
-	short index = Helpers::IndexOfEdict(pEntity);
+	short index = CIFaceManager::GetInstance()->GetIengine()->IndexOfEdict(pEntity);
 	if(index > 0)
 	{
 		if(FullHandlersList[index].status > INVALID)

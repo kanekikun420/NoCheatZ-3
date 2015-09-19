@@ -14,9 +14,9 @@ BaseTimedTester::BaseTimedTester(double time, TimeBase timeBase) : BaseFramedTes
 	m_timeBase = timeBase;
 }
 
-double BaseTimedTester::GetTime()
+double BaseTimedTester::GetTesterTime() const
 {
-	if(m_timeBase == GAME)
+	if(this->m_timeBase == GAME)
 	{
 		return (double)(CIFaceManager::GetInstance()->GetIengine()->Time());
 	}

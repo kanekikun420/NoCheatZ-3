@@ -24,10 +24,32 @@ typedef enum ConVarRule
 
 typedef struct ConVarInfo
 {
-	const char * name;
-	const char * value;
+	char name[64];
+	char value[64];
 	ConVarRuleT rule;
 	bool safe;
+
+	ConVarInfo()
+	{
+		*name='\0';
+		*value='\0';
+		rule=SAME;
+		safe=false;
+	};
+	ConVarInfo(const char* pname, const char* pvalue, ConVarRuleT prule, bool psafe)
+	{
+		strcpy(name, pname);
+		strcpy(value, pvalue);
+		rule=prule;
+		safe=psafe;
+	};
+	ConVarInfo(const ConVarInfo& other)
+	{
+		strcpy(name, other.name);
+		strcpy(value, other.value);
+		rule=other.rule;
+		safe=other.safe;
+	};
 } ConVarInfoT;
 
 typedef struct CurrentConVarRequest
@@ -36,11 +58,14 @@ typedef struct CurrentConVarRequest
 	bool isReplyed;
 	double timeStart;
 	ConVarInfoT* ruleset;
+
+	CurrentConVarRequest(){isSent=false;isReplyed=false;timeStart=0.0;ruleset=nullptr;};
+	CurrentConVarRequest(const CurrentConVarRequest& other){isSent=other.isSent;isReplyed=other.isReplyed;timeStart=other.timeStart;ruleset=other.ruleset;};
 } CurrentConVarRequestT;
 
-class Detection_ConVar : public ReportDetection<CurrentConVarRequestT>
+class Detection_ConVar : public LogDetection<CurrentConVarRequestT>
 {
-	typedef ReportDetection<CurrentConVarRequestT> hClass;
+	typedef LogDetection<CurrentConVarRequestT> hClass;
 public:
 	Detection_ConVar() : hClass() {};
 	~Detection_ConVar(){};
@@ -69,8 +94,6 @@ public:
 	virtual void ProcessPlayerTest(NczPlayer* player);
 
 	virtual SlotStatus GetFilter();
-
-	virtual const char * GetName();
 
 	virtual bool sys_cmd_fn ( const CCommand &args );
 

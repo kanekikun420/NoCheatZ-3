@@ -7,7 +7,7 @@ void BanRequest::SetWaitTime(double wait_time)
 
 void BanRequest::AddAsyncBan(NczPlayer* player, int ban_time, const char * kick_message)
 {
-	if (Config::GetInstance()->GetConfigData()->kick_ban)
+//	if (Config::GetInstance()->GetConfigData()->kick_ban)
 	{
 		PlayerBanRequestT* req = new PlayerBanRequestT;
 		req->ban_time = ban_time;

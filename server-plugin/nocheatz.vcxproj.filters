@@ -172,9 +172,6 @@
     <ClInclude Include="Code\Systems\Testers\Detections\temp_BaseDetection.h">
       <Filter>Code\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Misc\temp_BaseQueue.h">
-      <Filter>Code\Misc</Filter>
-    </ClInclude>
     <ClInclude Include="Code\Misc\MRecipientFilter.h">
       <Filter>Code\Misc</Filter>
     </ClInclude>
@@ -204,19 +201,22 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\sdk-source-2013-valve\lib\public\vstdlib.lib">
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\mathlib.lib">
       <Filter>Link Libraries</Filter>
     </Library>
-    <Library Include="..\sdk-source-2013-valve\lib\public\mathlib.lib">
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\raytrace.lib">
       <Filter>Link Libraries</Filter>
     </Library>
-    <Library Include="..\sdk-source-2013-valve\lib\public\raytrace.lib">
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\tier0.lib">
       <Filter>Link Libraries</Filter>
     </Library>
-    <Library Include="..\sdk-source-2013-valve\lib\public\tier0.lib">
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\tier1.lib">
       <Filter>Link Libraries</Filter>
     </Library>
-    <Library Include="..\sdk-source-2013-valve\lib\public\tier1.lib">
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\tier2.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\vstdlib.lib">
       <Filter>Link Libraries</Filter>
     </Library>
   </ItemGroup>

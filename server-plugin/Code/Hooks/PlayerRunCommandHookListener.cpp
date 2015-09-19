@@ -10,6 +10,27 @@ DWORD* PlayerRunCommandHookListener::pdwInterface = nullptr;
 std::list<PlayerRunCommandHookListener*> PlayerRunCommandHookListener::m_listeners;
 CUserCmd PlayerRunCommandHookListener::m_lastCUserCmd[MAX_PLAYERS];
 
+//https://www.sourcemodplugins.org/vtableoffsets
+// CCSPlayer::PlayerRunCommand(CUserCmd*, IMoveHelper*)
+
+#ifdef NCZ_CSS
+#	ifdef GNUC
+#		define DEFAULT_RUNCOMMAND_OFFSET "419" // ??
+#	else
+#		define DEFAULT_RUNCOMMAND_OFFSET "419" // It is 418 in the link above, actually the real value is 419 ... well ...
+#	endif
+#else
+#	ifdef NCZ_CSGO
+
+#	else
+#		ifdef NCZ_CSP
+
+#		endif
+#	endif
+#endif
+
+ConVar var_runcommand_offset = ConVar( "ncz_runcommand_offset",	DEFAULT_RUNCOMMAND_OFFSET);
+
 PlayerRunCommandHookListener::PlayerRunCommandHookListener()
 {
 	memset(m_lastCUserCmd, 0, sizeof(CUserCmd)*MAX_PLAYERS);
@@ -34,8 +55,9 @@ void PlayerRunCommandHookListener::HookPlayerRunCommand(NczPlayer* player)
 	if(pdwInterface != ( DWORD* )*( DWORD* )BasePlayer)
 	{
 		pdwInterface = ( DWORD* )*( DWORD* )BasePlayer;
+		Msg("-------> %x\n%x\n", BasePlayer, pdwInterface);
 
-		DWORD OldFunc = VirtualTableHook(pdwInterface, Config::GetInstance()->GetVTable()->Offset_playerRunCommand, (DWORD)nPlayerRunCommand );
+		DWORD OldFunc = VirtualTableHook(pdwInterface, var_runcommand_offset.GetInt(), (DWORD)nPlayerRunCommand );
 		*(DWORD*)&(gpOldPlayerRunCommand) = OldFunc;
 	}
 }
@@ -44,7 +66,7 @@ void PlayerRunCommandHookListener::UnhookPlayerRunCommand()
 {
 	if(pdwInterface && gpOldPlayerRunCommand)
 	{
-		VirtualTableHook(pdwInterface, Config::GetInstance()->GetVTable()->Offset_playerRunCommand, (DWORD)gpOldPlayerRunCommand);
+		VirtualTableHook(pdwInterface, var_runcommand_offset.GetInt(), (DWORD)gpOldPlayerRunCommand);
 		pdwInterface = nullptr;
 		gpOldPlayerRunCommand = nullptr;
 	}
@@ -56,58 +78,21 @@ void PlayerRunCommandHookListener::nPlayerRunCommand(void* This, CUserCmd* pCmd,
 void HOOKFN_INT PlayerRunCommandHookListener::nPlayerRunCommand(void* This, void*, CUserCmd* pCmd, IMoveHelper* pMoveHelper)
 #endif
 {
-#ifdef WIN32
-	__asm push eax;
-	__asm push esi;
-	__asm push ecx;
-#else
-	//__asm("pusha");
-#endif
-	CNoCheatZPlugin::GetInstance()->game_frame.EndExec();
-	CNoCheatZPlugin::GetInstance()->ncz_frame.StartExec();
 	PlayerHandler* ph = NczPlayerManager::GetInstance()->GetPlayerHandlerByBasePlayer(This);
-	if(ph->status != PLAYER_IN_TESTS) goto callfn;
-
-	for(std::list<PlayerRunCommandHookListener*>::iterator it = m_listeners.begin(); it != m_listeners.end(); ++it)
+	if(ph->status == PLAYER_IN_TESTS)
 	{
-		if((*it)->PlayerRunCommandCallback(ph->playerClass, pCmd))
+		m_lastCUserCmd[ph->playerClass->GetIndex()] = *pCmd;
+		for(std::list<PlayerRunCommandHookListener*>::iterator it = m_listeners.begin(); it != m_listeners.end(); ++it)
 		{
-			m_lastCUserCmd[ph->playerClass->GetIndex()] = *pCmd;
-			pCmd->MakeInert();
-			goto callfn;
+			if((*it)->PlayerRunCommandCallback(ph->playerClass, pCmd))
+			{
+				pCmd->MakeInert();
+				break;
+			}
 		}
 	}
 
-	m_lastCUserCmd[ph->playerClass->GetIndex()] = *pCmd;
-
-callfn:
-	CNoCheatZPlugin::GetInstance()->ncz_frame.EndExec();
-	CNoCheatZPlugin::GetInstance()->game_frame.StartExec();
-#ifdef WIN32
-	__asm pop eax;
-	__asm pop esi;
-	__asm pop ecx;
-
-	__asm mov eax, dword ptr [pMoveHelper];
-	__asm push eax;
-	__asm mov esi, dword ptr [pCmd];
-	__asm push esi;
-	__asm mov ecx, dword ptr [This];
-	__asm call gpOldPlayerRunCommand;
-#else
-	//__asm("popa");
-
 	gpOldPlayerRunCommand(This, pCmd, pMoveHelper);
-	/*union {
-		void (EmptyClass::*mfpnew)(CUserCmd*, IMoveHelper*);
-		void* fn_addr;
-	} u;
-	u.fn_addr = (void*)gpOldPlayerRunCommand;
-	
-	(reinterpret_cast<EmptyClass*>(This)->*(u.mfpnew))(pCmd, pMoveHelper);*/
-
-	return;
-#endif
 }
 
 void PlayerRunCommandHookListener::RegisterPlayerRunCommandHookListener(PlayerRunCommandHookListener* listener)

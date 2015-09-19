@@ -12,30 +12,26 @@ class PlayerDataStructHandler :
 public:
 	PlayerDataStructHandler() : BaseClass()
 	{
-		memset(m_dataStruct, 0, sizeof(m_dataStruct));
+		memset(this->m_dataStruct, 0, sizeof(this->m_dataStruct));
 	};
 	~PlayerDataStructHandler(){};
 
 	DataT* GetDefaultDataStruct()
 	{
-		return (DataT*)&(m_dataStruct[0]);
+		return (DataT*)&(this->m_dataStruct[0]);
 	};
 
 	DataT* GetPlayerDataStruct(NczPlayer * player)
 	{
 		Assert(player);
-		return (DataT*)(&m_dataStruct[player->GetIndex()]);
+		return (DataT*)(&(this->m_dataStruct[player->GetIndex()]));
 	};
 
 	void ResetPlayerDataStruct(NczPlayer * player)
 	{
 		Assert(player);
-		m_dataStruct[player->GetIndex()] = *GetDefaultDataStruct();
+		this->m_dataStruct[player->GetIndex()] = *GetDefaultDataStruct();
 	};
-
-#ifdef GNUC
-	DataT m_dataStruct[MAX_PLAYERS];
-#endif
 };
 
 #endif

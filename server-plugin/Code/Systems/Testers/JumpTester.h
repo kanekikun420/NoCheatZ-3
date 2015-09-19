@@ -10,7 +10,6 @@
 #include "Systems/BaseSystem.h"
 #include "Hooks/OnGroundHookListener.h"
 #include "Hooks/PlayerRunCommandHookListener.h"
-#include "Systems/Pipeline/Pipeline.h"
 
 /////////////////////////////////////////////////////////////////////////
 // JumpTester
@@ -61,9 +60,9 @@ public:
 	};
 };
 
-class Detection_BunnyHopProgram : public ReportDetection<JumpInfoT>
+class Detection_BunnyHopProgram : public LogDetection<JumpInfoT>
 {
-	typedef ReportDetection<JumpInfoT> hClass;
+	typedef LogDetection<JumpInfoT> hClass;
 public:
 	Detection_BunnyHopProgram() : hClass() {};
 	~Detection_BunnyHopProgram(){};
@@ -89,7 +88,6 @@ public:
 
 	virtual void Load();
 	virtual void Unload();
-	virtual const char * GetName();
 	virtual bool PlayerRunCommandCallback(NczPlayer* player, CUserCmd* cmd);
 	virtual void m_hGroundEntityStateChangedCallback(NczPlayer* player, bool new_isOnGround);
 	virtual void ProcessPlayerTest(NczPlayer* player);
