@@ -17,6 +17,7 @@ ConVarTester::ConVarTester() :
 
 ConVarTester::~ConVarTester()
 {
+	Unload();
 }
 
 SlotStatus ConVarTester::GetFilter()

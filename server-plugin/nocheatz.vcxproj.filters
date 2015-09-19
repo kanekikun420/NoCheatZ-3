@@ -39,11 +39,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Res\tohash.txt">
-      <Filter>Resources</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Code\plugin.cpp">
       <Filter>Code</Filter>
     </ClCompile>

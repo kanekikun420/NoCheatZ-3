@@ -55,7 +55,10 @@ void PlayerRunCommandHookListener::HookPlayerRunCommand(NczPlayer* player)
 	if(pdwInterface != ( DWORD* )*( DWORD* )BasePlayer)
 	{
 		pdwInterface = ( DWORD* )*( DWORD* )BasePlayer;
-		Msg("-------> %x\n%x\n", BasePlayer, pdwInterface);
+
+#		ifdef DEBUG
+		Msg("PlayerRunCommandHookListener::HookPlayerRunCommand(NczPlayer* player)\n- var_runcommand_offset.GetInt() = %d\n- BasePlayer = %X\n- pdwInterface = %X\n", var_runcommand_offset.GetInt(), BasePlayer, pdwInterface);
+#		endif
 
 		DWORD OldFunc = VirtualTableHook(pdwInterface, var_runcommand_offset.GetInt(), (DWORD)nPlayerRunCommand );
 		*(DWORD*)&(gpOldPlayerRunCommand) = OldFunc;

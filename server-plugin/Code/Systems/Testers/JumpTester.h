@@ -21,6 +21,17 @@ typedef struct OnGroundHolder
 	int notOnGround_Tick;
 
 	int jumpCount;
+
+	OnGroundHolder()
+	{
+		onGround_Tick = notOnGround_Tick = jumpCount = 0;
+	};
+	OnGroundHolder(const OnGroundHolder& other)
+	{
+		onGround_Tick = other.onGround_Tick;
+		notOnGround_Tick = other.notOnGround_Tick;
+		jumpCount = other.jumpCount;
+	};
 } OnGroundHolderT;
 
 typedef struct JumpCmdHolder
@@ -30,7 +41,20 @@ typedef struct JumpCmdHolder
 	int JumpDown_Tick;
 	int JumpUp_Tick;
 
-	int outsideJumpCmdCount;
+	int outsideJumpCmdCount; // Jumps made while the player doesn't touch the ground
+
+	JumpCmdHolder()
+	{
+		lastJumpCmdState = false;
+		JumpDown_Tick = JumpUp_Tick = outsideJumpCmdCount = 0;
+	};
+	JumpCmdHolder(const JumpCmdHolder& other)
+	{
+		lastJumpCmdState = other.lastJumpCmdState;
+		JumpDown_Tick = other.JumpDown_Tick;
+		JumpUp_Tick = other.JumpUp_Tick;
+		outsideJumpCmdCount = other.outsideJumpCmdCount;
+	};
 } JumpCmdHolderT;
 
 typedef struct JumpInfo
@@ -44,6 +68,24 @@ typedef struct JumpInfo
 	int perfectBhopsCount;
 
 	bool isOnGround;
+
+	JumpInfo()
+	{
+		onGroundHolder = OnGroundHolder();
+		jumpCmdHolder = JumpCmdHolder();
+		total_bhopCount = goodBhopsCount = perfectBhopsPercent = perfectBhopsCount = 0;
+		isOnGround = false;
+	};
+	JumpInfo(const JumpInfo& other)
+	{
+		onGroundHolder = other.onGroundHolder;
+		jumpCmdHolder = other.jumpCmdHolder;
+		total_bhopCount = other.total_bhopCount;
+		goodBhopsCount = other.goodBhopsCount;
+		perfectBhopsPercent = other.perfectBhopsPercent;
+		perfectBhopsCount = other.perfectBhopsCount;
+		isOnGround = other.isOnGround;
+	};
 } JumpInfoT;
 
 class Detection_BunnyHopScript : public LogDetection<JumpInfoT>

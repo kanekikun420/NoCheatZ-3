@@ -9,6 +9,8 @@ class BaseDataStructHandler
 public:
 	BaseDataStructHandler()
 	{
+		for(int x = 0; x < MAX_ELEM; ++x)
+			m_dataStruct[x] = DataT();
 	};
 	~BaseDataStructHandler()
 	{
@@ -18,13 +20,15 @@ public:
 	{
 		if(src)
 		{
-			size_t index = 0;
-			for(; index < MAX_ELEM; ++index)
-				memcpy(&(m_dataStruct[index]), src, sizeof(DataT));
+			for(size_t index = 0; index < MAX_ELEM; ++index)
+				m_dataStruct[index] = *src;
 		}
 		else
 		{
-			memset(m_dataStruct, 0, sizeof(m_dataStruct));
+			for(int x = 0; x < MAX_ELEM; ++x)
+			{
+				m_dataStruct[x] = DataT();
+			}
 		}
 	};
 
@@ -37,7 +41,8 @@ protected:
 
 	void ResetDataStruct(const int elem)
 	{
-		memset(GetDataStruct(elem), 0, sizeof(DataT));
+		Assert(elem < MAX_ELEM && elem >= 0);
+		m_dataStruct[elem] = DataT();
 	};
 
 protected:

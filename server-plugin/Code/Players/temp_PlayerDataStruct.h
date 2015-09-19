@@ -12,14 +12,8 @@ class PlayerDataStructHandler :
 public:
 	PlayerDataStructHandler() : BaseClass()
 	{
-		memset(this->m_dataStruct, 0, sizeof(this->m_dataStruct));
 	};
 	~PlayerDataStructHandler(){};
-
-	DataT* GetDefaultDataStruct()
-	{
-		return (DataT*)&(this->m_dataStruct[0]);
-	};
 
 	DataT* GetPlayerDataStruct(NczPlayer * player)
 	{
@@ -30,7 +24,7 @@ public:
 	void ResetPlayerDataStruct(NczPlayer * player)
 	{
 		Assert(player);
-		this->m_dataStruct[player->GetIndex()] = *GetDefaultDataStruct();
+		this->m_dataStruct[player->GetIndex()] = DataT();
 	};
 };
 

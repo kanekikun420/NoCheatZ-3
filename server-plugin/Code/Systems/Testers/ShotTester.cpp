@@ -12,7 +12,7 @@ ShotTester::ShotTester(void) :
 
 ShotTester::~ShotTester(void)
 {
-	
+	Unload();
 }
 
 SlotStatus ShotTester::GetFilter()
@@ -22,7 +22,6 @@ SlotStatus ShotTester::GetFilter()
 
 void ShotTester::Load()
 {
-	memset(GetDefaultDataStruct(), 0, sizeof(ShotStatsT));
 	PlayerRunCommandHookListener::RegisterPlayerRunCommandHookListener(this);
 }
 

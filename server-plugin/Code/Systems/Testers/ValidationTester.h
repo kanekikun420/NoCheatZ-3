@@ -11,11 +11,25 @@
 // ValidationTester
 /////////////////////////////////////////////////////////////////////////
 
+typedef struct ValidationInfo
+{
+	bool b;
+
+	ValidationInfo()
+	{
+		b = false;
+	};
+	ValidationInfo(const ValidationInfo& other)
+	{
+		b = other.b;
+	};
+} ValidationInfoT;
+
 class ValidationTester :
 	public BaseSystem,
 	public NczFilteredPlayersList,
 	public BaseTimedTester,
-	public PlayerDataStructHandler<bool>,
+	public PlayerDataStructHandler<ValidationInfoT>,
 	public Singleton<ValidationTester>
 {
 public:

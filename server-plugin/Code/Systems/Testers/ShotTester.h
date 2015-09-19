@@ -25,6 +25,18 @@ typedef struct ShotStatHandler
 	size_t n;
 	double avg_time;
 	double ratio;
+
+	ShotStatHandler()
+	{
+		n = 0;
+		avg_time = ratio = 0.0;
+	};
+	ShotStatHandler(const ShotStatHandler& other)
+	{
+		n = other.n;
+		avg_time = other.avg_time;
+		ratio = other.ratio;
+	};
 } ShotStatHandlerT;
 
 void TriggerStat(ShotStatHandlerT* handler);
@@ -42,6 +54,26 @@ typedef struct ShotStats
 	ShotStatHandlerT on_target;    // - En visant un adversaire
 	size_t row; // Détections consécutives
 	double last_detection; // Heure de la dernière détection
+
+	ShotStats()
+	{
+		up_time = down_time = last_detection = 0;
+		row = 0;
+		clicks = short_clicks = with_hand = with_pistol = with_auto = on_target = ShotStatHandler();
+	};
+	ShotStats(const ShotStats& other)
+	{
+		up_time = other.up_time;
+		down_time = other.down_time;
+		clicks = other.clicks;
+		short_clicks = other.short_clicks;
+		with_hand = other.with_hand;
+		with_pistol = other.with_pistol;
+		with_auto = other.with_auto;
+		on_target = other.on_target;
+		row = other.row;
+		last_detection = other.last_detection;
+	};
 } ShotStatsT;
 
 class ShotTester :

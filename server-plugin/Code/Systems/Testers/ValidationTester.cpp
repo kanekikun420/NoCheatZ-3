@@ -8,7 +8,7 @@ ValidationTester::ValidationTester() :
 	BaseSystem(),
 	NczFilteredPlayersList(),
 	BaseTimedTester(),
-	PlayerDataStructHandler<bool>(),
+	PlayerDataStructHandler<ValidationInfoT>(),
 	Singleton<ValidationTester>()
 {
 	m_name = "ValidationTester";
@@ -16,6 +16,7 @@ ValidationTester::ValidationTester() :
 
 ValidationTester::~ValidationTester()
 {
+	Unload();
 }
 
 SlotStatus ValidationTester::GetFilter()
@@ -25,7 +26,7 @@ SlotStatus ValidationTester::GetFilter()
 
 void ValidationTester::SetValidated(NczPlayer* player)
 {
-	*GetPlayerDataStruct(player) = false;
+	GetPlayerDataStruct(player)->b = false;
 	if(!HasVerbose()) return;
 	Msg("%f : %d validated\n", Plat_FloatTime(), player->GetIndex());
 	if(GetJobCount() == 0) SetActive(false);
@@ -33,7 +34,7 @@ void ValidationTester::SetValidated(NczPlayer* player)
 
 void ValidationTester::ProcessPlayerTest(NczPlayer* player)
 {
-	if(!*GetPlayerDataStruct(player))
+	if(!GetPlayerDataStruct(player)->b)
 	{
 		if(HasVerbose())
 		{
@@ -54,7 +55,6 @@ void ValidationTester::ProcessPlayerTest(NczPlayer* player)
 void ValidationTester::Load()
 {
 	BaseFramedTester::RegisterFramedTester(this);
-	*GetDefaultDataStruct() = false;
 }
 
 void ValidationTester::Unload()
@@ -75,7 +75,7 @@ short ValidationTester::GetJobCount()
 	ResetNextPlayer();
 	while((player = GetNextPlayer()) != nullptr)
 	{
-		if(*GetPlayerDataStruct(player)) ++count;
+		if(GetPlayerDataStruct(player)->b) ++count;
 	}
 	return count;
 }

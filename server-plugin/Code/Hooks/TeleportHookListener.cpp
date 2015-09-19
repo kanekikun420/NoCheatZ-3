@@ -44,6 +44,10 @@ void TeleportHookListener::HookTeleport(NczPlayer* player)
 	{
 		pdwInterface = ( DWORD* )*( DWORD* )BasePlayer;
 
+#		ifdef DEBUG
+		Msg("TeleportHookListener::HookTeleport(NczPlayer* player)\n- var_teleport_offset.GetInt() = %d\n- BasePlayer = %X\n- pdwInterface = %X\n", var_teleport_offset.GetInt(), BasePlayer, pdwInterface);
+#		endif
+
 		DWORD OldFunc = VirtualTableHook(pdwInterface, var_teleport_offset.GetInt(), ( DWORD )nTeleport);
 		*(DWORD*)&(gpOldTeleportFn) = OldFunc;
 	}

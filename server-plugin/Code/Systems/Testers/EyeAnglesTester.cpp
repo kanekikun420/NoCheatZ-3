@@ -12,7 +12,7 @@ EyeAnglesTester::EyeAnglesTester(void) :
 
 EyeAnglesTester::~EyeAnglesTester(void)
 {
-	
+	Unload();
 }
 
 SlotStatus EyeAnglesTester::GetFilter()
@@ -22,7 +22,6 @@ SlotStatus EyeAnglesTester::GetFilter()
 
 void EyeAnglesTester::Load()
 {
-	memset(GetDefaultDataStruct(), 0, sizeof(EyeAngleInfoT));
 	CIFaceManager::GetInstance()->GetIevents()->AddListener(this, "round_end", true);
 	PlayerRunCommandHookListener::RegisterPlayerRunCommandHookListener(this);
 }
@@ -44,12 +43,9 @@ bool EyeAnglesTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd
 	bool drop_cmd = false;
 
 	EyeAngleInfoT* playerData = GetPlayerDataStruct(player);
-	playerData->x.value = pCmd->viewangles.x;
-	playerData->y.value = pCmd->viewangles.y;
-	playerData->z.value = pCmd->viewangles.z;
-	playerData->x.abs_value = fabs(playerData->x.value);
-	playerData->y.abs_value = fabs(playerData->y.value);
-	playerData->z.abs_value = fabs(playerData->z.value);
+	playerData->x.abs_value = fabs(    playerData->x.value = pCmd->viewangles.x    );
+	playerData->y.abs_value = fabs(    playerData->y.value = pCmd->viewangles.y    );
+	playerData->z.abs_value = fabs(    playerData->z.value = pCmd->viewangles.z    );
 
 	if (playerData->x.abs_value > 89.0f || playerData->z.abs_value > 0.0f || playerData->y.abs_value > 180.0f)
 	{
@@ -102,7 +98,7 @@ bool EyeAnglesTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd
 	return drop_cmd;
 }
 
-void EyeAnglesTester::FireGameEvent(IGameEvent *ev)
+void EyeAnglesTester::FireGameEvent(IGameEvent *ev) // round_end
 {
 	for(int index = 1; index < MAX_PLAYERS; ++index)
 	{

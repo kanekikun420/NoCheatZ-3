@@ -40,9 +40,15 @@ void OnGroundHookListener::HookOnGround(NczPlayer* player)
 	CBasePlayer *BasePlayer = reinterpret_cast<CBasePlayer *>(p2);
 	Assert(BasePlayer);
 
+
+
 	if(pdwInterface != ( DWORD* )*( DWORD* )BasePlayer)
 	{
 		pdwInterface = ( DWORD* )*( DWORD* )BasePlayer;
+
+#		ifdef DEBUG
+		Msg("OnGroundHookListener::HookOnGround(NczPlayer* player)\n- var_onground_offset.GetInt() = %d\n- BasePlayer = %X\n- pdwInterface = %X\n", var_onground_offset.GetInt(), BasePlayer, pdwInterface);
+#		endif
 
 		DWORD OldFunc = VirtualTableHook(pdwInterface, var_onground_offset.GetInt(), ( DWORD )nNetworkStateChanged_m_hGroundEntity );
 		*(DWORD*)&(gpOldGroundFn) = OldFunc;

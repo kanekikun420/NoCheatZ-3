@@ -13,7 +13,7 @@ JumpTester::JumpTester() :
 
 JumpTester::~JumpTester()
 {
-
+	Unload();
 }
 
 SlotStatus JumpTester::GetFilter()
@@ -23,7 +23,6 @@ SlotStatus JumpTester::GetFilter()
 
 void JumpTester::Load()
 {
-	memset(GetDefaultDataStruct(), 0, sizeof(JumpInfoT));
 	BaseTimedTester::RegisterFramedTester(this);
 	OnGroundHookListener::RegisterOnGroundHookListener(this);
 	PlayerRunCommandHookListener::RegisterPlayerRunCommandHookListener(this);

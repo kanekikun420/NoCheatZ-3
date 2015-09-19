@@ -87,12 +87,17 @@ bool CNoCheatZPlugin::Load(CreateInterfaceFn _interfaceFactory, CreateInterfaceF
 	CIFaceManager::GetInstance()->UpdateIFactoryPtr(gameFactory, (void*)gameServerFactory);
 	NczPlayerManager::GetInstance()->LoadPlayerManager(); // Mark any present player as PLAYER_CONNECTED
 
-	// Créer toutes les instances des systèmes pour les avoir accessible dans la console
+	ConVar_Register( 0 );
+
 	EyeAnglesTester::GetInstance();
 	JumpTester::GetInstance();
 	ValidationTester::GetInstance();
 	ConVarTester::GetInstance();
 	ShotTester::GetInstance();
+
+	CIFaceManager::GetInstance()->GetIengine()->ServerExecute();
+	CIFaceManager::GetInstance()->GetIengine()->ServerCommand("exec nocheatz.cfg\n");
+	CIFaceManager::GetInstance()->GetIengine()->ServerExecute();
 
 	for(int i = 0; i < MAX_PLAYERS; ++i)
 	{
@@ -112,7 +117,7 @@ bool CNoCheatZPlugin::Load(CreateInterfaceFn _interfaceFactory, CreateInterfaceF
 	//---------------
 
 	//MathLib_Init( 2.2f, 2.2f, 0.0f, 2 );
-	ConVar_Register( 0 );
+	
 	g_pCVar->FindVar("nocheatz_instance")->SetValue("1");
 	return true;
 }
@@ -147,6 +152,10 @@ void CNoCheatZPlugin::Unload( void )
 
 	CIFaceManager::Delete();
 	BanRequest::Delete();
+
+	PlayerRunCommandHookListener::UnhookPlayerRunCommand();
+	OnGroundHookListener::UnhookOnGround();
+	TeleportHookListener::UnhookTeleport();
 
 	ConVar_Unregister( );
 	//DisconnectTier2Libraries( );

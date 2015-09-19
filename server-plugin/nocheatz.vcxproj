@@ -214,9 +214,6 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
     <None Include="Res\nocheatz.vdf" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Res\tohash.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Code\Hooks\Hook.cpp" />
     <ClCompile Include="Code\Hooks\OnGroundHookListener.cpp" />
     <ClCompile Include="Code\Hooks\PlayerRunCommandHookListener.cpp" />

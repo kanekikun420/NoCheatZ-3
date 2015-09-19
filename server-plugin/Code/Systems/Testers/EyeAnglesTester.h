@@ -19,20 +19,47 @@
 
 typedef struct EyeAngle
 {
-	vec_t value;
-	vec_t abs_value;
+	vec_t value; // Raw value of the angle
+	vec_t abs_value; // Abs value so it's easier to test
 
 	double lastDetectionPrintTime;
 	unsigned int detectionsCount;
+
+	EyeAngle()
+	{
+		value = abs_value = 0.0;
+		lastDetectionPrintTime = 0.0;
+		detectionsCount = 0;
+	};
+	EyeAngle(const EyeAngle& other)
+	{
+		value = other.value;
+		abs_value = other.abs_value;
+		lastDetectionPrintTime = other.lastDetectionPrintTime;
+		detectionsCount = other.detectionsCount;
+	};
 } EyeAngleT;
 
 typedef struct EyeAngleInfo
 {
-	unsigned int ignore_last;
+	unsigned int ignore_last; // Ignore values potentially not initialized by the engine
 
 	EyeAngleT x;
 	EyeAngleT y;
 	EyeAngleT z;
+
+	EyeAngleInfo()
+	{
+		ignore_last = 0;
+		x = y = z = EyeAngle();
+	};
+	EyeAngleInfo(const EyeAngleInfo& other)
+	{
+		ignore_last = other.ignore_last;
+		x = other.x;
+		y = other.y;
+		z = other.z;
+	};
 } EyeAngleInfoT;
 
 class Detection_EyeAngle : public LogDetection<EyeAngleInfoT>
