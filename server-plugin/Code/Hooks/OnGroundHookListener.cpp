@@ -33,7 +33,7 @@ OnGroundHookListener::~OnGroundHookListener()
 {
 }
 
-void OnGroundHookListener::HookOnGround(const NczPlayer* const player)
+void OnGroundHookListener::HookOnGround(NczPlayer* player)
 {
 	IServerUnknown * p1 = player->GetEdict()->GetUnknown();
 	CBaseEntity * p2 = p1->GetBaseEntity();

@@ -15,7 +15,7 @@ CUserCmd PlayerRunCommandHookListener::m_lastCUserCmd[MAX_PLAYERS];
 
 #ifdef NCZ_CSS
 #	ifdef GNUC
-#		define DEFAULT_RUNCOMMAND_OFFSET "419" // ??
+#		define DEFAULT_RUNCOMMAND_OFFSET "420"
 #	else
 #		define DEFAULT_RUNCOMMAND_OFFSET "419" // It is 418 in the link above, actually the real value is 419 ... well ...
 #	endif
