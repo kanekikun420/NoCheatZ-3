@@ -49,12 +49,18 @@ bool EyeAnglesTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd
 
 	if (playerData->x.abs_value > 89.0f || playerData->z.abs_value > 0.0f || playerData->y.abs_value > 180.0f)
 	{
+#		ifdef DEBUG
+			Msg("Player %s : Bad Eye Angles %f, %f, %f\n", player->GetName(), playerData->x.value, playerData->y.value, playerData->z.value);
+#		endif
 		if(playerData->ignore_last) --(playerData->ignore_last);
 		else drop_cmd = true;
 	}
 
 	if(drop_cmd)
 	{
+#		ifdef DEBUG
+			Msg("Player %s : Droping command #%d\n", player->GetName(), pCmd->command_number);
+#		endif
 		if(playerData->x.abs_value > 89.0f)
 		{
 			++playerData->x.detectionsCount;
@@ -109,7 +115,9 @@ void EyeAnglesTester::FireGameEvent(IGameEvent *ev) // round_end
 
 void EyeAnglesTester::TeleportCallback(NczPlayer* player, Vector const* va, QAngle const* qa, Vector const* vb)
 {
-	Msg("Teleport\n");
+#	ifdef DEBUG
+		Msg("Player %s : EyeAnglesTester::TeleportCallback\n", player->GetName());
+#	endif
 	EyeAngleInfoT* playerData = GetPlayerDataStruct(player);
 	++playerData->ignore_last;
 }

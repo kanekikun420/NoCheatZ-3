@@ -15,9 +15,7 @@
 #	define HOOKFN_INT __attribute__((cdecl))
 #endif
 
-DWORD VirtualTableHook(DWORD* classptr, int vtable, DWORD newInterface );
-
-void HookBasePlayer(NczPlayer* player);
+DWORD VirtualTableHook(DWORD* classptr, const int vtable, const DWORD newInterface );
 
 class EmptyClass { };
 

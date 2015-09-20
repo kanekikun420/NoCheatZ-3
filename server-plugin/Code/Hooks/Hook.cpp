@@ -1,6 +1,6 @@
 #include "Hook.h"
 
-DWORD VirtualTableHook(DWORD* classptr, int vtable, DWORD newInterface )
+DWORD VirtualTableHook(DWORD* classptr, const int vtable, const DWORD newInterface )
 {
 		DWORD dwOld, dwStor = 0x0;
 		if(!(classptr || vtable || newInterface)) return 0;

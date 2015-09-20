@@ -74,7 +74,11 @@ public:
 		CIFaceManager::GetInstance()->GetIengine()->LogPrint(msg.c_str());
 		if(NczPlayerManager::GetInstance()->GetPlayerHandlerBySteamID(m_playerSteamID)->status != INVALID)
 		{
+#ifdef DEBUG
+			Helpers::chatmsg(msg);
+#else
 			Helpers::noTell(NczPlayerManager::GetInstance()->GetPlayerHandlerBySteamID(m_playerSteamID)->playerClass->GetEdict(), msg);
+#endif
 		}
 		else
 		{

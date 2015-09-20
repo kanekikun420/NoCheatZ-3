@@ -13,7 +13,7 @@ NczPlayer::NczPlayer(const int index) : cIndex(index), m_time_connected(0.0)
 	m_channelinfo = CIFaceManager::GetInstance()->GetIengine()->GetPlayerNetInfo(index);
 }
 
-int NczPlayer::GetUserid()
+int NczPlayer::GetUserid() const
 {
 	return m_userid;
 }
@@ -28,7 +28,7 @@ const char * NczPlayer::GetName()
 	return GetPlayerInfo()->GetName();
 }
 
-IPlayerInfo *NczPlayer::GetPlayerInfo()
+IPlayerInfo * NczPlayer::GetPlayerInfo()
 {
 	return CIFaceManager::GetInstance()->GetIplayers()->GetPlayerInfo(m_edict);
 }
@@ -49,7 +49,7 @@ WpnShotType NczPlayer::GetWpnShotType()
 
 	if(playerinfo)
 	{
-		const char * wpn_name = playerinfo->GetWeaponName();
+		const char * const wpn_name = playerinfo->GetWeaponName();
 
 		switch(wpn_name[7])
 		{
@@ -182,7 +182,6 @@ void NczPlayer::OnConnect()
 void NczPlayer::Kick(const char * msg)
 {
 	//if (Config::GetInstance()->GetConfigData()->kick_ban)
-	if(1)
 	{
 		CIFaceManager::GetInstance()->GetIengine()->ServerCommand(
 				Helpers::format(
@@ -194,7 +193,6 @@ void NczPlayer::Kick(const char * msg)
 void NczPlayer::Ban(const char * msg, int minutes)
 {
 	//if (Config::GetInstance()->GetConfigData()->kick_ban)
-	if(1)
 	{
 		CIFaceManager::GetInstance()->GetIengine()->ServerCommand(Helpers::format("banid %d %s\n", minutes, GetSteamID()).c_str());
 		Kick(msg);

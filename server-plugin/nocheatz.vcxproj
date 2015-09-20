@@ -221,7 +221,6 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
     <ClCompile Include="Code\Misc\Helpers.cpp" />
     <ClCompile Include="Code\Misc\IFaceManager.cpp" />
     <ClCompile Include="Code\Misc\MRecipientFilter.cpp" />
-    <ClCompile Include="Code\Misc\threading.cpp" />
     <ClCompile Include="Code\Players\NczFilteredPlayersList.cpp" />
     <ClCompile Include="Code\Players\NczPlayer.cpp" />
     <ClCompile Include="Code\Players\NczPlayerManager.cpp" />
@@ -248,7 +247,6 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
     <ClInclude Include="Code\Misc\MRecipientFilter.h" />
     <ClInclude Include="Code\Misc\temp_BaseDataStruct.h" />
     <ClInclude Include="Code\Misc\temp_Singleton.h" />
-    <ClInclude Include="Code\Misc\threading.h" />
     <ClInclude Include="Code\Misc\Types.h" />
     <ClInclude Include="Code\Players\NczFilteredPlayersList.h" />
     <ClInclude Include="Code\Players\NczPlayer.h" />

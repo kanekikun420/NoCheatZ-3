@@ -23,7 +23,7 @@ DWORD* OnGroundHookListener::pdwInterface = nullptr;
 #	endif
 #endif
 
-ConVar var_onground_offset = ConVar( "ncz_onground_offset",	DEFAULT_GROUND_OFFSET);
+static ConVar var_onground_offset = ConVar( "ncz_onground_offset",	DEFAULT_GROUND_OFFSET);
 
 OnGroundHookListener::OnGroundHookListener()
 {
@@ -33,7 +33,7 @@ OnGroundHookListener::~OnGroundHookListener()
 {
 }
 
-void OnGroundHookListener::HookOnGround(NczPlayer* player)
+void OnGroundHookListener::HookOnGround(const NczPlayer* const player)
 {
 	IServerUnknown * p1 = player->GetEdict()->GetUnknown();
 	CBaseEntity * p2 = p1->GetBaseEntity();

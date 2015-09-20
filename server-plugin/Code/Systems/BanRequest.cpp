@@ -23,22 +23,26 @@ void BanRequest::AddAsyncBan(NczPlayer* player, int ban_time, const char * kick_
 
 void BanRequest::Think()
 {
-retry:
-	for(std::list<PlayerBanRequestT*>::iterator it = m_requests.begin(); it != m_requests.end(); ++it)
+	bool end = false;
+	while(!end)
 	{
-		if((*it)->request_time + m_wait_time < Plat_FloatTime())
+		end = true;
+		for(std::list<PlayerBanRequestT*>::iterator it = m_requests.begin(); it != m_requests.end(); ++it)
 		{
-			CIFaceManager::GetInstance()->GetIengine()->ServerCommand(Helpers::format("banid %d %s\n", (*it)->ban_time, (*it)->steamid).c_str());
-			CIFaceManager::GetInstance()->GetIengine()->ServerCommand(Helpers::format("kickid %d [NoCheatZ 4] %s\n", (*it)->userid, (*it)->kick_message).c_str());
-			if(!Helpers::bStrEq("127.0.0.1", (*it)->ip))
+			if((*it)->request_time + m_wait_time < Plat_FloatTime())
 			{
-				CIFaceManager::GetInstance()->GetIengine()->ServerCommand(Helpers::format("addip 1440 \"%s\"\n", (*it)->ip).c_str());
-				do_writeid = true;
-			}
-			CIFaceManager::GetInstance()->GetIengine()->ServerExecute();
+				CIFaceManager::GetInstance()->GetIengine()->ServerCommand(Helpers::format("banid %d %s\n", (*it)->ban_time, (*it)->steamid).c_str());
+				CIFaceManager::GetInstance()->GetIengine()->ServerCommand(Helpers::format("kickid %d [NoCheatZ 4] %s\n", (*it)->userid, (*it)->kick_message).c_str());
+				if(!Helpers::bStrEq("127.0.0.1", (*it)->ip))
+				{
+					CIFaceManager::GetInstance()->GetIengine()->ServerCommand(Helpers::format("addip 1440 \"%s\"\n", (*it)->ip).c_str());
+					do_writeid = true;
+				}
+				CIFaceManager::GetInstance()->GetIengine()->ServerExecute();
 
-			ClearRequests((*it)->steamid);
-			goto retry;
+				ClearRequests((*it)->steamid);
+				end = false;
+			}
 		}
 	}
 }

@@ -82,9 +82,9 @@ void HOOKFN_INT PlayerRunCommandHookListener::nPlayerRunCommand(void* This, void
 #endif
 {
 	PlayerHandler* ph = NczPlayerManager::GetInstance()->GetPlayerHandlerByBasePlayer(This);
+
 	if(ph->status == PLAYER_IN_TESTS)
 	{
-		m_lastCUserCmd[ph->playerClass->GetIndex()] = *pCmd;
 		for(std::list<PlayerRunCommandHookListener*>::iterator it = m_listeners.begin(); it != m_listeners.end(); ++it)
 		{
 			if((*it)->PlayerRunCommandCallback(ph->playerClass, pCmd))
@@ -94,6 +94,8 @@ void HOOKFN_INT PlayerRunCommandHookListener::nPlayerRunCommand(void* This, void
 			}
 		}
 	}
+
+	m_lastCUserCmd[ph->playerClass->GetIndex()] = *pCmd;
 
 	gpOldPlayerRunCommand(This, pCmd, pMoveHelper);
 }

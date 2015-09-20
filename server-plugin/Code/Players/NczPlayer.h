@@ -45,7 +45,7 @@ public:
 	~NczPlayer(){};
 
 	const int GetIndex(){ return cIndex; }; 
-	int GetUserid();
+	int GetUserid() const;
 	edict_t * GetEdict();
 	IPlayerInfo * GetPlayerInfo();
 	INetChannelInfo* GetChannelInfo();

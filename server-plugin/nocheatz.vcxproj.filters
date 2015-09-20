@@ -102,9 +102,6 @@
     <ClCompile Include="Code\Systems\Testers\JumpTester.cpp">
       <Filter>Code\Systems\Testers</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Misc\threading.cpp">
-      <Filter>Code\Misc</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\plugin.h">
@@ -190,9 +187,6 @@
     </ClInclude>
     <ClInclude Include="Code\Systems\Testers\JumpTester.h">
       <Filter>Code\Systems\Testers</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Misc\threading.h">
-      <Filter>Code\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

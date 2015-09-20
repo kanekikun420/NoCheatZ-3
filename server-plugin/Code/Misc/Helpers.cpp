@@ -56,11 +56,11 @@ namespace Helpers
 			if(fichier)
 			{
 				fichier << text << std::endl;
-				//fichier.close();
 			}
 			else
 			{
-				Msg("[NoCheatZ 4] Can't write to logfile ...\n");
+				Msg("[NoCheatZ 4] Can't write to logfile at %s ... Pease check if write access is allowed and if the directory exists.\n", path.c_str());
+				CIFaceManager::GetInstance()->GetIengine()->LogPrint(Helpers::format("[NoCheatZ 4] Can't write to logfile at %s ... Pease check if write access is allowed and if the directory exists.\n", path.c_str()).c_str());
 			}
 		}
 	}
@@ -159,7 +159,6 @@ namespace Helpers
 		Assert(!bStrEq(SteamID, "STEAM_ID_PENDING"));
 		Assert(!bStrEq(SteamID, "STEAM_ID_LAN"));
 		Assert(!bStrEq(SteamID, "BOT"));
-		//return 
 		return CIFaceManager::GetInstance()->GetIengine()->IndexOfEdict(getEdictFromSteamID(SteamID));
 	}
 

@@ -1,5 +1,12 @@
 #include "ShotTester.h"
 
+/*
+	Test each player to see if they use any script to help them fire more bullets (= RapidFire)
+
+	Some old mouses can also make multiple clicks because of an electronic issue, not because the player itself use a script.
+	We have to make the difference by using statistics.
+*/
+
 ShotTester::ShotTester(void) :
 	BaseSystem(),
 	Logger(),
@@ -57,14 +64,14 @@ bool ShotTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd)
 
 	if((pCmd->buttons & IN_ATTACK) && !(lastcmd->buttons & IN_ATTACK))
 	{
-		if(HasVerbose()) Msg("%f - down\n", Plat_FloatTime(), playerData->short_clicks);
+		if(HasVerbose()) Msg("Player %s : %f : IN_ATTACK button down.\n", player->GetName(), Plat_FloatTime());
 		playerData->down_time = Plat_FloatTime();
 	}
 	else if((lastcmd->buttons & IN_ATTACK) && !(pCmd->buttons & IN_ATTACK))
 	{
 		playerData->up_time = Plat_FloatTime();
 		TriggerStat(&(playerData->clicks), playerData->up_time, playerData->down_time, playerData->clicks.n);
-		if(HasVerbose()) Msg("%f - up\n", Plat_FloatTime(), playerData->short_clicks.n);
+		if(HasVerbose()) Msg("Player %s : %f : IN_ATTACK button up.\n", player->GetName(), Plat_FloatTime());
 
 		if(playerData->up_time - playerData->down_time <= SHORT_TIME)
 		{
