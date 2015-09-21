@@ -16,9 +16,11 @@
 #include "Systems/Testers/EyeAnglesTester.h"
 #include "Systems/Testers/ConVarTester.h"
 #include "Systems/Testers/ShotTester.h"
+#include "Systems/Testers/SpeedTester.h"
 #include "Hooks/PlayerRunCommandHookListener.h"
 #include "Hooks/OnGroundHookListener.h"
 #include "Systems/BanRequest.h"
+#include "Systems/Logger.h"
 
 // 
 // The plugin is a static singleton that is exported as an interface
@@ -57,6 +59,9 @@ void LoadTestersByConfig()
 
 	ShotTester::GetInstance()->SetActive(true);
 	ShotTester::GetInstance()->SetVerbose(true);
+
+	SpeedTester::GetInstance()->SetActive(true);
+	SpeedTester::GetInstance()->SetVerbose(true);
 }
 
 void HookBasePlayer(NczPlayer* player)
@@ -94,6 +99,7 @@ bool CNoCheatZPlugin::Load(CreateInterfaceFn _interfaceFactory, CreateInterfaceF
 	ValidationTester::GetInstance();
 	ConVarTester::GetInstance();
 	ShotTester::GetInstance();
+	SpeedTester::GetInstance();
 
 	CIFaceManager::GetInstance()->GetIengine()->ServerExecute();
 	CIFaceManager::GetInstance()->GetIengine()->ServerCommand("exec nocheatz.cfg\n");
@@ -111,6 +117,7 @@ bool CNoCheatZPlugin::Load(CreateInterfaceFn _interfaceFactory, CreateInterfaceF
 			EyeAnglesTester::GetInstance()->ResetPlayerDataStruct(ph->playerClass);
 			ConVarTester::GetInstance()->ResetPlayerDataStruct(ph->playerClass);
 			ShotTester::GetInstance()->ResetPlayerDataStruct(ph->playerClass);
+			SpeedTester::GetInstance()->ResetPlayerDataStruct(ph->playerClass);
 		}
 	}
 
@@ -148,6 +155,7 @@ void CNoCheatZPlugin::Unload( void )
 	EyeAnglesTester::Delete();
 	ConVarTester::Delete();
 	ShotTester::Delete();
+	SpeedTester::Delete();
 	NczPlayerManager::Delete();
 
 	CIFaceManager::Delete();
@@ -156,6 +164,8 @@ void CNoCheatZPlugin::Unload( void )
 	PlayerRunCommandHookListener::UnhookPlayerRunCommand();
 	OnGroundHookListener::UnhookOnGround();
 	TeleportHookListener::UnhookTeleport();
+
+	ILogger.Flush();
 
 	ConVar_Unregister( );
 	//DisconnectTier2Libraries( );
@@ -189,7 +199,7 @@ const char *CNoCheatZPlugin::GetPluginDescription( void )
 //---------------------------------------------------------------------------------
 void CNoCheatZPlugin::LevelInit( char const *pMapName )
 {
-	//Msg( "Level \"%s\" has been loaded\n", pMapName );
+	ILogger.Flush();
 }
 
 //---------------------------------------------------------------------------------
@@ -226,6 +236,7 @@ void CNoCheatZPlugin::LevelShutdown( void ) // !!!!this can get called multiple 
 		CIFaceManager::GetInstance()->GetIengine()->ServerExecute();
 	}
 	BaseSystem::UnloadAllSystems();
+	ILogger.Flush();
 }
 
 //---------------------------------------------------------------------------------
@@ -317,6 +328,7 @@ PLUGIN_RESULT CNoCheatZPlugin::ClientConnect( bool *bAllowConnect, edict_t *pEnt
 	EyeAnglesTester::GetInstance()->ResetPlayerDataStruct(player);
 	ConVarTester::GetInstance()->ResetPlayerDataStruct(player);
 	ShotTester::GetInstance()->ResetPlayerDataStruct(player);
+	SpeedTester::GetInstance()->ResetPlayerDataStruct(player);
 	return PLUGIN_CONTINUE;
 }
 

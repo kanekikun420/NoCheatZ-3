@@ -1,21 +1,21 @@
 #include <list>
 #include <string>
+#include <fstream>
 
 #include "Preprocessors.h"
 #include "Misc/Helpers.h"
-#include "Systems/BaseSystem.h"
-#include "Players/NczPlayer.h"
 
 #ifndef LOGGER_H
 #define LOGGER_H
 
-typedef enum LogLevel
-{
-	OFF = 0,
-	LOG_VERBOSE,
-	LOG_HINT,
-	LOG_DETECTION
-} LogLevelT;
+
+/*
+	Messages to be written on the plugin's logfile.
+
+	To prevent the game to hang on write, the flush is done only when we are outside a round.
+
+	This class should be threadsafe.
+*/
 
 class Logger
 {
@@ -23,16 +23,13 @@ public:
 	Logger() {};
 	~Logger(){};
 
-	static void xMsg(LogLevelT loglevel, const char * fmt, ...);
-
-	static void DumpLog(LogLevelT dumplevel = LOG_HINT);
-
-	virtual void SetLogLevel(LogLevelT level){m_loglevel = level;};
+	void Push(const std::string& msg);
+	void Flush();
 
 private:
-	LogLevelT m_loglevel;
-	static FILE* m_logfile;
-	static std::list<std::string> m_messages;
+	std::list<std::string> m_msg;
 };
+
+extern Logger ILogger;
 
 #endif

@@ -36,7 +36,8 @@ void NczPlayerManager::LoadPlayerManager()
 	CIFaceManager::GetInstance()->GetIevents()->AddListener(this, "round_end", true);
 	CIFaceManager::GetInstance()->GetIevents()->AddListener(this, "round_freeze_end", true);
 
-	Helpers::FastScan_EntList();
+	//Helpers::FastScan_EntList();
+	Helpers::m_EdictList = CIFaceManager::GetInstance()->GetIengine()->PEntityOfEntIndex(0);
 
 	if(Helpers::m_EdictList)
 	{
@@ -137,6 +138,7 @@ void NczPlayerManager::FireGameEvent(IGameEvent* ev)
 						ph->status = PLAYER_CONNECTED;
 				}
 				END_PLAYERS_LOOP
+				ILogger.Flush();
 				return;
 			}
 			case 'f': // round_freeze_end = round_start

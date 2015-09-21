@@ -1,21 +1,39 @@
 #include "Logger.h"
+#include "Misc/Helpers.h"
 
-void Logger::xMsg(LogLevelT loglevel, const char * fmt, ...)
+Logger ILogger;
+
+void Logger::Push(const std::string& msg)
 {
-	va_list		argptr;
-	static char		string[4096];
+	m_msg.insert(m_msg.end(), msg);
+}
 
-	va_start(argptr, fmt);
-	vsnprintf(string, sizeof(string), fmt, argptr);
-	va_end (argptr);
+void Logger::Flush()
+{
+	if(m_msg.empty()) return;
+	if(CIFaceManager::GetInstance()->GetIengine())
+	{
+		std::string path = Helpers::getStrGameDir() + "/logs/NoCheatZ_4_Logs/" + Helpers::getStrDateTime("NoCheatZ-%d-%b-%Y") + ".log";
+		std::ofstream fichier(path.c_str(), std::ios::out | std::ios::app);
+		if(fichier)
+		{
+			std::list<std::string>::const_iterator it = m_msg.cbegin();
+			do
+			{
+				fichier << *it;
+			}
+			while(it != m_msg.cend());
+			m_msg.clear();
+		}
+		else
+		{
+			Msg("[NoCheatZ 4] Can't write to logfile at %s ... Please check write access and if the directory exists.\n", path.c_str());
+			CIFaceManager::GetInstance()->GetIengine()->LogPrint(Helpers::format("[NoCheatZ 4] Can't write to logfile at %s ... Please check write access and if the directory exists.\n", path.c_str()).c_str());
+		}
+	}
+}
 
-	std::string finalString = Helpers::tostring("[" NCZ_PLUGIN_NAME "] ");
-	if(loglevel == LOG_VERBOSE || loglevel == LOG_DETECTION) finalString.append(Helpers::format("%f %d ", Plat_FloatTime(), CIFaceManager::GetInstance()->GetGlobals()->tickcount));
-	if(loglevel == LOG_HINT || loglevel == LOG_DETECTION) finalString.append(Helpers::getStrDateTime("%x %X "));
-	finalString.append("- ");
-	finalString.append(Helpers::tostring(string));
-
-	if(loglevel == OFF) return;
-
-	CIFaceManager::GetInstance()->GetIengine()->LogPrint(finalString.c_str());
+void Helpers::writeToLogfile(const std::string &text)
+{
+	ILogger.Push(text);
 }

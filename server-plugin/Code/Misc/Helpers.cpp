@@ -46,25 +46,6 @@ namespace Helpers
 		return tostring(szGamedir);
 	}
 
-	void writeToLogfile(const std::string &text)
-	{
-		if(CIFaceManager::GetInstance()->GetIengine())
-		{
-			std::string path = getStrGameDir() + "/logs/NoCheatZ_4_Logs/" + getStrDateTime("NoCheatZ-%d-%b-%Y") + ".log";
-			std::ofstream fichier;
-			fichier.open(path.c_str(), std::ios::out | std::ios::app);
-			if(fichier)
-			{
-				fichier << text << std::endl;
-			}
-			else
-			{
-				Msg("[NoCheatZ 4] Can't write to logfile at %s ... Pease check if write access is allowed and if the directory exists.\n", path.c_str());
-				CIFaceManager::GetInstance()->GetIengine()->LogPrint(Helpers::format("[NoCheatZ 4] Can't write to logfile at %s ... Pease check if write access is allowed and if the directory exists.\n", path.c_str()).c_str());
-			}
-		}
-	}
-
 	std::string getStrDateTime(const char *format)
 	{
 		time_t rawtime;
