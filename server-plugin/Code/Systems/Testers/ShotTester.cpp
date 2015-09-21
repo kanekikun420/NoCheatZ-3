@@ -81,10 +81,10 @@ bool ShotTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd)
 				{
 					if(playerData->on_target.ratio > 25.0 && playerData->clicks.n > 50)
 					{
-						Detection_TriggerBot* pDetection = new Detection_TriggerBot();
-						pDetection->PrepareDetectionData(playerData);
-						pDetection->PrepareDetectionLog(player, this);
-						pDetection->Log();
+						Detection_TriggerBot pDetection = Detection_TriggerBot();
+						pDetection.PrepareDetectionData(playerData);
+						pDetection.PrepareDetectionLog(player, this);
+						pDetection.Log();
 					}
 				}
 				playerData->row = 0;
@@ -93,10 +93,10 @@ bool ShotTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd)
 			{
 				if(playerData->short_clicks.ratio > 40.0 && playerData->clicks.n > 50)
 				{
-					Detection_AutoPistol* pDetection = new Detection_AutoPistol();
-					pDetection->PrepareDetectionData(playerData);
-					pDetection->PrepareDetectionLog(player, this);
-					pDetection->Log();
+					Detection_AutoPistol pDetection = Detection_AutoPistol();
+					pDetection.PrepareDetectionData(playerData);
+					pDetection.PrepareDetectionLog(player, this);
+					pDetection.Log();
 				}
 			}
 			playerData->last_detection = Plat_FloatTime();

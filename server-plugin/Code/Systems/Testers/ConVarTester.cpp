@@ -209,10 +209,10 @@ unexpected:
 				else
 				{
 					if(HasVerbose()) Msg("%f : Value %s is NOT correct\n", Plat_FloatTime(), pCvarValue);
-					Detection_ConVar* pDetection = new Detection_ConVar();
-					pDetection->PrepareDetectionData(req);
-					pDetection->PrepareDetectionLog(player, this);
-					pDetection->Log();
+					Detection_ConVar pDetection = Detection_ConVar();
+					pDetection.PrepareDetectionData(req);
+					pDetection.PrepareDetectionLog(player, this);
+					pDetection.Log();
 					BanRequest::GetInstance()->AddAsyncBan(player, 0, "Banned by NoCheatZ 4");
 				}
 			}
@@ -225,10 +225,10 @@ unexpected:
 				else
 				{
 					if(HasVerbose()) Msg("%f : Value %s is NOT correct\n", Plat_FloatTime(), pCvarValue);
-					Detection_ConVar* pDetection = new Detection_ConVar();
-					pDetection->PrepareDetectionData(req);
-					pDetection->PrepareDetectionLog(player, this);
-					pDetection->Log();
+					Detection_ConVar pDetection = Detection_ConVar();
+					pDetection.PrepareDetectionData(req);
+					pDetection.PrepareDetectionLog(player, this);
+					pDetection.Log();
 					BanRequest::GetInstance()->AddAsyncBan(player, 0, "Banned by NoCheatZ 4");
 				}
 			}
@@ -243,10 +243,10 @@ unexpected:
 				else
 				{
 					if(HasVerbose()) Msg("%f : Value %s is NOT correct\n", Plat_FloatTime(), pCvarValue);
-					Detection_ConVar* pDetection = new Detection_ConVar();
-					pDetection->PrepareDetectionData(req);
-					pDetection->PrepareDetectionLog(player, this);
-					pDetection->Log();
+					Detection_ConVar pDetection = Detection_ConVar();
+					pDetection.PrepareDetectionData(req);
+					pDetection.PrepareDetectionLog(player, this);
+					pDetection.Log();
 					BanRequest::GetInstance()->AddAsyncBan(player, 0, "Banned by NoCheatZ 4");
 				}
 			}
@@ -261,10 +261,10 @@ unexpected:
 				else
 				{
 					if(HasVerbose()) Msg("%f : Value %s is NOT correct\n", Plat_FloatTime(), pCvarValue);
-					Detection_ConVar* pDetection = new Detection_ConVar();
-					pDetection->PrepareDetectionData(req);
-					pDetection->PrepareDetectionLog(player, this);
-					pDetection->Log();
+					Detection_ConVar pDetection = Detection_ConVar();
+					pDetection.PrepareDetectionData(req);
+					pDetection.PrepareDetectionLog(player, this);
+					pDetection.Log();
 					BanRequest::GetInstance()->AddAsyncBan(player, 0, "Banned by NoCheatZ 4");
 				}
 			}
@@ -277,10 +277,10 @@ unexpected:
 			if(ruleset->rule != NO_VALUE)
 			{
 				if(HasVerbose()) Msg("%f : Was expecting eQueryCvarValueStatus_ValueIntact\n", Plat_FloatTime());
-				Detection_ConVar* pDetection = new Detection_ConVar();
-				pDetection->PrepareDetectionData(req);
-				pDetection->PrepareDetectionLog(player, this);
-				pDetection->Log();
+				Detection_ConVar pDetection = Detection_ConVar();
+				pDetection.PrepareDetectionData(req);
+				pDetection.PrepareDetectionLog(player, this);
+				pDetection.Log();
 				BanRequest::GetInstance()->AddAsyncBan(player, 0, "Banned by NoCheatZ 4");
 			}
 			break;
@@ -309,10 +309,10 @@ unexpected:
 	return;
 unexpected2:
 	if(HasVerbose()) Msg("%f : Was expecting eQueryCvarValueStatus_ValueIntact\n", Plat_FloatTime());
-	Detection_ConVar* pDetection = new Detection_ConVar();
-	pDetection->PrepareDetectionData(req);
-	pDetection->PrepareDetectionLog(player, this);
-	pDetection->Log();
+	Detection_ConVar pDetection = Detection_ConVar();
+	pDetection.PrepareDetectionData(req);
+	pDetection.PrepareDetectionLog(player, this);
+	pDetection.Log();
 	BanRequest::GetInstance()->AddAsyncBan(player, 0, "Banned by NoCheatZ 4");
 }
 

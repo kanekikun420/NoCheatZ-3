@@ -59,18 +59,18 @@ void JumpTester::m_hGroundEntityStateChangedCallback(NczPlayer* player, bool new
 		if(HasVerbose()) Msg("Player %s : Now on ground at %f %d\n", player->GetName(), Plat_FloatTime(), CIFaceManager::GetInstance()->GetGlobals()->tickcount);
 		if(playerData->jumpCmdHolder.outsideJumpCmdCount > 10) // Il serait plus judicieux d'utiliser le RMS
 		{
-			Detection_BunnyHopScript* pDetection = new Detection_BunnyHopScript();
-			pDetection->PrepareDetectionData(playerData);
-			pDetection->PrepareDetectionLog(player, this);
-			pDetection->Log();
+			Detection_BunnyHopScript pDetection = Detection_BunnyHopScript();
+			pDetection.PrepareDetectionData(playerData);
+			pDetection.PrepareDetectionLog(player, this);
+			pDetection.Log();
 			player->Kick("You have to turn off your BunnyHop Script to play on this server.");
 		}
 		else if(playerData->jumpCmdHolder.outsideJumpCmdCount == 0 && playerData->perfectBhopsCount > 5)
 		{
-			Detection_BunnyHopProgram* pDetection = new Detection_BunnyHopProgram();
-			pDetection->PrepareDetectionData(playerData);
-			pDetection->PrepareDetectionLog(player, this);
-			pDetection->Log();
+			Detection_BunnyHopProgram pDetection = Detection_BunnyHopProgram();
+			pDetection.PrepareDetectionData(playerData);
+			pDetection.PrepareDetectionLog(player, this);
+			pDetection.Log();
 
 			player->Ban("[NoCheatZ 4] You have been banned for using BunnyHop on this server.");
 		}

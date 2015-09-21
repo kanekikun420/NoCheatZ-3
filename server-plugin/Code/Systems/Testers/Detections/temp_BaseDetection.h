@@ -25,7 +25,7 @@ public:
 	{
 		this->m_timestamp = 0.0;
 		this->m_tick = 0;
-		memset(&(this->m_dataStruct), 0, sizeof(playerDataStructT));
+		this->m_dataStruct = playerDataStructT();
 	};
 	~SubDetection(){};
 
@@ -33,7 +33,7 @@ public:
 	{
 		this->m_timestamp = Plat_FloatTime();
 		this->m_tick = CIFaceManager::GetInstance()->GetGlobals()->tickcount;
-		memcpy(this->GetDataStruct(), dataStruct, sizeof(playerDataStructT));
+		this->m_dataStruct = *dataStruct;
 	};
 
 	playerDataStructT* GetDataStruct() const
@@ -165,12 +165,6 @@ public:
 	};
 
 	virtual const char * GetDataDump(){return nullptr;};
-
-protected:
-	const char * m_testerName;
-	char m_playerName[32];
-	char m_playerAdress[32];
-	char m_playerSteamID[32];
 };
 
 #endif

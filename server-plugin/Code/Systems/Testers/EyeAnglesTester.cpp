@@ -68,10 +68,10 @@ bool EyeAnglesTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd
 			{
 				playerData->x.lastDetectionPrintTime = Plat_FloatTime();
 
-				Detection_EyeAngleX* pDetection = new Detection_EyeAngleX();
-				pDetection->PrepareDetectionData(playerData);
-				pDetection->PrepareDetectionLog(player, this);
-				pDetection->Log();
+				Detection_EyeAngleX pDetection = Detection_EyeAngleX();
+				pDetection.PrepareDetectionData(playerData);
+				pDetection.PrepareDetectionLog(player, this);
+				pDetection.Log();
 			}
 		}
 		if(playerData->y.abs_value > 180.0f)
@@ -81,10 +81,10 @@ bool EyeAnglesTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd
 			{
 				playerData->y.lastDetectionPrintTime = Plat_FloatTime();
 
-				Detection_EyeAngleY* pDetection = new Detection_EyeAngleY();
-				pDetection->PrepareDetectionData(playerData);
-				pDetection->PrepareDetectionLog(player, this);
-				pDetection->Log();
+				Detection_EyeAngleY pDetection = Detection_EyeAngleY();
+				pDetection.PrepareDetectionData(playerData);
+				pDetection.PrepareDetectionLog(player, this);
+				pDetection.Log();
 			}
 		}
 		if(playerData->z.abs_value > 0.0f)
@@ -94,10 +94,10 @@ bool EyeAnglesTester::PlayerRunCommandCallback(NczPlayer* player, CUserCmd* pCmd
 			{
 				playerData->z.lastDetectionPrintTime = Plat_FloatTime();
 
-				Detection_EyeAngleZ* pDetection = new Detection_EyeAngleZ();
-				pDetection->PrepareDetectionData(playerData);
-				pDetection->PrepareDetectionLog(player, this);
-				pDetection->Log();
+				Detection_EyeAngleZ pDetection = Detection_EyeAngleZ();
+				pDetection.PrepareDetectionData(playerData);
+				pDetection.PrepareDetectionLog(player, this);
+				pDetection.Log();
 			}
 		}
 	}
