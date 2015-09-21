@@ -15,7 +15,11 @@ DWORD* TeleportHookListener::pdwInterface = nullptr;
 #	endif
 #else
 #	ifdef NCZ_CSGO
-
+#		ifdef GNUC
+#			define DEFAULT_TELEPORT_OFFSET "114"
+#		else
+#			define DEFAULT_TELEPORT_OFFSET "113"
+#		endif
 #	else
 #		ifdef NCZ_CSP
 

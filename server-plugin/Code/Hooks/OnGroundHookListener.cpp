@@ -15,7 +15,11 @@ DWORD* OnGroundHookListener::pdwInterface = nullptr;
 #	endif
 #else
 #	ifdef NCZ_CSGO
-
+#		ifdef GNUC
+#			define DEFAULT_GROUND_OFFSET "177"
+#		else
+#			define DEFAULT_GROUND_OFFSET "175"
+#		endif
 #	else
 #		ifdef NCZ_CSP
 

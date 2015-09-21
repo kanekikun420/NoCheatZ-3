@@ -17,11 +17,15 @@ CUserCmd PlayerRunCommandHookListener::m_lastCUserCmd[MAX_PLAYERS];
 #	ifdef GNUC
 #		define DEFAULT_RUNCOMMAND_OFFSET "420"
 #	else
-#		define DEFAULT_RUNCOMMAND_OFFSET "419" // It is 418 in the link above, actually the real value is 419 ... well ...
+#		define DEFAULT_RUNCOMMAND_OFFSET "419"
 #	endif
 #else
 #	ifdef NCZ_CSGO
-
+#		ifdef GNUC
+#			define DEFAULT_RUNCOMMAND_OFFSET "467"
+#		else
+#			define DEFAULT_RUNCOMMAND_OFFSET "466"
+#		endif
 #	else
 #		ifdef NCZ_CSP
 
