@@ -384,13 +384,6 @@ void CNoCheatZPlugin::OnQueryCvarValueFinished( QueryCvarCookie_t iCookie, edict
 	ConVarTester::GetInstance()->OnQueryCvarValueFinished(ph->playerClass, eStatus, pCvarName, pCvarValue);
 }
 
-#ifdef NCZ_CSGO
-void CNoCheatZPlugin::ClientFullyConnect(edict_t *)
-{
-
-}
-#endif
-
 void CNoCheatZPlugin::OnEdictAllocated( edict_t *edict )
 {
 	//Msg("OnEdictAllocated(%x)\n", edict);
