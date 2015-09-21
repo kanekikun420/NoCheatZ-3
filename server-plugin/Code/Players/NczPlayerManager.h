@@ -1,5 +1,6 @@
 #include "igameevents.h"
 #include "Misc/temp_Singleton.h"
+#include "Systems/Logger.h"
 #include "NczPlayer.h"
 
 #ifndef NCZPLAYERMANAGER

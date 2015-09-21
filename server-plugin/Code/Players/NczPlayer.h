@@ -1,4 +1,5 @@
 #include <string>
+#include <list>
 
 #include "inetchannelinfo.h"
 #include "inetchannel.h"

@@ -234,6 +234,7 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
     <ClCompile Include="Code\Systems\Testers\JumpTester.cpp" />
     <ClCompile Include="Code\Systems\Testers\ConVarTester.cpp" />
     <ClCompile Include="Code\Systems\Testers\EyeAnglesTester.cpp" />
+    <ClCompile Include="Code\Systems\Testers\SpeedTester.cpp" />
     <ClCompile Include="Code\Systems\Testers\ValidationTester.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -264,6 +265,7 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
     <ClInclude Include="Code\Systems\Testers\ConVarTester.h" />
     <ClInclude Include="Code\Systems\Testers\Detections\temp_BaseDetection.h" />
     <ClInclude Include="Code\Systems\Testers\EyeAnglesTester.h" />
+    <ClInclude Include="Code\Systems\Testers\SpeedTester.h" />
     <ClInclude Include="Code\Systems\Testers\ValidationTester.h" />
   </ItemGroup>
   <ItemGroup>

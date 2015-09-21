@@ -26,9 +26,6 @@
     <Filter Include="Code\Systems\Testers">
       <UniqueIdentifier>{f556038f-1c52-4c3d-ab6a-abea9fd5eabe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Code\Systems\ServerProtection">
-      <UniqueIdentifier>{60f6d7e5-1817-472c-9b7b-b32b5f3b35a8}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\nocheatz.vdf">
@@ -100,6 +97,9 @@
       <Filter>Code\Systems\Testers</Filter>
     </ClCompile>
     <ClCompile Include="Code\Systems\Testers\JumpTester.cpp">
+      <Filter>Code\Systems\Testers</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Systems\Testers\SpeedTester.cpp">
       <Filter>Code\Systems\Testers</Filter>
     </ClCompile>
   </ItemGroup>
@@ -186,6 +186,9 @@
       <Filter>Code\Systems\Testers</Filter>
     </ClInclude>
     <ClInclude Include="Code\Systems\Testers\JumpTester.h">
+      <Filter>Code\Systems\Testers</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Systems\Testers\SpeedTester.h">
       <Filter>Code\Systems\Testers</Filter>
     </ClInclude>
   </ItemGroup>
