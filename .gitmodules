@@ -5,3 +5,7 @@
 	path = csgo-sdk
 	url = https://github.com/alliedmodders/hl2sdk
 	branch = csgo
+[submodule "ep1-sdk"]
+	path = ep1-sdk
+	url = https://github.com/alliedmodders/hl2sdk
+	branch = episode1
