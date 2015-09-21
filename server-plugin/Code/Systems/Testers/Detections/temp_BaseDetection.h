@@ -143,7 +143,7 @@ public:
 
 	void PrepareDetectionLog(NczPlayer* player, BaseSystem* tester)
 	{
-		m_testerName = tester->GetName();
+		this->m_testerName = tester->GetName();
 		
 		for(int x = 0; x < 32; ++x)
 		{
