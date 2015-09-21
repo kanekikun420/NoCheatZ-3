@@ -17,12 +17,12 @@ void Logger::Flush()
 		std::ofstream fichier(path.c_str(), std::ios::out | std::ios::app);
 		if(fichier)
 		{
-			std::list<std::string>::const_iterator it = m_msg.cbegin();
+			std::list<std::string>::iterator it = m_msg.begin();
 			do
 			{
 				fichier << *it;
 			}
-			while(it != m_msg.cend());
+			while(it != m_msg.end());
 			m_msg.clear();
 		}
 		else
