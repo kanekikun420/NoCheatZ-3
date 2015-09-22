@@ -1,5 +1,9 @@
 #include "Helpers.h"
 
+#ifdef NCZ_CSGO
+#	include <cstrike15_usermessage_helpers.h>
+#endif
+
 namespace Helpers
 {
 	edict_t * m_EdictList = nullptr;
@@ -60,8 +64,6 @@ namespace Helpers
 
 	bool bStrEq(const char *sz1, const char *sz2, size_t start_offset, size_t length)
 	{
-		Assert(sz1);
-		Assert(sz2);
 		size_t len = strlen(sz1);
 		if(len != strlen(sz2)) return false;
 
@@ -74,8 +76,6 @@ namespace Helpers
 
 	bool bStriEq(const char *sz1, const char *sz2, size_t start_offset, size_t length)
 	{
-		Assert(sz1);
-		Assert(sz2);
 		size_t len = strlen(sz1);
 		if(len != strlen(sz2)) return false;
 
@@ -96,9 +96,6 @@ namespace Helpers
 
 	bool bBytesEq(const char *sz1, const char *sz2, size_t start_offset, size_t length)
 	{
-		Assert(sz1);
-		Assert(sz2);
-
 		for(size_t x = start_offset, c = 0; c < length; ++x, ++c)
 			if(sz1[x] != sz2[c]) return false;
 
@@ -117,9 +114,6 @@ namespace Helpers
 	// At this point, steamid is from a valid human player.
 	edict_t * getEdictFromSteamID(const char *SteamID)
 	{
-		Assert(!bStrEq(SteamID, "STEAM_ID_PENDING"));
-		Assert(!bStrEq(SteamID, "STEAM_ID_LAN"));
-		Assert(!bStrEq(SteamID, "BOT"));
 		const int imax = m_clientMax;
 		for(int i = 1; i <= imax; i++)
 		{
@@ -136,15 +130,11 @@ namespace Helpers
 	// At this point, steamid if from a valid human player.
 	int getIndexFromSteamID(const char *SteamID)
 	{
-		Assert(!bStrEq(SteamID, "STEAM_ID_PENDING"));
-		Assert(!bStrEq(SteamID, "STEAM_ID_LAN"));
-		Assert(!bStrEq(SteamID, "BOT"));
 		return IndexOfEdict(getEdictFromSteamID(SteamID));
 	}
 
 	edict_t * PEntityOfEntIndex(const int iEntIndex)
 	{
-		Assert(iEntIndex+1);
 #		ifdef ENGINE_HOLES
 			return (edict_t *)(CIFaceManager::GetInstance()->GetGlobals()->pEdicts + iEntIndex);
 #		else
@@ -348,60 +338,63 @@ namespace Helpers
 
 void Helpers::tell(edict_t *pEntity, const std::string& message)
 {
-	Assert(isValidEdict(pEntity));
-	IPlayerInfo *player =  CIFaceManager::GetInstance()->GetIplayers()->GetPlayerInfo(pEntity);
+	IPlayerInfo * const player =  CIFaceManager::GetInstance()->GetIplayers()->GetPlayerInfo(pEntity);
 	if (player)
 	{
 		if (player->IsConnected())
 		{
+			const int ent_id = Helpers::IndexOfEdict(pEntity);
 			MRecipientFilter filter;
-			filter.AddRecipient(Helpers::IndexOfEdict(pEntity));
-			bf_write *pBuffer = CIFaceManager::GetInstance()->GetIengine()->UserMessageBegin( &filter, 3 );
-			pBuffer->WriteByte( 0 );
-			pBuffer->WriteString(message.c_str());
+			filter.AddRecipient(ent_id);
+#			ifndef NCZ_CSGO
+				bf_write *pBuffer = CIFaceManager::GetInstance()->GetIengine()->UserMessageBegin( &filter, 3 );
+				pBuffer->WriteByte(ent_id);
+				pBuffer->WriteString(message.c_str());
+				CIFaceManager::GetInstance()->GetIengine()->MessageEnd();
+#			else
+				CCSUsrMsg_SayText* pBuffer = (CCSUsrMsg_SayText *)g_Cstrike15UsermessageHelpers.GetPrototype(CS_UM_SayText)->New();
+				pBuffer->set_ent_idx(ent_id);
+				pBuffer->set_text(message.c_str());
+				pBuffer->set_chat(true);
+				CIFaceManager::GetInstance()->GetIengine()->SendUserMessage(filter, CS_UM_SayText, *pBuffer);
+				delete pBuffer;
+#			endif
 		}
 	}
 }
 
 void Helpers::noTell(const edict_t *pEntity, const std::string& msg)
 {
-	MRecipientFilter filter;
-	bf_write *pBuffer = CIFaceManager::GetInstance()->GetIengine()->UserMessageBegin( &filter, 3 );
 	for (int i=1; i <= CIFaceManager::GetInstance()->GetGlobals()->maxClients; i++)
 	{
-		IPlayerInfo *player = CIFaceManager::GetInstance()->GetIplayers()->GetPlayerInfo(Helpers::PEntityOfEntIndex(i));
-		if(Helpers::PEntityOfEntIndex(i) == pEntity) continue;
+		edict_t * ent_id = Helpers::PEntityOfEntIndex(i);
+		if(ent_id == pEntity) continue;
+
+		IPlayerInfo * const player = CIFaceManager::GetInstance()->GetIplayers()->GetPlayerInfo(ent_id);
 
 		if (player)
 		{
 			if (player->IsConnected())
 			{
-				filter.AddRecipient(i);
+				Helpers::tell(ent_id, msg);
 			}
 		}
 	}
-	pBuffer->WriteByte( 0 );
-	pBuffer->WriteString(msg.c_str());
-	CIFaceManager::GetInstance()->GetIengine()->MessageEnd();
 }
 
 void Helpers::chatmsg(const std::string& msg)
 {
-	MRecipientFilter filter;
-	bf_write *pBuffer = CIFaceManager::GetInstance()->GetIengine()->UserMessageBegin( &filter, 3 );
 	for (int i=1; i <= CIFaceManager::GetInstance()->GetGlobals()->maxClients; i++)
 	{
-		IPlayerInfo *player = CIFaceManager::GetInstance()->GetIplayers()->GetPlayerInfo(Helpers::PEntityOfEntIndex(i));
+		edict_t * ent_id = Helpers::PEntityOfEntIndex(i);
+		IPlayerInfo * const player = CIFaceManager::GetInstance()->GetIplayers()->GetPlayerInfo(ent_id);
 
 		if (player)
 		{
 			if (player->IsConnected())
 			{
-				filter.AddRecipient(i);
+				Helpers::tell(ent_id, msg);
 			}
 		}
 	}
-	pBuffer->WriteByte( 0 );
-	pBuffer->WriteString(msg.c_str());
-	CIFaceManager::GetInstance()->GetIengine()->MessageEnd();
 }

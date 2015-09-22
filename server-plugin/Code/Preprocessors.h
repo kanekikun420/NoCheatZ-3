@@ -37,6 +37,9 @@
 #define GAMEDIR "csgo"
 #define ENGINE_DLIB_LINUX "engine_srv.so"
 #define ENGINE_HOLES
+#ifdef WIN32
+	#pragma comment(lib, "libprotobuf.lib")
+#endif
 #endif
 
 #ifdef WIN32
@@ -90,6 +93,8 @@
 
 #define StrLen(x) strlen(x)
 #define FStrEq(x,y) (Q_stricmp(x,y) == 0)
+
+#include "platform.h"
 
 
 #endif
