@@ -36,6 +36,7 @@
 #define NCZ_VERSION_STR	" 4.0 Alpha CSGO"
 #define GAMEDIR "csgo"
 #define ENGINE_DLIB_LINUX "engine_srv.so"
+#define ENGINE_HOLES
 #endif
 
 #ifdef WIN32

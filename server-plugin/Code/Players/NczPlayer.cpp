@@ -6,7 +6,7 @@
 
 NczPlayer::NczPlayer(const int index) : cIndex(index), m_time_connected(0.0)
 {
-	m_edict = CIFaceManager::GetInstance()->GetIengine()->PEntityOfEntIndex(index);
+	m_edict = Helpers::PEntityOfEntIndex(index);
 	Assert(m_edict);
 	m_userid = CIFaceManager::GetInstance()->GetIengine()->GetPlayerUserId(m_edict);
 	Assert(m_userid);
@@ -135,7 +135,7 @@ int NczPlayer::aimingAt()
 	CIFaceManager::GetInstance()->GetItrace()->TraceRay( ray, (CONTENTS_SOLID | CONTENTS_MOVEABLE | CONTENTS_MONSTER | CONTENTS_DEBRIS | CONTENTS_HITBOX), NULL, &trace );
 	
 	edict_t* target = CIFaceManager::GetInstance()->GetIents()->BaseEntityToEdict(trace.m_pEnt);
-	if ( target && !CIFaceManager::GetInstance()->GetIengine()->IndexOfEdict(target) == 0 && !trace.allsolid )
+	if ( target && !Helpers::IndexOfEdict(target) == 0 && !trace.allsolid )
 	{
 		if(!Helpers::isValidEdict(target)) return -1;
 #undef GetClassName
@@ -150,7 +150,7 @@ int NczPlayer::aimingAt()
 				{
 					if( targetinfo->IsPlayer() && !targetinfo->IsHLTV() && !targetinfo->IsObserver() )
 					{
-						return CIFaceManager::GetInstance()->GetIengine()->IndexOfEdict(target);
+						return Helpers::IndexOfEdict(target);
 					}
 				} 
 			}
