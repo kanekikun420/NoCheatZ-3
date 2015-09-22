@@ -1,12 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
+    <ProjectConfiguration Include="Debug-CSGO|Win32">
+      <Configuration>Debug-CSGO</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
+    <ProjectConfiguration Include="Debug-CSS|Win32">
+      <Configuration>Debug-CSS</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-CSGO|Win32">
+      <Configuration>Release-CSGO</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-CSS|Win32">
+      <Configuration>Release-CSS</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -16,12 +24,22 @@
     <RootNamespace>Serverplugin_empty</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-CSS|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-CSS|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-CSGO|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -29,17 +47,23 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-CSS|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-CSS|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-CSGO|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-CSS|Win32'">
     <OutDir>C:\steamcmd\CSS\cstrike\addons\NoCheatZ\</OutDir>
     <IntDir>Debug\</IntDir>
     <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
@@ -48,7 +72,16 @@
     <GenerateManifest>false</GenerateManifest>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-CSGO|Win32'">
+    <OutDir>C:\steamcmd\CSGO\cstrike\addons\NoCheatZ\</OutDir>
+    <IntDir>Debug\</IntDir>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+    <PreLinkEventUseInBuild>true</PreLinkEventUseInBuild>
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-CSS|Win32'">
     <OutDir>.\Release\</OutDir>
     <IntDir>.\Release\</IntDir>
     <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
@@ -57,7 +90,16 @@
     <GenerateManifest>false</GenerateManifest>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+    <PreLinkEventUseInBuild>true</PreLinkEventUseInBuild>
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-CSS|Win32'">
     <PreBuildEvent>
       <Command />
     </PreBuildEvent>
@@ -133,7 +175,86 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
       <Command />
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-CSGO|Win32'">
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Command>if exist ..\..\..\game\bin\"$(TargetName)".dll attrib -r ..\..\..\game\bin\"$(TargetName)".dll
+copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".dll
+if exist ..\..\..\game\bin\"$(TargetName)".pdb attrib -r ..\..\..\game\bin\"$(TargetName)".pdb
+copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
+</Command>
+      <Outputs>..\..\..\game\bin\serverplugin_empty.dll;..\..\..\game\bin\serverplugin_empty.pdb;%(Outputs)</Outputs>
+    </CustomBuildStep>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\csgo-sdk\public\game\shared\csgo\protobuf;..\csgo-sdk\public\engine\protobuf;..\csgo-sdk\common\protobuf-2.5.0\src;.\Code;..\csgo-sdk\common;..\csgo-sdk\public;..\csgo-sdk\public\tier0;..\csgo-sdk\public\tier1;..\csgo-sdk\game\server;..\csgo-sdk\game\shared;..\csgo-sdk\tier1;..\csgo-sdk\public\engine;..\csgo-sdk\public\filesystem;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_MBCS;_HAS_ITERATOR_DEBUGGING=0;NCZ_CSGO;PLATFORM_WINDOWS_PC;CSTRIKE_DLL;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>true</MinimalRebuild>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <BrowseInformation>true</BrowseInformation>
+      <BrowseInformationFile>$(IntDir)</BrowseInformationFile>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ErrorReporting>Prompt</ErrorReporting>
+      <ShowIncludes>false</ShowIncludes>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>NotSet</ShowProgress>
+      <OutputFile>$(TargetPath)</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>..\csgo-sdk\lib\win32\debug\vs2012\;..\csgo-sdk\lib\common;..\csgo-sdk\lib\public;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libc;libcd;libcmt;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>$(IntDir)$(TargetName).map</MapFileName>
+      <SubSystem>Windows</SubSystem>
+      <BaseAddress>
+      </BaseAddress>
+      <TargetMachine>MachineX86</TargetMachine>
+      <LinkErrorReporting>PromptImmediately</LinkErrorReporting>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <Manifest>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Manifest>
+    <Xdcmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Xdcmake>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>$(OutDir)serverplugin_empty.bsc</OutputFile>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-CSS|Win32'">
     <PreBuildEvent>
       <Command />
     </PreBuildEvent>
@@ -209,11 +330,106 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
       <Command />
     </PostBuildEvent>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Command>if exist ..\..\..\game\bin\"$(TargetName)".dll attrib -r ..\..\..\game\bin\"$(TargetName)".dll
+copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".dll
+if exist ..\..\..\game\bin\"$(TargetName)".pdb attrib -r ..\..\..\game\bin\"$(TargetName)".pdb
+copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
+</Command>
+      <Outputs>..\..\..\game\bin\serverplugin_empty.dll;..\..\..\game\bin\serverplugin_empty.pdb;%(Outputs)</Outputs>
+    </CustomBuildStep>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>.\Code;..\source-sdk-2013\mp\src\common;..\source-sdk-2013\mp\src\public;..\source-sdk-2013\mp\src\public\tier0;..\source-sdk-2013\mp\src\public\tier1;..\source-sdk-2013\mp\src\game\server;..\source-sdk-2013\mp\src\game\shared;..\source-sdk-2013\mp\src\tier1;..\source-sdk-2013\mp\src\public\engine;..\source-sdk-2013\mp\src\public\filesystem;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;serverplugin_emptyONLY;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <BrowseInformation>
+      </BrowseInformation>
+      <BrowseInformationFile>$(IntDir)</BrowseInformationFile>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ErrorReporting>Prompt</ErrorReporting>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>NotSet</ShowProgress>
+      <OutputFile>$(OutDir)serverplugin_empty.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>..\..\lib\common;..\..\lib\public;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libc;libcd;libcmtd;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>$(IntDir)$(TargetName).map</MapFileName>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <BaseAddress>
+      </BaseAddress>
+      <TargetMachine>MachineX86</TargetMachine>
+      <LinkErrorReporting>PromptImmediately</LinkErrorReporting>
+    </Link>
+    <Manifest>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Manifest>
+    <Xdcmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Xdcmake>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>$(OutDir)serverplugin_empty.bsc</OutputFile>
+    </Bscmake>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="Makefile" />
     <None Include="Res\nocheatz.vdf" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\csgo-sdk\public\engine\protobuf\netmessages.pb.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSS|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\csgo-sdk\public\game\shared\csgo\protobuf\cstrike15_usermessages.pb.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSS|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\csgo-sdk\public\game\shared\csgo\protobuf\cstrike15_usermessage_helpers.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-CSGO|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSS|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Code\Hooks\Hook.cpp" />
     <ClCompile Include="Code\Hooks\OnGroundHookListener.cpp" />
     <ClCompile Include="Code\Hooks\PlayerRunCommandHookListener.cpp" />
@@ -242,6 +458,7 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
     <ClInclude Include="Code\Hooks\OnGroundHookListener.h" />
     <ClInclude Include="Code\Hooks\PlayerRunCommandHookListener.h" />
     <ClInclude Include="Code\Hooks\TeleportHookListener.h" />
+    <ClInclude Include="Code\Misc\EventManagerWrap.h" />
     <ClInclude Include="Code\Misc\Helpers.h" />
     <ClInclude Include="Code\Misc\IFaceManager.h" />
     <ClInclude Include="Code\Misc\include_windows_headers.h" />
