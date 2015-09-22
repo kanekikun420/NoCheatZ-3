@@ -4,7 +4,7 @@ EyeAnglesTester::EyeAnglesTester(void) :
 	BaseSystem(),
 	PlayerRunCommandHookListener(),
 	PlayerDataStructHandler<EyeAngleInfoT>(),
-	IGameEventListener2(),
+	EventManagerWrap(),
 	Singleton<EyeAnglesTester>()
 {
 	m_name = "EyeAnglesTester";

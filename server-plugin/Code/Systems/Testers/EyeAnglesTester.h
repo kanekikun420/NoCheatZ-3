@@ -1,4 +1,4 @@
-#include "igameevents.h"
+#include "Misc/EventManagerWrap.h"
 
 #ifdef GNUC
 #undef min
@@ -104,7 +104,7 @@ class EyeAnglesTester :
 	public PlayerRunCommandHookListener,
 	public TeleportHookListener,
 	public PlayerDataStructHandler<EyeAngleInfoT>,
-	public IGameEventListener2,
+	public EventManagerWrap,
 	public Singleton<EyeAnglesTester>
 {
 public:
