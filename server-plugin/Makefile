@@ -1,5 +1,4 @@
 BASE = ..
-GAME = CSS
 PROJECT = server-plugin
 
 ifeq "$(GAME)" "CSS"
@@ -7,18 +6,21 @@ ifeq "$(GAME)" "CSS"
 	SDK_DEF = -DCSTRIKE_DLL -DNO_MALLOC_OVERRIDE -DGNUC -DPOSIX -DCOMPILER_GCC
 endif
 ifeq "$(GAME)" "CSP"
-	SDK_VERSION = sdk-ep1-alliedmods
-	SDK_DEF = -DPOSIX -DCOMPILER_GCC
+	SDK_VERSION = ep1-sdk
+	SDK_DEF = -DPOSIX -DCOMPILER_GCC -DGNUC 
 endif
 ifeq "$(GAME)" "CSGO"
-	SDK_VERSION = sdk-csgo-alliedmods
-	SDK_DEF = -DPOSIX -DCOMPILER_GCC
+	SDK_VERSION = csgo-sdk
+	SDK_DEF = -DPOSIX -DCOMPILER_GCC -DGNUC 
+endif
+ifeq "$(GAME)" "BMS"
+	SDK_VERSION = bms-sdk
+	SDK_DEF = -DPOSIX -DCOMPILER_GCC -DGNUC 
 endif
 
 SDK_DIR = $(BASE)/$(SDK_VERSION)
 PROJECT_DIR = $(BASE)/$(PROJECT)
 SRC_DIR = $(PROJECT_DIR)/Code
-BIN_DIR = $(SRC_DIR)
 
 OTHER_PREPROCESSORS = -DNCZ_$(GAME) $(SDK_DEF)
 
@@ -26,10 +28,11 @@ OTHER_PREPROCESSORS = -DNCZ_$(GAME) $(SDK_DEF)
 CXX = g++
 
 # Nom du fichier binaire de sortie
-BINARY_NAME = nocheatz-$(PROJECT)-$(GAME).so
+BINARY_NAME = nocheatzX.so
 
 # Dossier de sortie du fichier binaire
-BINARY_DIR = $(BASE)/
+BUILD_DIR = $(BASE)/Builds/$(GAME)
+BINARY_DIR = $(BUILD_DIR)/addons/NoCheatZ/
 
 # Dossiers de sortie
 RELEASE_DIR = Release/linux
@@ -52,10 +55,8 @@ BASE_CFLAGS =   -msse \
 		-msse \
 		-fpermissive
 
-#OPT_FLAGS = -O3 -funroll-loops -s -pipe $(OTHER_PREPROCESSORS)
+OPT_FLAGS = -O3 -funroll-loops -s -pipe $(OTHER_PREPROCESSORS)
 DEBUG_FLAGS = -g -ggdb3 -O0 -D_DEBUG $(OTHER_PREPROCESSORS)               
-#DEBUG_FLAGS = $(OPT_FLAGS)
-OPT_FLAGS = $(DEBUG_FLAGS)
 # Fichiers à compiler
 SRC= $(wildcard *.cpp) $(wildcard */*.cpp) $(wildcard */*/*.cpp) $(wildcard */*/*/*.cpp)                      
 
@@ -120,18 +121,23 @@ all: $(OBJECTS)
 	@$(CXX) $(INCLUDE) $(CFLAGS) $(OBJECTS) $(LINK) -shared -o $(BINARY_DIR)/$(BINARY_NAME)
         
 release:
+	prepare-build
 	@$(MAKE) all DEBUG=false
 	
-remake:
-	@$(MAKE) clean
-	@$(MAKE)
-	
 debug:
+	prepare-build
 	@$(MAKE) all DEBUG=true
 
 clean:
 	@rm -rf $(RELEASE_DIR)
 	@rm -rf $(DEBUG_DIR)
 	@rm -rf $(BINARY_DIR)/$(BINARY_NAME)
+
+prepare-build:
+	@mkdir -p $(BUILD_DIR)/addons/NoCheatZ/
+	@mkdir -p $(BUILD_DIR)/cfg/
+	@mkdir -p $(BUILD_DIR)/logs/NoCheatZ_4_Logs/
+	@cp ./Res/nocheatz.vdf $(BUILD_DIR)/addons/
+	@cp ./Res/nocheatz-$(GAME).cfg $(BUILD_DIR)/cfg/nocheatz.cfg || true
         
 .PHONY: clean
