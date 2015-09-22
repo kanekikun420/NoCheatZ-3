@@ -112,7 +112,6 @@ void CIFaceManager::UpdateIFactoryPtr(IFactoryIndex Index, ptr newPtr)
 			IFaces[x].version = i_v;
 			IFaces[x].IFacePtr = pIFace;
 			Msg("[NoCheatZ 4] CIFaceManager - Info : Registering interface %s at %x.\n", s_v, IFaces[x].IFacePtr);
-			Assert(IFaces[x].version == IFaces[x].compiled_version);
 			if(IFaces[x].version != IFaces[x].compiled_version) Msg("CIFaceManager - Warning : Using other version of interface %s.\n", IFaces[x].name);
 		}
 		if(this->GetIplayers() && IFaces[Globals].IFacePtr == nullptr)

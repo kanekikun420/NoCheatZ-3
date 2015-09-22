@@ -42,7 +42,6 @@ void TeleportHookListener::HookTeleport(NczPlayer* player)
 	IServerUnknown * p1 = player->GetEdict()->GetUnknown();
 	CBaseEntity * p2 = p1->GetBaseEntity();
 	CBaseFlex *BasePlayer = reinterpret_cast<CBaseFlex *>(p2);
-	Assert(BasePlayer);
 
 	if(pdwInterface != ( DWORD* )*( DWORD* )BasePlayer)
 	{

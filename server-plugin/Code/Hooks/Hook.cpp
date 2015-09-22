@@ -7,7 +7,6 @@ DWORD VirtualTableHook(DWORD* classptr, const int vtable, const DWORD newInterfa
 #ifdef WIN32
 		if(!VirtualProtect(&classptr[vtable], (vtable * sizeof(void *)) + 4, PAGE_EXECUTE_READWRITE, &dwOld ))
 		{
-			Assert(false);
 			return 0;
 		}
 #else // LINUX
@@ -16,7 +15,6 @@ DWORD VirtualTableHook(DWORD* classptr, const int vtable, const DWORD newInterfa
 		void *p = (void *)((DWORD)(&classptr[vtable]) & ~(psize-1));
 		if(mprotect(p, ((vtable * sizeof(void *)) + ((DWORD)(&classptr[vtable]) & (psize-1))), PROT_READ | PROT_WRITE | PROT_EXEC ) < 0)
 		{
-			Assert(false);
 			return 0;
 		}
 #endif // WIN32

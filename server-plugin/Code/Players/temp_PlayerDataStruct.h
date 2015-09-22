@@ -17,13 +17,11 @@ public:
 
 	DataT* GetPlayerDataStruct(NczPlayer * player)
 	{
-		Assert(player);
 		return (DataT*)(&(this->m_dataStruct[player->GetIndex()]));
 	};
 
 	void ResetPlayerDataStruct(NczPlayer * player)
 	{
-		Assert(player);
 		this->m_dataStruct[player->GetIndex()] = DataT();
 	};
 };

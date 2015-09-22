@@ -35,13 +35,11 @@ public:
 protected:
 	const DataT& GetDataStruct(const int elem) const
 	{
-		Assert(elem < MAX_ELEM && elem >= 0);
 		return m_dataStruct[elem];
 	};
 
 	void ResetDataStruct(const int elem)
 	{
-		Assert(elem < MAX_ELEM && elem >= 0);
 		m_dataStruct[elem] = DataT();
 	};
 

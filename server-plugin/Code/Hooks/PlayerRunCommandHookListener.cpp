@@ -54,7 +54,6 @@ void PlayerRunCommandHookListener::HookPlayerRunCommand(NczPlayer* player)
 	IServerUnknown * p1 = player->GetEdict()->GetUnknown();
 	CBaseEntity * p2 = p1->GetBaseEntity();
 	CCSPlayer *BasePlayer = reinterpret_cast<CCSPlayer *>(p2);
-	Assert(BasePlayer);
 
 	if(pdwInterface != ( DWORD* )*( DWORD* )BasePlayer)
 	{

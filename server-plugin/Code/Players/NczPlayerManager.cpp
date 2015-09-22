@@ -44,7 +44,6 @@ void NczPlayerManager::LoadPlayerManager()
 		PLAYERS_LOOP_RUNTIME
 		{
 			edict_t* pEntity = Helpers::PEntityOfEntIndex(x);
-			Assert(CIFaceManager::GetInstance()->GetIplayers());
 			if(CIFaceManager::GetInstance()->GetIplayers()->GetPlayerInfo(pEntity))
 			{
 				if(CIFaceManager::GetInstance()->GetIplayers()->GetPlayerInfo(pEntity)->IsFakeClient())
@@ -110,7 +109,6 @@ void NczPlayerManager::ClientDisconnect(edict_t* pEntity)
 
 void NczPlayerManager::FireGameEvent(IGameEvent* ev)
 {
-	Assert(ev);
 	Msg("%f - %s\n", Plat_FloatTime(), ev->GetName());
 
 	if(ev->GetInt("userid") > 0)
@@ -147,7 +145,6 @@ void NczPlayerManager::FireGameEvent(IGameEvent* ev)
 				{
 					if(ph->status == PLAYER_CONNECTED)
 					{
-						Assert(ph->playerClass);
 						if(ph->playerClass->GetPlayerInfo())
 						{
 							if(ph->playerClass->GetPlayerInfo()->GetTeamIndex() > 1)
@@ -160,7 +157,6 @@ void NczPlayerManager::FireGameEvent(IGameEvent* ev)
 			}
 		}
 	}
-	Assert(false);
 }
 
 PlayerHandler* NczPlayerManager::GetPlayerHandlerByIndex(int slot, SlotStatus filter)
@@ -191,13 +187,11 @@ PlayerHandler* NczPlayerManager::GetPlayerHandlerByIndex(int slot, SlotStatus fi
 
 PlayerHandler* NczPlayerManager::GetPlayerHandlerByUserId(int userid, SlotStatus filter)
 {
-	Assert(userid > 0);
 	return GetPlayerHandlerByIndex(Helpers::getIndexFromUserID(userid), filter);
 }
 
 PlayerHandler* NczPlayerManager::GetPlayerHandlerByBasePlayer(void* BasePlayer, SlotStatus filter)
 {
-	Assert(BasePlayer);
 	void* tBasePlayer = nullptr;
 	if(filter == INVALID)
 	{

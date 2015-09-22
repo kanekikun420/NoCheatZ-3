@@ -7,9 +7,7 @@
 NczPlayer::NczPlayer(const int index) : cIndex(index), m_time_connected(0.0)
 {
 	m_edict = Helpers::PEntityOfEntIndex(index);
-	Assert(m_edict);
 	m_userid = CIFaceManager::GetInstance()->GetIengine()->GetPlayerUserId(m_edict);
-	Assert(m_userid);
 	m_channelinfo = CIFaceManager::GetInstance()->GetIengine()->GetPlayerNetInfo(index);
 }
 
