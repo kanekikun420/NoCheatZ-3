@@ -1,4 +1,4 @@
-#include "igameevents.h"
+#include "Misc/EventManagerWrap.h"
 #include "Misc/temp_Singleton.h"
 #include "Systems/Logger.h"
 #include "NczPlayer.h"
@@ -15,11 +15,11 @@ struct PlayerHandler
 class CCSPlayer;
 
 /* Distribue et met à jour l'état des slots du serveur */
-class NczPlayerManager : public IGameEventListener2, public Singleton<NczPlayerManager>
+class NczPlayerManager : public EventManagerWrap, public Singleton<NczPlayerManager>
 {
 public:
 	NczPlayerManager();
-	~NczPlayerManager();
+	virtual ~NczPlayerManager();
 
 	/* Force la mise à jour des slots en scannant la mémoire pour EdictList
 	   S'inscrit aux événements pour mettre à jour les slots en temps réel */
