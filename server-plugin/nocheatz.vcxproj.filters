@@ -26,6 +26,9 @@
     <Filter Include="Code\Systems\Testers">
       <UniqueIdentifier>{f556038f-1c52-4c3d-ab6a-abea9fd5eabe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code\protobuf">
+      <UniqueIdentifier>{ce971a8c-d93e-44b8-9595-5a0e77f22287}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\nocheatz.vdf">
@@ -101,6 +104,15 @@
     </ClCompile>
     <ClCompile Include="Code\Systems\Testers\SpeedTester.cpp">
       <Filter>Code\Systems\Testers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\csgo-sdk\public\engine\protobuf\netmessages.pb.cc">
+      <Filter>Code\protobuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\csgo-sdk\public\game\shared\csgo\protobuf\cstrike15_usermessage_helpers.cpp">
+      <Filter>Code\protobuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\csgo-sdk\public\game\shared\csgo\protobuf\cstrike15_usermessages.pb.cc">
+      <Filter>Code\protobuf</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="Code\Systems\Testers\SpeedTester.h">
       <Filter>Code\Systems\Testers</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Misc\EventManagerWrap.h">
+      <Filter>Code\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

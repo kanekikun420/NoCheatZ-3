@@ -5,14 +5,20 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nocheatzX", "server-plugin\
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debub-CSGO|Win32 = Debub-CSGO|Win32
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
+		Release-CSGO|Win32 = Release-CSGO|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B6572CBE-7C7F-4FFF-94DE-AFBBBAB11C64}.Debug|Win32.ActiveCfg = Debug|Win32
-		{B6572CBE-7C7F-4FFF-94DE-AFBBBAB11C64}.Debug|Win32.Build.0 = Debug|Win32
-		{B6572CBE-7C7F-4FFF-94DE-AFBBBAB11C64}.Release|Win32.ActiveCfg = Release|Win32
-		{B6572CBE-7C7F-4FFF-94DE-AFBBBAB11C64}.Release|Win32.Build.0 = Release|Win32
+		{B6572CBE-7C7F-4FFF-94DE-AFBBBAB11C64}.Debub-CSGO|Win32.ActiveCfg = Debug-CSGO|Win32
+		{B6572CBE-7C7F-4FFF-94DE-AFBBBAB11C64}.Debub-CSGO|Win32.Build.0 = Debug-CSGO|Win32
+		{B6572CBE-7C7F-4FFF-94DE-AFBBBAB11C64}.Debug|Win32.ActiveCfg = Release-CSS|Win32
+		{B6572CBE-7C7F-4FFF-94DE-AFBBBAB11C64}.Debug|Win32.Build.0 = Release-CSS|Win32
+		{B6572CBE-7C7F-4FFF-94DE-AFBBBAB11C64}.Release|Win32.ActiveCfg = Release-CSGO|Win32
+		{B6572CBE-7C7F-4FFF-94DE-AFBBBAB11C64}.Release|Win32.Build.0 = Release-CSGO|Win32
+		{B6572CBE-7C7F-4FFF-94DE-AFBBBAB11C64}.Release-CSGO|Win32.ActiveCfg = Release-CSGO|Win32
+		{B6572CBE-7C7F-4FFF-94DE-AFBBBAB11C64}.Release-CSGO|Win32.Build.0 = Release-CSGO|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
