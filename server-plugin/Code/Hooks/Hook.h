@@ -13,9 +13,6 @@
 #	include <unistd.h>
 #	define HOOKFN_EXT
 #	define HOOKFN_INT __attribute__((cdecl))
-#	ifndef DWORD
-#		define DWORD unsigned long long
-#	endif
 #endif
 
 

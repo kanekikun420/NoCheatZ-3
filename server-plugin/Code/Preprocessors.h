@@ -83,6 +83,9 @@
 #include <cstring>
 #define strcpy_s(a, b, c) strncpy(a, c, b)
 #define nullptr 0
+#ifndef DWORD
+#	define DWORD unsigned long long
+#endif
 #endif
 
 #define StrLen(x) strlen(x)

@@ -155,7 +155,7 @@ namespace Helpers
 	int IndexOfEdict(const edict_t *pEdict)
 	{
 #		ifdef ENGINE_HOLES
-			return (int)(pEdict - (CIFaceManager::GetInstance()->GetGlobals()->pEdicts);
+			return (int)(pEdict - (CIFaceManager::GetInstance()->GetGlobals()->pEdicts));
 #		else
 			return CIFaceManager::GetInstance()->GetIengine()->IndexOfEdict(pEdict);
 #		endif
