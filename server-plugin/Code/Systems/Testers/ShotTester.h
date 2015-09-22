@@ -1,7 +1,5 @@
 #include <list>
 
-#include "igameevents.h"
-
 #ifdef GNUC
 #undef min
 #undef max
