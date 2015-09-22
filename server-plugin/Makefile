@@ -120,12 +120,10 @@ $(BIN_DIR)/%.o: %.cpp
 all: $(OBJECTS)
 	@$(CXX) $(INCLUDE) $(CFLAGS) $(OBJECTS) $(LINK) -shared -o $(BINARY_DIR)/$(BINARY_NAME)
         
-release:
-	prepare-build
+release: prepare-build
 	@$(MAKE) all DEBUG=false
 	
-debug:
-	prepare-build
+debug: prepare-build
 	@$(MAKE) all DEBUG=true
 
 clean:
