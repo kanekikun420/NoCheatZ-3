@@ -12,6 +12,7 @@
 
 class EventManagerWrap : public IGameEventListener2
 {
+public:
 	EventManagerWrap()
 	{
 		m_debugid = EVENT_DEBUG_ID_INIT;
@@ -23,7 +24,7 @@ class EventManagerWrap : public IGameEventListener2
 
 	virtual void FireGameEvent(IGameEvent* ev) = 0;
 
-	virtual int GetEventDebugID() const
+	virtual int GetEventDebugID()
 	{
 		return m_debugid;
 	};
