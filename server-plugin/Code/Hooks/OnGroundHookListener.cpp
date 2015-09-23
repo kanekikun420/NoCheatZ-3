@@ -27,7 +27,7 @@ DWORD* OnGroundHookListener::pdwInterface = nullptr;
 #	endif
 #endif
 
-static ConVar var_onground_offset = ConVar( "ncz_onground_offset",	DEFAULT_GROUND_OFFSET);
+static ConVar var_onground_offset("ncz_onground_offset", DEFAULT_GROUND_OFFSET);
 
 OnGroundHookListener::OnGroundHookListener()
 {

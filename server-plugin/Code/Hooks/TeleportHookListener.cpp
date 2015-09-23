@@ -27,7 +27,7 @@ DWORD* TeleportHookListener::pdwInterface = nullptr;
 #	endif
 #endif
 
-ConVar var_teleport_offset = ConVar( "ncz_teleport_offset",	DEFAULT_TELEPORT_OFFSET);
+ConVar var_teleport_offset("ncz_teleport_offset", DEFAULT_TELEPORT_OFFSET);
 
 TeleportHookListener::TeleportHookListener()
 {

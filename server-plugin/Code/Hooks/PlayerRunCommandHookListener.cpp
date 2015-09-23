@@ -33,7 +33,7 @@ CUserCmd PlayerRunCommandHookListener::m_lastCUserCmd[MAX_PLAYERS];
 #	endif
 #endif
 
-ConVar var_runcommand_offset = ConVar( "ncz_runcommand_offset",	DEFAULT_RUNCOMMAND_OFFSET);
+ConVar var_runcommand_offset("ncz_runcommand_offset", DEFAULT_RUNCOMMAND_OFFSET);
 
 PlayerRunCommandHookListener::PlayerRunCommandHookListener()
 {
