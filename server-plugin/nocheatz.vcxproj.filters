@@ -29,6 +29,12 @@
     <Filter Include="Code\protobuf">
       <UniqueIdentifier>{ce971a8c-d93e-44b8-9595-5a0e77f22287}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Link Libraries\CSS">
+      <UniqueIdentifier>{3a0490f3-67ce-4da8-9ed3-f019a0c7a05e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Link Libraries\CSGO">
+      <UniqueIdentifier>{89df960f-5808-4673-970b-a400c20b64da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\nocheatz.vdf">
@@ -209,22 +215,43 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\source-sdk-2013\mp\src\lib\public\mathlib.lib">
-      <Filter>Link Libraries</Filter>
+      <Filter>Link Libraries\CSS</Filter>
     </Library>
     <Library Include="..\source-sdk-2013\mp\src\lib\public\raytrace.lib">
-      <Filter>Link Libraries</Filter>
+      <Filter>Link Libraries\CSS</Filter>
     </Library>
     <Library Include="..\source-sdk-2013\mp\src\lib\public\tier0.lib">
-      <Filter>Link Libraries</Filter>
+      <Filter>Link Libraries\CSS</Filter>
     </Library>
     <Library Include="..\source-sdk-2013\mp\src\lib\public\tier1.lib">
-      <Filter>Link Libraries</Filter>
+      <Filter>Link Libraries\CSS</Filter>
     </Library>
     <Library Include="..\source-sdk-2013\mp\src\lib\public\tier2.lib">
-      <Filter>Link Libraries</Filter>
+      <Filter>Link Libraries\CSS</Filter>
     </Library>
     <Library Include="..\source-sdk-2013\mp\src\lib\public\vstdlib.lib">
-      <Filter>Link Libraries</Filter>
+      <Filter>Link Libraries\CSS</Filter>
+    </Library>
+    <Library Include="..\csgo-sdk\lib\public\interfaces.lib">
+      <Filter>Link Libraries\CSGO</Filter>
+    </Library>
+    <Library Include="..\csgo-sdk\lib\public\mathlib.lib">
+      <Filter>Link Libraries\CSGO</Filter>
+    </Library>
+    <Library Include="..\csgo-sdk\lib\public\raytrace.lib">
+      <Filter>Link Libraries\CSGO</Filter>
+    </Library>
+    <Library Include="..\csgo-sdk\lib\public\tier0.lib">
+      <Filter>Link Libraries\CSGO</Filter>
+    </Library>
+    <Library Include="..\csgo-sdk\lib\public\tier1.lib">
+      <Filter>Link Libraries\CSGO</Filter>
+    </Library>
+    <Library Include="..\csgo-sdk\lib\public\tier2.lib">
+      <Filter>Link Libraries\CSGO</Filter>
+    </Library>
+    <Library Include="..\csgo-sdk\lib\public\vstdlib.lib">
+      <Filter>Link Libraries\CSGO</Filter>
     </Library>
   </ItemGroup>
 </Project>

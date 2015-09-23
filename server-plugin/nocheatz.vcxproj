@@ -191,9 +191,9 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\csgo-sdk\public\game\shared\csgo\protobuf;..\csgo-sdk\public\engine\protobuf;..\csgo-sdk\common\protobuf-2.5.0\src;.\Code;..\csgo-sdk\common;..\csgo-sdk\public;..\csgo-sdk\public\tier0;..\csgo-sdk\public\tier1;..\csgo-sdk\game\server;..\csgo-sdk\game\shared;..\csgo-sdk\tier1;..\csgo-sdk\public\engine;..\csgo-sdk\public\filesystem;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_MBCS;_HAS_ITERATOR_DEBUGGING=0;NCZ_CSGO;PLATFORM_WINDOWS_PC;CSTRIKE_DLL;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_MBCS;_HAS_ITERATOR_DEBUGGING=0;NCZ_CSGO;PLATFORM_WINDOWS_PC;CSTRIKE_DLL;WIN32_LEAN_AND_MEAN;COMPILER_MSVC;COMPILER_MSVC32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <MinimalRebuild>true</MinimalRebuild>
+      <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Sync</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -349,7 +349,7 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <AdditionalIncludeDirectories>.\Code;..\source-sdk-2013\mp\src\common;..\source-sdk-2013\mp\src\public;..\source-sdk-2013\mp\src\public\tier0;..\source-sdk-2013\mp\src\public\tier1;..\source-sdk-2013\mp\src\game\server;..\source-sdk-2013\mp\src\game\shared;..\source-sdk-2013\mp\src\tier1;..\source-sdk-2013\mp\src\public\engine;..\source-sdk-2013\mp\src\public\filesystem;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;serverplugin_emptyONLY;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_MBCS;_HAS_ITERATOR_DEBUGGING=0;NCZ_CSGO;PLATFORM_WINDOWS_PC;CSTRIKE_DLL;WIN32_LEAN_AND_MEAN;COMPILER_MSVC;COMPILER_MSVC32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>
       </ExceptionHandling>
@@ -419,15 +419,17 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
     <ClCompile Include="..\csgo-sdk\public\engine\protobuf\netmessages.pb.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSS|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\csgo-sdk\public\game\shared\csgo\protobuf\cstrike15_usermessages.pb.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSS|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\csgo-sdk\public\game\shared\csgo\protobuf\cstrike15_usermessage_helpers.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-CSGO|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSS|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Code\Hooks\Hook.cpp" />
@@ -486,12 +488,58 @@ copy "$(TargetPath)" ..\..\..\game\bin\"$(TargetName)".pdb
     <ClInclude Include="Code\Systems\Testers\ValidationTester.h" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\source-sdk-2013\mp\src\lib\public\mathlib.lib" />
-    <Library Include="..\source-sdk-2013\mp\src\lib\public\raytrace.lib" />
-    <Library Include="..\source-sdk-2013\mp\src\lib\public\tier0.lib" />
-    <Library Include="..\source-sdk-2013\mp\src\lib\public\tier1.lib" />
-    <Library Include="..\source-sdk-2013\mp\src\lib\public\tier2.lib" />
-    <Library Include="..\source-sdk-2013\mp\src\lib\public\vstdlib.lib" />
+    <Library Include="..\csgo-sdk\lib\public\interfaces.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSS|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\csgo-sdk\lib\public\mathlib.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSS|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\csgo-sdk\lib\public\raytrace.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSS|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\csgo-sdk\lib\public\tier0.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSS|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\csgo-sdk\lib\public\tier1.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSS|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\csgo-sdk\lib\public\tier2.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSS|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\csgo-sdk\lib\public\vstdlib.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSS|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\mathlib.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-CSGO|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\raytrace.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-CSGO|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\tier0.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-CSGO|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\tier1.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-CSGO|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\tier2.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-CSGO|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\source-sdk-2013\mp\src\lib\public\vstdlib.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-CSGO|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-CSGO|Win32'">true</ExcludedFromBuild>
+    </Library>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
