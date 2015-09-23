@@ -16,14 +16,15 @@ BaseTimedTester::BaseTimedTester(double time, TimeBase timeBase) : BaseFramedTes
 
 double BaseTimedTester::GetTesterTime() const
 {
-	if(this->m_timeBase == GAME)
+	/*if(this->m_timeBase == GAME)
 	{
 		return (double)(CIFaceManager::GetInstance()->GetIengine()->Time());
 	}
 	else
 	{
 		return Plat_FloatTime();
-	}
+	}*/
+	return Plat_FloatTime();
 }
 
 void BaseTimedTester::ProcessTests()

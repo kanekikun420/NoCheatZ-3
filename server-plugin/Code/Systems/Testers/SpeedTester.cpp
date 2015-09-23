@@ -40,7 +40,7 @@ void SpeedTester::Unload()
 
 void SpeedTester::ProcessPlayerTest(NczPlayer* player)
 {
-	const double game_time = CIFaceManager::GetInstance()->GetIengine()->Time();
+	const double game_time = Plat_FloatTime();
 	SpeedHolderT* const pInfo = this->GetPlayerDataStruct(player);
 	const size_t newTicks = std::ceil((game_time - pInfo->lastTest) / CIFaceManager::GetInstance()->GetIgamedll()->GetTickInterval());
 	const double latency = player->GetChannelInfo()->GetLatency(FLOW_OUTGOING);
