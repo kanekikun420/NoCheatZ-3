@@ -43,6 +43,9 @@ SRCDS_BIN_DIR = ./bin
 
 # Dossier contenant les librairies statiques
 SRCDS_A_DIR = $(SDK_DIR)/lib/public/linux32
+ifeq "$(GAME)" "CSGO"
+	SRCDS_A_DIR = $(SDK_DIR)/lib/linux
+endif
 
 # Paramètres du compilateur
 ARCH_CFLAGS =   -mtune=i486 -march=pentium -mmmx
@@ -61,17 +64,25 @@ DEBUG_FLAGS = -g -ggdb3 -O0 -D_DEBUG $(OTHER_PREPROCESSORS)
 SRC= $(wildcard *.cpp) $(wildcard */*.cpp) $(wildcard */*/*.cpp) $(wildcard */*/*/*.cpp)                      
 
 # Fichiers à lier
-ifneq "$(GAME)" "CSP"
+ifeq "$(GAME)" "CSS"
 	LINK_SO =       $(SRCDS_BIN_DIR)/libtier0_srv.so \
 			$(SRCDS_BIN_DIR)/libvstdlib_srv.so
 
 	LINK_A =        $(SRCDS_A_DIR)/tier1.a \
 			$(SRCDS_A_DIR)/mathlib.a
+endif
 
-	ifeq "$(GAME)" "CSGO"
-		LINK_A += $(SRCDS_A_DIR)/interfaces.a
-	endif
-else
+ifeq "$(GAME)" "CSGO"
+	LINK_SO =       $(SRCDS_BIN_DIR)/libtier0_srv.so \
+			$(SRCDS_BIN_DIR)/libvstdlib_srv.so
+
+	LINK_A =        $(SRCDS_A_DIR)/tier1_i486.a \
+			$(SRCDS_A_DIR)/mathlib_i486.a \
+			$(SRCDS_A_DIR)/interfaces_i486.a \
+			$(SDK_DIR)/lib/linux32/release/libprotobuf.a
+endif
+
+ifeq "$(GAME)" "CSP"
 	LINK_SO =       $(SRCDS_BIN_DIR)/tier0_i486.so \
 			$(SRCDS_BIN_DIR)/vstdlib_i486.so
 
@@ -90,7 +101,10 @@ INCLUDE =       -I$(SRC_DIR) \
 		-I$(SDK_DIR)/public/tier1 \
 		-I$(SDK_DIR)/common
 ifeq "$(GAME)" "CSGO"
-		INCLUDE += -I$(SDK_DIR)/interfaces
+		INCLUDE += -I$(SDK_DIR)/interfaces \
+			-I$(SDK_DIR)/common/protobuf-2.5.0/src \
+			-I$(SDK_DIR)/public/game/shared/csgo/protobuf \
+			-I$(SDK_DIR)/public/engine/protobuf
 endif
                         
 # Règles de compilation
@@ -105,6 +119,12 @@ endif
 CFLAGS += $(USER_CFLAGS) $(BASE_CFLAGS) $(ARCH_CFLAGS)
 
 OBJECTS := $(SRC:%.cpp=$(BIN_DIR)/%.o)
+
+ifeq "$(GAME)" "CSGO"
+	OBJECTS += $($(SDK_DIR)/public/engine/protobuf/:%.cc=$(BIN_DIR)/%.o) \
+		 $($(SDK_DIR)/public/game/shared/csgo/protobuf/:%.cc=$(BIN_DIR)/%.o) \
+		 $($(SDK_DIR)/public/game/shared/csgo/protobuf/:%.cpp=$(BIN_DIR)/%.o)
+endif
 
 compile_object = \
 	@mkdir -p $(2); \
