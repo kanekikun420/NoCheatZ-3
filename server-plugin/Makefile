@@ -73,8 +73,8 @@ ifeq "$(GAME)" "CSS"
 endif
 
 ifeq "$(GAME)" "CSGO"
-	LINK_SO =       $(SRCDS_BIN_DIR)/libtier0_srv.so \
-			$(SRCDS_BIN_DIR)/libvstdlib_srv.so
+	LINK_SO =       $(SRCDS_BIN_DIR)/libtier0.so \
+			$(SRCDS_BIN_DIR)/libvstdlib.so
 
 	LINK_A =        $(SRCDS_A_DIR)/tier1_i486.a \
 			$(SRCDS_A_DIR)/mathlib_i486.a \
