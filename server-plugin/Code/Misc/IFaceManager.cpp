@@ -19,16 +19,14 @@ CIFaceManager::CIFaceManager()
 	IFaces[GameClients].name = "ServerGameClients";
 	IFaces[Trace].name = "EngineTraceServer";
 
-#ifdef NCZ_CSS
-	IFaces[EngineServer].compiled_version = 23;
-	IFaces[EventManager2].compiled_version = 2;
-	IFaces[PlayerInfoManager].compiled_version = 2;
-	IFaces[ServerPluginHelpers].compiled_version = 1;
-	IFaces[GameDLL].compiled_version = 10;
-	IFaces[GameEnts].compiled_version = 1;
-	IFaces[GameClients].compiled_version = 4;
-	IFaces[Trace].compiled_version = 3;
-#endif // NCZ_CSS
+	IFaces[EngineServer].compiled_version = INTERFACEVERSION_VENGINESERVER_INT;
+	IFaces[EventManager2].compiled_version = INTERFACEVERSION_GAMEEVENTSMANAGER2_INT;
+	IFaces[PlayerInfoManager].compiled_version = INTERFACEVERSION_PLAYERINFOMANAGER_INT;
+	IFaces[ServerPluginHelpers].compiled_version = INTERFACEVERSION_PLUGINHELPERSCHECK_INT;
+	IFaces[GameDLL].compiled_version = INTERFACEVERSION_SERVERGAMEDLL_INT;
+	IFaces[GameEnts].compiled_version = INTERFACEVERSION_SERVERGAMEENTS_INT;
+	IFaces[GameClients].compiled_version = INTERFACEVERSION_SERVERGAMECLIENTS_INT;
+	IFaces[Trace].compiled_version = INTERFACEVERSION_ENGINETRACE_SERVER_INT;
 
 	IFaces[gameFactory].factory = gameFactory;
 	IFaces[interfaceFactory].factory = interfaceFactory;
