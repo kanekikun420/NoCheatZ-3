@@ -120,12 +120,6 @@ CFLAGS += $(USER_CFLAGS) $(BASE_CFLAGS) $(ARCH_CFLAGS)
 
 OBJECTS := $(SRC:%.cpp=$(BIN_DIR)/%.o)
 
-ifeq "$(GAME)" "CSGO"
-	OBJECTS += $($(SDK_DIR)/public/engine/protobuf/:%.cc=$(BIN_DIR)/%.o) \
-		 $($(SDK_DIR)/public/game/shared/csgo/protobuf/:%.cc=$(BIN_DIR)/%.o) \
-		 $($(SDK_DIR)/public/game/shared/csgo/protobuf/:%.cpp=$(BIN_DIR)/%.o)
-endif
-
 compile_object = \
 	@mkdir -p $(2); \
 	echo "$(1) => $(3)"; \
@@ -142,9 +136,11 @@ all: $(OBJECTS)
         
 release: prepare-build
 	@$(MAKE) all DEBUG=false
+	@rm -rf $(SRC_DIR)/temp_extern/
 	
 debug: prepare-build
 	@$(MAKE) all DEBUG=true
+	@rm -rf $(SRC_DIR)/temp_extern/
 
 clean:
 	@rm -rf $(RELEASE_DIR)
@@ -156,6 +152,10 @@ prepare-build:
 	@mkdir -p $(BUILD_DIR)/cfg/
 	@mkdir -p $(BUILD_DIR)/logs/NoCheatZ_4_Logs/
 	@cp ./Res/nocheatz.vdf $(BUILD_DIR)/addons/
-	@cp ./Res/nocheatz-$(GAME).cfg $(BUILD_DIR)/cfg/nocheatz.cfg || true
+	@cp ./Res/nocheatz-$(GAME).cfg $(BUILD_DIR)/cfg/nocheatz.cfg ;true
+	@mkdir -p $(SRC_DIR)/temp_extern/
+	@cp -R $(SDK_DIR)/public/engine/protobuf/ $(SRC_DIR)/temp_extern/ ;true
+	@cp -R $(SDK_DIR)/public/game/shared/csgo/protobuf/ $(SRC_DIR)/temp_extern/ ;true
+	@rename 's/.cc$$/.cpp/g' $(SRC_DIR)/temp_extern/**/*.cc
         
 .PHONY: clean
